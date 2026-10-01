@@ -1,4 +1,6 @@
-public sealed class Shotgun : ITowerType
+using UnityEngine;
+
+public sealed class Shotgun : ScriptableObject, ITowerType
 {
     private static readonly float[] pelletAngles =
         { -20f, -10f, 0f, 10f, 20f };

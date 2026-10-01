@@ -14,16 +14,16 @@ public class PooledGun : MonoBehaviour
 #endregion
 
 #region Private Properties
-    private IObjectPool<PooledProjectile> objPool;
-    private float nextTimeToShoot;
-    private ITowerType towerType;
-    private IHittable hitTarget;
+    private IObjectPool<PooledProjectile> _objPool;
+    private float _nextTimeToShoot;
+    private ITowerType _towerType;
+    private IHittable _hitTarget;
 #endregion
 
 #region Unity Life Cycle
     private void Awake()
     {
-        objPool = new ObjectPool<PooledProjectile>(CreateProjectile,
+        _objPool = new ObjectPool<PooledProjectile>(CreateProjectile,
             OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject,
             collectionCheck, defaultCapacity, maxSize);
     }
@@ -32,20 +32,20 @@ public class PooledGun : MonoBehaviour
 #region Public Methods
     public void SetTowerType(ITowerType tower)
     {
-        towerType = tower;
+        _towerType = tower;
     }
 
-    public void Shoot() => towerType.Fire(this);
+    public void Shoot() => _towerType.Fire(this);
 
     public void FirePattern(float shotInterval, params float[] angleOffsets)
     {
-        if (Time.time < nextTimeToShoot) return;
+        if (Time.time < _nextTimeToShoot) return;
 
         int shotsFired = 0;
 
         foreach (float angleOffset in angleOffsets)
         {
-            PooledProjectile projObj = objPool.Get();
+            PooledProjectile projObj = _objPool.Get();
             if (projObj == null) break;
 
             Quaternion shotRotation =
@@ -58,18 +58,18 @@ public class PooledGun : MonoBehaviour
 
         if (shotsFired == 0) return;
 
-        nextTimeToShoot = Time.time + shotInterval;
+        _nextTimeToShoot = Time.time + shotInterval;
         gunFired.Invoke();
     }
 
-    public void SetHitTarget(IHittable target) => hitTarget = target;
+    public void SetHitTarget(IHittable target) => _hitTarget = target;
 #endregion
 
 #region Object Pooling
     private PooledProjectile CreateProjectile()
     {
         PooledProjectile projInstance = Instantiate(projPrefab);
-        projInstance.ObjPool = objPool;
+        projInstance.ObjPool = _objPool;
         return projInstance;
     }
     
@@ -80,12 +80,14 @@ public class PooledGun : MonoBehaviour
 
     private void OnGetFromPool(PooledProjectile pooledObj)
     {
-        pooledObj.SetHitContext(hitTarget, this);
+        pooledObj.SetHitContext(_hitTarget, this);
         pooledObj.gameObject.SetActive(true);
     }
 
     private void OnDestroyPooledObject(PooledProjectile pooledObj)
     {
+        if (pooledObj == null) return;
+        
         Destroy(pooledObj.gameObject);
     }
 #endregion

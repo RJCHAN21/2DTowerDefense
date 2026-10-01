@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Events;
 
 public class PooledProjectile : MonoBehaviour
 {
@@ -9,28 +10,30 @@ public class PooledProjectile : MonoBehaviour
     [SerializeField] private float timeoutDelay = 3f;
     [Tooltip("A constant speed that determines how fast the projectile will travel.")]
     [SerializeField] private float speed = 10f;
+    [Tooltip("Invoked after positioning each shot. Passes its lifetime in seconds.")]
+    [SerializeField] private UnityEvent<float> projectileSpawned = new UnityEvent<float>();
 #endregion
 
 #region Public Properties
-    public IObjectPool<PooledProjectile> ObjPool { set => objPool = value; }
+    public IObjectPool<PooledProjectile> ObjPool { set => _objPool = value; }
 #endregion
 
 #region Private Properties
-    private IHittable hitTarget;
-    private PooledGun sourceGun;
-    private PooledProjectile pooledProj;
-    private Vector3 spawnPos;
+    private IHittable _hitTarget;
+    private PooledGun _sourceGun;
+    private PooledProjectile _pooledProj;
+    private Vector3 _spawnPos;
 
     // OBJECT POOLING \\
     
-    private IObjectPool<PooledProjectile> objPool;
-    private bool isReturned;
+    private IObjectPool<PooledProjectile> _objPool;
+    private bool _isReturned;
 #endregion
 
 #region Unity Life Cycle
     private void Start()
     {
-        spawnPos = transform.position;
+        _spawnPos = transform.position;
     }
 
     private void Update()
@@ -39,20 +42,20 @@ public class PooledProjectile : MonoBehaviour
         transform.position += transform.right * speed * Time.deltaTime;
         Vector2 path = (Vector2)transform.position - from;
 
-        if (hitTarget != null)
+        if (_hitTarget != null)
         {
-            Vector2 center = hitTarget.HitPosition;
+            Vector2 center = _hitTarget.HitPosition;
             float lengthSquared = path.sqrMagnitude;
             float t = lengthSquared > 0f
                 ? Mathf.Clamp01(Vector2.Dot(center - from, path) / lengthSquared)
                 : 0f;
             
             Vector2 closestPt = from + path * t;
-            float radius = hitTarget.HitRadius;
+            float radius = _hitTarget.HitRadius;
 
             if ((center - closestPt).sqrMagnitude <= radius * radius)
             {
-                hitTarget.Hit(sourceGun);
+                _hitTarget.Hit(_sourceGun);
                 ReturnToPool();
                 return;
             }
@@ -63,14 +66,15 @@ public class PooledProjectile : MonoBehaviour
 #region Public Methods
     public void SetHitContext(IHittable target, PooledGun gun)
     {
-        hitTarget = target;
-        sourceGun = gun;
+        _hitTarget = target;
+        _sourceGun = gun;
     }
 
     public void Deactivate()
     {
-        isReturned = false;
+        _isReturned = false;
         ResetSpawnPosition();
+        projectileSpawned.Invoke(timeoutDelay);
         StartCoroutine(DeactivateRoutine(timeoutDelay));
     }
 #endregion
@@ -78,7 +82,7 @@ public class PooledProjectile : MonoBehaviour
 #region Private Methods
     private void ResetSpawnPosition()
     {
-        spawnPos = transform.position;
+        _spawnPos = transform.position;
     }
 
     private IEnumerator DeactivateRoutine(float delay)
@@ -89,11 +93,11 @@ public class PooledProjectile : MonoBehaviour
 
     private void ReturnToPool()
     {
-        if (isReturned) return;
+        if (_isReturned) return;
 
-        isReturned = true;
+        _isReturned = true;
         StopAllCoroutines();
-        objPool.Release(this);
+        _objPool.Release(this);
     }
 #endregion
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[ExecuteAlways]
 public class TowerUnit : MonoBehaviour
 {
 #region Inspector Fields
@@ -8,7 +9,7 @@ public class TowerUnit : MonoBehaviour
     [Tooltip("How far the tower can see.")]
     [SerializeField] private float range = 10f;
 
-    [Tooltip("How fast the tower's gun can turn and aim at the target.")]
+    [Tooltip("How fast the tower's gun can turn and aim at the _target.")]
     [SerializeField] private float gunTurningSpeed = 90f;
 
     [Tooltip("The type of tower; determines the firing pattern of its gun.")]
@@ -20,66 +21,124 @@ public class TowerUnit : MonoBehaviour
     [Header("Pooling")]
     [SerializeField] private PooledGun pooledGun;
 
-    [Header("Debug")]
+    [Header("Line of Sight Visual")]
     [SerializeField] private LineRenderer lineRenderer;
+
+    [Header("Flamethrower Config")]
+    [Tooltip("Seconds the flame stream takes to stop after normal firing ends.")]
+    [SerializeField, Min(0f)] private float flameStopDelay = 0.2f;
 #endregion
 
 #region Private Properties
-    private Transform target;
-    private float? appliedDetectionAngle;
-    private TowerType? appliedTowerType;
+    private Transform _target;
+    private float? _appliedDetectionAngle;
+    private TowerType? _appliedTowerType;
+    private float? _appliedRange;
     private const float SniperLineWidth = 0.2f;
-    private bool canFire = true;
+    private bool _canFire = true;
+    private Flamethrower _flamethrower;
+    private float _flameFireUntil = float.NegativeInfinity;
 #endregion
 
 #region Unity Life Cycle
     private void Start()
     {
-        if (target != null)
-            pooledGun.SetHitTarget(target.GetComponent<IHittable>());
+        if (!Application.IsPlaying(gameObject)) return;
+
+        if (_target != null)
+            pooledGun.SetHitTarget(_target.GetComponent<IHittable>());
+    }
+
+    private void OnDisable()
+    {
+        _flameFireUntil = float.NegativeInfinity;
     }
 
     private void Update()
     {
-        if (!canFire) return;
-
-        if (appliedTowerType != towerType ||
-            appliedDetectionAngle != detectionAngle)
+        if (!Application.IsPlaying(gameObject))
         {
+            if (lineRenderer != null &&
+                range >= 0f &&
+                !Mathf.Approximately(
+                    lineRenderer.transform.lossyScale.x, 0f))
+            {
+                MapVisualToRange();
+            }
+
+            return;
+        }
+
+        if (!_canFire) return;
+
+        if (_appliedTowerType != towerType ||
+            _appliedDetectionAngle != detectionAngle)
+        {
+            _flameFireUntil = float.NegativeInfinity;
+            _flamethrower = null;
+
             switch (towerType)
             {
                 case TowerType.Flamethrower:
-                    range = 10f;
-                    pooledGun.SetTowerType(new Flamethrower(detectionAngle));
+                    _flamethrower = new Flamethrower(detectionAngle);
+                    pooledGun.SetTowerType(_flamethrower);
                     break;
 
                 case TowerType.Sniper:
-                    range = 50f;
                     pooledGun.SetTowerType(new Sniper());
                     break;
 
                 case TowerType.Shotgun:
-                    range = 10f;
                     pooledGun.SetTowerType(new Shotgun());
                     break;
             }
-            appliedTowerType = towerType;
-            appliedDetectionAngle = detectionAngle;
-
-            MapVisualToRange();
-
-            if (target == null) return;
-
-            bool targetDetected = towerType == TowerType.Sniper 
-                ? SightDetector.IsInLine(transform, target, range, SniperLineWidth * 0.5f) 
-                : SightDetector.IsInCone(transform, target, range, detectionAngle);
-
-            if (targetDetected)
+            _appliedTowerType = towerType;
+            _appliedDetectionAngle = detectionAngle;
+            _appliedRange = null;
+            
+            if (_appliedRange != range)
             {
-                LookAtTarget(target);
-                if (canFire && IsFacingTarget(target))
-                    pooledGun.Shoot();
+                MapVisualToRange();
+                _appliedRange = range;
             }
+        }
+
+        Transform detectedEnemy = FindVisibleEnemy();
+
+        if (_target != detectedEnemy)
+        {
+            _target = detectedEnemy;
+
+            pooledGun.SetHitTarget(
+                _target != null ? _target.GetComponent<IHittable>() : null);
+        }
+
+        bool shouldFire = false;
+
+        if (_target != null)
+        {
+            LookAtTarget(_target);
+            shouldFire = IsFacingTarget(_target);
+        }
+
+        if (_flamethrower != null)
+        {
+            if (shouldFire)
+            {
+                _flameFireUntil = Time.time + flameStopDelay;
+                _flamethrower.Fire(pooledGun);
+            }
+            else if (flameStopDelay > 0f && Time.time < _flameFireUntil)
+            {
+                float intensity =
+                    (_flameFireUntil - Time.time) / flameStopDelay;
+
+                _flamethrower.Fire(pooledGun, intensity);
+            }
+        }
+        else if (shouldFire)
+        {
+            pooledGun.Shoot();
         }
     }
 #endregion
@@ -87,7 +146,49 @@ public class TowerUnit : MonoBehaviour
 #region Public Methods
     public void StunTower()
     {
-        canFire = false;
+        _canFire = false;
+    }
+#endregion
+
+#region Enemy Detection
+    private Transform FindVisibleEnemy()
+    {
+        foreach (EnemyTarget enemy in EnemyTarget.ActiveEnemies)
+        {
+            if (enemy == null || !enemy.isActiveAndEnabled) continue;
+
+            if (enemy.transform == _target && IsInSight(enemy.transform))
+                return _target;
+        }
+
+        Transform nearestEnemy = null;
+        float nearestDistSquared = float.PositiveInfinity;
+
+        foreach (EnemyTarget enemy in EnemyTarget.ActiveEnemies)
+        {
+            if (enemy == null || !enemy.isActiveAndEnabled) continue;
+            if (!IsInSight(enemy.transform)) continue;
+
+            Vector2 dist = enemy.transform.position - transform.position;
+            float distSquared = dist.sqrMagnitude;
+            
+            if (distSquared < nearestDistSquared)
+            {
+                nearestDistSquared = distSquared;
+                nearestEnemy = enemy.transform;
+            }
+        }
+
+        return nearestEnemy;
+    }
+
+    private bool IsInSight(Transform target)
+    {
+        return towerType == TowerType.Sniper 
+            ? SightDetector.IsInLine(
+                transform, target, range, SniperLineWidth * 0.5f)
+            : SightDetector.IsInCone(
+                transform, target, range, detectionAngle);
     }
 #endregion
 
@@ -121,6 +222,11 @@ public class TowerUnit : MonoBehaviour
 #region LineRenderer
     private void MapVisualToRange()
     {
+        MapVisualToRange(range);
+    }
+
+    private void MapVisualToRange(float range)
+    {
         float scale = lineRenderer.transform.lossyScale.x;
 
         if (towerType == TowerType.Sniper)
@@ -132,7 +238,7 @@ public class TowerUnit : MonoBehaviour
             lineRenderer.widthCurve = AnimationCurve.Linear(0f, 1f, 1f, 1f);
             return;
         }
-        
+
         int points = 33;
         lineRenderer.positionCount = points;
 
