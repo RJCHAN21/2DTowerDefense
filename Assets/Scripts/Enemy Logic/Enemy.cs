@@ -5,11 +5,16 @@ public class Enemy : EnemyTarget, IHittable
 #region Unity Inspector Fields
     [Header("Hitbox")]
     [SerializeField] private float hitRadius = 0.5f;
+
+    [Header("Facing")]
+    [Tooltip("turning speed in degrees per second.")]
+    [SerializeField, Min(0f)] private float turningSpeed = 360f;
 #endregion
 
 #region Private Properties
     private bool isHit;
     private bool isInvincible = false;
+    private Vector2 _previousPosition;
 #endregion
 
 #region Public Properties
@@ -25,6 +30,29 @@ public class Enemy : EnemyTarget, IHittable
         
         isHit = true;
         gameObject.SetActive(false);
+    }
+#endregion
+
+#region Unity Life Cycle
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        _previousPosition = transform.position;
+    }
+
+    private void LateUpdate()
+    {
+        Vector2 movement = (Vector2)transform.position - _previousPosition;
+        _previousPosition = transform.position;
+
+        if (movement.sqrMagnitude <= 0.00000001f) return;
+        
+        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            Quaternion.Euler(0f, 0f, angle),
+            turningSpeed * Time.deltaTime);
     }
 #endregion
 
