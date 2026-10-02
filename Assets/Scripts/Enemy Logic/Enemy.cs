@@ -1,3 +1,4 @@
+using UnityEngine.Pool;
 using UnityEngine;
 
 public class Enemy : EnemyTarget, IHittable
@@ -15,21 +16,27 @@ public class Enemy : EnemyTarget, IHittable
     private bool isHit;
     private bool isInvincible = false;
     private Vector2 _previousPosition;
+    private IObjectPool<Enemy> _objPool;
+    private bool _isReturned;
 #endregion
 
 #region Public Properties
     public Vector2 HitPosition => transform.position;
     public bool IsInvincible { get; set; }   
     public float HitRadius => hitRadius;
+    public IObjectPool<Enemy> ObjPool
+    {
+        set => _objPool = value;
+    }
 #endregion
 
 #region Hit Logic
     public void Hit(PooledGun sourceGun)
     {
         if (isHit || isInvincible) return;
-        
+
         isHit = true;
-        gameObject.SetActive(false);
+        ReturnToPool();
     }
 #endregion
 
@@ -53,6 +60,27 @@ public class Enemy : EnemyTarget, IHittable
             transform.rotation,
             Quaternion.Euler(0f, 0f, angle),
             turningSpeed * Time.deltaTime);
+    }
+#endregion
+
+#region Pooling
+    public void ResetForSpawn()
+    {
+        isHit = false;
+        _isReturned = false;
+    }
+
+    public void ReturnToPool()
+    {
+        if (_isReturned) return;
+
+        _isReturned = true;
+        StopAllCoroutines();
+
+        if (_objPool != null)
+            _objPool.Release(this);
+        else
+            gameObject.SetActive(false);
     }
 #endregion
 

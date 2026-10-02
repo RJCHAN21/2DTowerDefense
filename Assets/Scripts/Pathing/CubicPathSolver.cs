@@ -3,7 +3,6 @@ using UnityEngine;
 public class CubicPathSolver : MonoBehaviour
 {
 #region Unity Inspector Fields
-    [SerializeField] private Transform objectToMove;
     [SerializeField] private Transform startingPoint;
     [SerializeField] private Transform targetPoint;
     [SerializeField] private Transform controlPointA;
@@ -12,26 +11,27 @@ public class CubicPathSolver : MonoBehaviour
     [SerializeField] private float resolution = 50f;
 #endregion
 
-#region Private Properties
-    private float _totalTime;
-    private Vector3 _startPos;
-#endregion
+#region Path Calculation
 
-#region Unity Life Cycle
-    private void Update()
+    public float Duration => timeToReachTarget;
+
+    public bool IsValid =>
+        startingPoint != null &&
+        targetPoint != null &&
+        controlPointA != null &&
+        controlPointB != null &&
+        timeToReachTarget > 0f;
+
+    public Vector3 GetPath(float progress)
     {
-        if (objectToMove == null || 
-            startingPoint == null || 
-            targetPoint == null || 
-            controlPointA == null || 
-            controlPointB == null) 
-            return;
-
-        _startPos = startingPoint.position;
-        _totalTime += Time.deltaTime;
-        var lerpTime = Interpolate.GetLerpTime(_totalTime, timeToReachTarget);
-        objectToMove.transform.position = Bezier.Cubic(_startPos, controlPointA.position, controlPointB.position, targetPoint.position, lerpTime);
+        return Bezier.Cubic(
+            startingPoint.position,
+            controlPointA.position,
+            controlPointB.position,
+            targetPoint.position,
+            progress);
     }
+
 #endregion
 
 #region Gizmos

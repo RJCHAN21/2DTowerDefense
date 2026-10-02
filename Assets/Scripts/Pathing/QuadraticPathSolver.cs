@@ -3,7 +3,6 @@ using UnityEngine;
 public class QuadraticPathSolver : MonoBehaviour
 {
 #region Unity Inspector Fields
-    [SerializeField] private Transform objectToMove;
     [SerializeField] private Transform startingPoint;
     [SerializeField] private Transform targetPoint;
     [SerializeField] private Transform controlPoint;
@@ -11,32 +10,31 @@ public class QuadraticPathSolver : MonoBehaviour
     [SerializeField] private float resolution = 50f;
 #endregion
 
-#region Private Properties
-    private float _totalTime;
-    private Vector3 _startPos;
-#endregion
+#region Path Calculation
 
-#region Unity Life Cycle
-    private void Update()
+    public float Duration => timeToReachTarget;
+
+    public bool IsValid =>
+        startingPoint != null &&
+        targetPoint != null &&
+        controlPoint != null &&
+        timeToReachTarget > 0f;
+
+    public Vector3 GetPath(float progress)
     {
-        if (objectToMove == null || 
-            startingPoint == null || 
-            targetPoint == null || 
-            controlPoint == null)
-            return;
-
-        _startPos = startingPoint.position;
-        _totalTime += Time.deltaTime;
-        var lerpTime = Interpolate.GetLerpTime(_totalTime, timeToReachTarget);
-        objectToMove.transform.position = Bezier.Quadratic(_startPos, controlPoint.position, targetPoint.position, lerpTime);
+        return Bezier.Quadratic(
+            startingPoint.position,
+            controlPoint.position,
+            targetPoint.position,
+            progress);
     }
+
 #endregion
 
 #region Gizmos
     private void OnDrawGizmos() 
     {
-        if (objectToMove == null || 
-            startingPoint == null || 
+        if (startingPoint == null || 
             targetPoint == null || 
             controlPoint == null)
             return;
