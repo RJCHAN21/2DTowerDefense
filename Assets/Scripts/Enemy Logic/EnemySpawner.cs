@@ -33,6 +33,7 @@ public class EnemySpawner : MonoBehaviour
 #region Private Properties
     private float _nextSpawnTime;
     private IObjectPool<Enemy> _objPool;
+    private int _spawnedCount;
 #endregion
 
 #region Unity Life Cycle
@@ -66,6 +67,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        if (_spawnedCount >= spawnCount) return;
         if (Time.time < _nextSpawnTime) return;
 
         _nextSpawnTime = Time.time + spawnInterval;
@@ -117,6 +119,7 @@ public class EnemySpawner : MonoBehaviour
             spawnPt.rotation);
 
         enemy.gameObject.SetActive(true);
+        _spawnedCount++;
 
         if (cubic != null)
         {

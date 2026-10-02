@@ -444,8 +444,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1398692931}
-  - {fileID: 1697390718}
   - {fileID: 1952459469}
+  - {fileID: 1697390718}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1189,7 +1189,7 @@ MonoBehaviour:
   - {fileID: 551749743}
   - {fileID: 801296608}
   spawnCount: 50
-  spawnInterval: 1
+  spawnInterval: 0.2
   collectionCheck: 1
   defaultCapacity: 20
   maxSize: 100
