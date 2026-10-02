@@ -22,6 +22,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private bool collectionCheck = true;
     [SerializeField, Min(1)] private int defaultCapacity = 20;
     [SerializeField, Min(1)] private int maxSize = 100;
+
+    [Tooltip("Player health damaged when an enemy completes its path.")]
+    [SerializeField] private PlayerHealth playerHealth;
+
+    [Header("Rewards")]
+    [SerializeField] private Currency currency;
 #endregion
 
 #region Private Properties
@@ -115,14 +121,19 @@ public class EnemySpawner : MonoBehaviour
         if (cubic != null)
         {
             enemy.StartCoroutine(PathFind.FollowPath(
-                enemy.transform, cubic.Duration, cubic.GetPath));
+                enemy.transform,
+                cubic.Duration,
+                cubic.GetPath,
+                () => enemy.ReachTarget(playerHealth)));
         }
         else
         {
             enemy.StartCoroutine(PathFind.FollowPath(
-                enemy.transform, quadratic.Duration, quadratic.GetPath));
+                enemy.transform,
+                quadratic.Duration,
+                quadratic.GetPath,
+                () => enemy.ReachTarget(playerHealth)));
         }
-        
     }
 #endregion
 
@@ -134,6 +145,7 @@ public class EnemySpawner : MonoBehaviour
 
         Enemy enemy = instance.GetComponent<Enemy>();
         enemy.ObjPool = _objPool;
+        enemy.currency = currency;
 
         return enemy;
     }
@@ -150,5 +162,4 @@ public class EnemySpawner : MonoBehaviour
         Destroy(enemy.gameObject);
     }
 #endregion
-
 }

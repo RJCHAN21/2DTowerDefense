@@ -6,8 +6,8 @@ public class TowerUnit : MonoBehaviour
 #region Inspector Fields
     [Header("Tower Config")]
 
-    [Tooltip("How far the tower can see.")]
-    [SerializeField] private float range = 10f;
+    [Tooltip("How far the tower can see. Note that this is the base range for towers without a specified range.")]
+    [SerializeField] private float baseRange = 3f;
 
     [Tooltip("How fast the tower's gun can turn and aim at the target.")]
     [SerializeField] private float gunTurningSpeed = 90f;
@@ -66,7 +66,7 @@ public class TowerUnit : MonoBehaviour
         if (!Application.IsPlaying(gameObject))
         {
             if (lineRenderer != null &&
-                range >= 0f &&
+                baseRange >= 0f &&
                 !Mathf.Approximately(
                     lineRenderer.transform.lossyScale.x, 0f))
             {
@@ -204,7 +204,7 @@ public class TowerUnit : MonoBehaviour
         }
         else
         {
-            LineRendShape.DrawCone(lineRenderer, range, detectionAngle);
+            LineRendShape.DrawCone(lineRenderer, baseRange, detectionAngle);
         }
     }
 #endregion

@@ -107,3 +107,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   hitRadius: 0.5
   turningSpeed: 360
+  coinValue: 1

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7321f933d34244c4d9718b19ec2ec6dd, type: 3}
   m_Name: Base Sniper
   m_EditorClassIdentifier: Assembly-CSharp::Sniper
-  range: 50
+  range: 10
   lineWidth: 0.2

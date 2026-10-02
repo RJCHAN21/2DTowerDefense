@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Tower Defense/Tower Types/Shotgun")]
+[CreateAssetMenu(menuName = "Tower Defense/Tower Types/Shotgunner")]
 public sealed class Flamethrower : ScriptableObject, ITowerType
 {
 #region Unity Inspector Fields

@@ -10,6 +10,10 @@ public class Enemy : EnemyTarget, IHittable
     [Header("Facing")]
     [Tooltip("turning speed in degrees per second.")]
     [SerializeField, Min(0f)] private float turningSpeed = 360f;
+
+    [Header("Reward")]
+    [Tooltip("Coins awarded when this enemy is killed.")]
+    [SerializeField, Min(0)] private int coinValue = 1;
 #endregion
 
 #region Private Properties
@@ -18,6 +22,7 @@ public class Enemy : EnemyTarget, IHittable
     private Vector2 _previousPosition;
     private IObjectPool<Enemy> _objPool;
     private bool _isReturned;
+    private Currency _currency;
 #endregion
 
 #region Public Properties
@@ -28,6 +33,10 @@ public class Enemy : EnemyTarget, IHittable
     {
         set => _objPool = value;
     }
+    public Currency currency
+    {
+        set => _currency = value;
+    }
 #endregion
 
 #region Hit Logic
@@ -36,6 +45,21 @@ public class Enemy : EnemyTarget, IHittable
         if (isHit || isInvincible) return;
 
         isHit = true;
+
+        if (_currency != null)
+            _currency.SpawnCoin(transform.position, coinValue);
+        ReturnToPool();
+    }
+#endregion
+
+#region Damage Player Logic
+    public void ReachTarget(PlayerHealth playerHealth)
+    {
+        if (_isReturned || isHit) return;
+
+        if (playerHealth != null)
+            playerHealth.TakeDamage(1f);
+
         ReturnToPool();
     }
 #endregion
