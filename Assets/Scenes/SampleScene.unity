@@ -4381,9 +4381,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2696165368250648053, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
+      propertyPath: m_Name
+      value: Barrel1
+      objectReference: {fileID: 0}
     - target: {fileID: 3526114795283734833, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
       propertyPath: m_Name
       value: Shotgunner
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941106846367555508, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
+      propertyPath: m_Name
+      value: Barrel2
       objectReference: {fileID: 0}
     - target: {fileID: 6942347661280998542, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
       propertyPath: m_LocalPosition.x
