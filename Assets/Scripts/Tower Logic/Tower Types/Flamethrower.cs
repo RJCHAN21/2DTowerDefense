@@ -17,7 +17,7 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 
     [Header("Sight")]
     [Tooltip("Maximum detection distance.")]
-    [SerializeField, Min(0f)] private float range = 5f;
+    [SerializeField, Min(0f)] private float range = 1f;
 
     [Tooltip("Full angle of the sight cone and flame spread.")]
     [SerializeField, Range(0f, 179f)] private float detectionAngle = 60f;

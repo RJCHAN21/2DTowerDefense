@@ -419,7 +419,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551749741}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -511,7 +511,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556021245}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -572,7 +572,7 @@ Transform:
   m_GameObject: {fileID: 556021245}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.85, y: -0.24, z: 0}
+  m_LocalPosition: {x: 5.156, y: 0.323, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -792,6 +792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   hitRadius: 0.5
+  turningSpeed: 360
 --- !u!1 &673760983
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,7 +833,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673760983}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -924,7 +925,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801296607}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1082,6 +1083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   hitRadius: 0.5
+  turningSpeed: 360
 --- !u!1 &1007487677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1204,7 @@ Transform:
   m_GameObject: {fileID: 1188440197}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.33, y: -0.88, z: 0}
+  m_LocalPosition: {x: 1.33, y: 0.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1241,7 +1243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d037cd55c5b2c446a3ac3ecf6c1378c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerUnit
-  range: 5
+  range: 3
   gunTurningSpeed: 180
   towerType: {fileID: 11400000, guid: 0c7c0596c53522e428fa5929ba6c6341, type: 2}
   detectionAngle: 60
@@ -2108,8 +2110,8 @@ Tilemap:
   - first: {x: 4, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 6
-      m_TileSpriteIndex: 6
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2118,8 +2120,8 @@ Tilemap:
   - first: {x: 5, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2128,8 +2130,8 @@ Tilemap:
   - first: {x: 6, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2138,8 +2140,8 @@ Tilemap:
   - first: {x: 7, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2258,8 +2260,8 @@ Tilemap:
   - first: {x: 3, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 6
-      m_TileSpriteIndex: 6
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2268,8 +2270,8 @@ Tilemap:
   - first: {x: 4, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 8
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2278,8 +2280,8 @@ Tilemap:
   - first: {x: 5, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 6
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2288,8 +2290,8 @@ Tilemap:
   - first: {x: 6, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2298,8 +2300,8 @@ Tilemap:
   - first: {x: 7, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2418,8 +2420,8 @@ Tilemap:
   - first: {x: 3, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 8
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2428,8 +2430,8 @@ Tilemap:
   - first: {x: 4, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 13
-      m_TileSpriteIndex: 13
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2438,8 +2440,8 @@ Tilemap:
   - first: {x: 5, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 14
-      m_TileSpriteIndex: 14
+      m_TileIndex: 8
+      m_TileSpriteIndex: 8
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2448,8 +2450,8 @@ Tilemap:
   - first: {x: 6, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 14
-      m_TileSpriteIndex: 14
+      m_TileIndex: 13
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2588,8 +2590,8 @@ Tilemap:
   - first: {x: 4, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 12
-      m_TileSpriteIndex: 12
+      m_TileIndex: 14
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2598,8 +2600,8 @@ Tilemap:
   - first: {x: 5, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 4
-      m_TileSpriteIndex: 4
+      m_TileIndex: 14
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2608,8 +2610,8 @@ Tilemap:
   - first: {x: 6, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 4
-      m_TileSpriteIndex: 4
+      m_TileIndex: 12
+      m_TileSpriteIndex: 12
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2951,7 +2953,7 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: 11400000, guid: 22e1e2702f52809448b48f01b44c999e, type: 2}
   - serializedVersion: 2
-    m_RefCount: 11
+    m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 57b2ae711fabfb24aaae3888d1460110, type: 2}
   - serializedVersion: 2
     m_RefCount: 6
@@ -2960,19 +2962,19 @@ Tilemap:
     m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 65466dcbabf56cd45a0e3be9c29bb1d9, type: 2}
   - serializedVersion: 2
-    m_RefCount: 90
+    m_RefCount: 94
     m_Data: {fileID: 11400000, guid: 168ca4e6e17da094eac7b86d9d89ac50, type: 2}
   - serializedVersion: 2
     m_RefCount: 5
     m_Data: {fileID: 11400000, guid: e6e0018bc59d1fc4d80a560e8efe3ddf, type: 2}
   - serializedVersion: 2
-    m_RefCount: 5
+    m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 35e21ac658fc85647b20dd2f17a2e9c5, type: 2}
   - serializedVersion: 2
-    m_RefCount: 7
+    m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 34f336742b2372847b28204bfb7d1b04, type: 2}
   - serializedVersion: 2
-    m_RefCount: 6
+    m_RefCount: 5
     m_Data: {fileID: 11400000, guid: f9d59523aad20c04183e41e9ee74b102, type: 2}
   - serializedVersion: 2
     m_RefCount: 4
@@ -2997,7 +2999,7 @@ Tilemap:
     m_RefCount: 0
     m_Data: {fileID: -4662870158839885734, guid: 8f8baa3cac7f8c949ab3097435ab42ce, type: 3}
   - serializedVersion: 2
-    m_RefCount: 11
+    m_RefCount: 8
     m_Data: {fileID: -5001316861174201010, guid: 4f9f54f587d4ea14bbfbf1caf8488d96, type: 3}
   - serializedVersion: 2
     m_RefCount: 6
@@ -3006,19 +3008,19 @@ Tilemap:
     m_RefCount: 2
     m_Data: {fileID: -6802083541931174983, guid: 32c90a974e4b29f4f9286d4501c71774, type: 3}
   - serializedVersion: 2
-    m_RefCount: 90
+    m_RefCount: 94
     m_Data: {fileID: 2941981036440331971, guid: 8aec85625aa55324dbb57c0177467b40, type: 3}
   - serializedVersion: 2
     m_RefCount: 5
     m_Data: {fileID: 8536607284301157031, guid: c952bf726ffde0e44aff433feb28ea68, type: 3}
   - serializedVersion: 2
-    m_RefCount: 5
+    m_RefCount: 4
     m_Data: {fileID: 4764340666909071403, guid: 4cdd40d277d267b4caaa0b246ecac04d, type: 3}
   - serializedVersion: 2
-    m_RefCount: 7
+    m_RefCount: 8
     m_Data: {fileID: 4217222695190395578, guid: a959c59225d87f041a6936e0995720d3, type: 3}
   - serializedVersion: 2
-    m_RefCount: 6
+    m_RefCount: 5
     m_Data: {fileID: -8950590116649302493, guid: 6039dda5c2554674f87c363e140660b9, type: 3}
   - serializedVersion: 2
     m_RefCount: 4
@@ -3157,7 +3159,7 @@ Transform:
   m_GameObject: {fileID: 1766521663}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.87, y: 5.77, z: 0}
+  m_LocalPosition: {x: -3.87, y: 5.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3171,7 +3173,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766521663}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3263,7 +3265,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786318420}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3398,38 +3400,38 @@ LineRenderer:
   m_MaskInteraction: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0.03125, z: 0}
+  - {x: 0, y: 0.0625, z: 0}
+  - {x: 0, y: 0.09375, z: 0}
+  - {x: 0, y: 0.125, z: 0}
   - {x: 0, y: 0.15625, z: 0}
+  - {x: 0, y: 0.1875, z: 0}
+  - {x: 0, y: 0.21875, z: 0}
+  - {x: 0, y: 0.25, z: 0}
+  - {x: 0, y: 0.28125, z: 0}
   - {x: 0, y: 0.3125, z: 0}
+  - {x: 0, y: 0.34375, z: 0}
+  - {x: 0, y: 0.375, z: 0}
+  - {x: 0, y: 0.40625, z: 0}
+  - {x: 0, y: 0.4375, z: 0}
   - {x: 0, y: 0.46875, z: 0}
+  - {x: 0, y: 0.5, z: 0}
+  - {x: 0, y: 0.53125, z: 0}
+  - {x: 0, y: 0.5625, z: 0}
+  - {x: 0, y: 0.59375, z: 0}
   - {x: 0, y: 0.625, z: 0}
+  - {x: 0, y: 0.65625, z: 0}
+  - {x: 0, y: 0.6875, z: 0}
+  - {x: 0, y: 0.71875, z: 0}
+  - {x: 0, y: 0.75, z: 0}
   - {x: 0, y: 0.78125, z: 0}
+  - {x: 0, y: 0.8125, z: 0}
+  - {x: 0, y: 0.84375, z: 0}
+  - {x: 0, y: 0.875, z: 0}
+  - {x: 0, y: 0.90625, z: 0}
   - {x: 0, y: 0.9375, z: 0}
-  - {x: 0, y: 1.09375, z: 0}
-  - {x: 0, y: 1.25, z: 0}
-  - {x: 0, y: 1.40625, z: 0}
-  - {x: 0, y: 1.5625, z: 0}
-  - {x: 0, y: 1.71875, z: 0}
-  - {x: 0, y: 1.875, z: 0}
-  - {x: 0, y: 2.03125, z: 0}
-  - {x: 0, y: 2.1875, z: 0}
-  - {x: 0, y: 2.34375, z: 0}
-  - {x: 0, y: 2.5, z: 0}
-  - {x: 0, y: 2.65625, z: 0}
-  - {x: 0, y: 2.8125, z: 0}
-  - {x: 0, y: 2.96875, z: 0}
-  - {x: 0, y: 3.125, z: 0}
-  - {x: 0, y: 3.28125, z: 0}
-  - {x: 0, y: 3.4375, z: 0}
-  - {x: 0, y: 3.59375, z: 0}
-  - {x: 0, y: 3.75, z: 0}
-  - {x: 0, y: 3.90625, z: 0}
-  - {x: 0, y: 4.0625, z: 0}
-  - {x: 0, y: 4.21875, z: 0}
-  - {x: 0, y: 4.375, z: 0}
-  - {x: 0, y: 4.53125, z: 0}
-  - {x: 0, y: 4.6875, z: 0}
-  - {x: 0, y: 4.84375, z: 0}
-  - {x: 0, y: 5, z: 0}
+  - {x: 0, y: 0.96875, z: 0}
+  - {x: 0, y: 1, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -3447,7 +3449,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.03125
-        value: 0.18042195
+        value: 0.03608439
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3456,7 +3458,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.0625
-        value: 0.3608439
+        value: 0.07216878
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3465,7 +3467,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.09375
-        value: 0.54126585
+        value: 0.10825317
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3474,7 +3476,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.125
-        value: 0.7216878
+        value: 0.14433756
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3483,7 +3485,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.15625
-        value: 0.9021098
+        value: 0.18042195
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3492,7 +3494,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.1875
-        value: 1.0825317
+        value: 0.21650635
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3501,7 +3503,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.21875
-        value: 1.2629536
+        value: 0.25259075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3510,7 +3512,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.25
-        value: 1.4433756
+        value: 0.28867513
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3519,7 +3521,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.28125
-        value: 1.6237977
+        value: 0.3247595
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3528,7 +3530,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.3125
-        value: 1.8042196
+        value: 0.3608439
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3537,7 +3539,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.34375
-        value: 1.9846416
+        value: 0.3969283
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3546,7 +3548,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.375
-        value: 2.1650634
+        value: 0.4330127
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3555,7 +3557,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.40625
-        value: 2.3454854
+        value: 0.46909708
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3564,7 +3566,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.4375
-        value: 2.5259073
+        value: 0.5051815
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3573,7 +3575,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.46875
-        value: 2.7063293
+        value: 0.54126585
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3582,7 +3584,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.5
-        value: 2.8867512
+        value: 0.57735026
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3591,7 +3593,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.53125
-        value: 3.0671732
+        value: 0.6134347
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3600,7 +3602,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.5625
-        value: 3.2475953
+        value: 0.649519
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3609,7 +3611,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.59375
-        value: 3.4280171
+        value: 0.68560344
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3618,7 +3620,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.625
-        value: 3.6084392
+        value: 0.7216878
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3627,7 +3629,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.65625
-        value: 3.788861
+        value: 0.7577722
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3636,7 +3638,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.6875
-        value: 3.969283
+        value: 0.7938566
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3645,7 +3647,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.71875
-        value: 4.149705
+        value: 0.829941
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3654,7 +3656,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.75
-        value: 4.330127
+        value: 0.8660254
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3663,7 +3665,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.78125
-        value: 4.510549
+        value: 0.9021098
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3672,7 +3674,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.8125
-        value: 4.690971
+        value: 0.93819416
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3681,7 +3683,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.84375
-        value: 4.8713927
+        value: 0.97427857
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3690,7 +3692,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.875
-        value: 4.841229
+        value: 0.96824586
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3699,7 +3701,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.90625
-        value: 4.2274218
+        value: 0.8454843
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3708,7 +3710,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.9375
-        value: 3.4798527
+        value: 0.69597054
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3717,7 +3719,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.96875
-        value: 2.4803917
+        value: 0.49607837
         inSlope: 0
         outSlope: 0
         tangentMode: 0

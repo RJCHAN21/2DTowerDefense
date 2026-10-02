@@ -5,7 +5,7 @@ public sealed class Sniper : ScriptableObject, ITowerType
 {
     [Header("Sight")]
     [Tooltip("Maximum distance along the sniper's sight line.")]
-    [SerializeField, Min(0f)] private float range = 30f;
+    [SerializeField, Min(0f)] private float range = 10f;
 
     [Tooltip("Full width of the detection strip.")]
     [SerializeField, Min(0f)] private float lineWidth = 0.2f;

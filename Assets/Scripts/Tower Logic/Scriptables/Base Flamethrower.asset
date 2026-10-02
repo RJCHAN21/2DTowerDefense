@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Base Flamethrower
   m_EditorClassIdentifier: Assembly-CSharp::Flamethrower
   flameStopDelay: 0.2
-  range: 5
+  range: 1
   detectionAngle: 60
   shotInterval: 0.1
   projectilesPerBurst: 5
