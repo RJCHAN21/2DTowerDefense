@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Pool;
@@ -39,6 +40,14 @@ public class PooledGun : MonoBehaviour
 
     public void FirePattern(float shotInterval, params float[] angleOffsets)
     {
+        FirePattern(shotInterval, null, angleOffsets);
+    }
+
+    public void FirePattern(
+        float shotInterval,
+        Action<PooledProjectile> configureShot,
+        params float[] angleOffsets)
+    {
         if (Time.time < _nextTimeToShoot) return;
 
         int shotsFired = 0;
@@ -51,8 +60,10 @@ public class PooledGun : MonoBehaviour
             Quaternion shotRotation =
                 muzzle.rotation * Quaternion.Euler(0f, 0f, angleOffset);
 
-            projObj.transform.SetPositionAndRotation(muzzle.position, shotRotation);
-            projObj.Deactivate();
+            projObj.transform.SetPositionAndRotation(
+                muzzle.position, shotRotation);
+
+            projObj.Deactivate(configureShot);
             shotsFired++;
         }
 

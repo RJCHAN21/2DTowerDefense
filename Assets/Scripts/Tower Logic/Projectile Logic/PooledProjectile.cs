@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -16,6 +17,8 @@ public class PooledProjectile : MonoBehaviour
 
 #region Public Properties
     public IObjectPool<PooledProjectile> ObjPool { set => _objPool = value; }
+    public float BaseSpeed => speed;
+    public float BaseLifetime => timeoutDelay;
 #endregion
 
 #region Private Properties
@@ -23,6 +26,12 @@ public class PooledProjectile : MonoBehaviour
     private PooledGun _sourceGun;
     private PooledProjectile _pooledProj;
     private Vector3 _spawnPos;
+    private float _shotSpeed;
+    private float _shotLifetime;
+    private float _shotStartedAt;
+
+    private Action<float> _updateShot;
+    private Action _resetShot;
 
     // OBJECT POOLING \\
     
@@ -31,6 +40,13 @@ public class PooledProjectile : MonoBehaviour
 #endregion
 
 #region Unity Life Cycle
+    private void OnDisable()
+    {
+        _resetShot?.Invoke();
+        _resetShot = null;
+        _updateShot = null;
+    }
+    
     private void Start()
     {
         _spawnPos = transform.position;
@@ -39,8 +55,14 @@ public class PooledProjectile : MonoBehaviour
     private void Update()
     {
         Vector2 from = transform.position;
-        transform.position += transform.right * speed * Time.deltaTime;
+        transform.position += transform.up * _shotSpeed * Time.deltaTime;
         Vector2 path = (Vector2)transform.position - from;
+
+        float age = Interpolate.GetLerpTime(
+            Time.time - _shotStartedAt,
+            Mathf.Max(0.001f, _shotLifetime));
+
+        _updateShot?.Invoke(age);
 
         if (_hitTarget != null)
         {
@@ -72,10 +94,40 @@ public class PooledProjectile : MonoBehaviour
 
     public void Deactivate()
     {
+        Deactivate(null);
+    }
+
+    public void Deactivate(Action<PooledProjectile> configureShot)
+    {
+        StopAllCoroutines();
+
+        _resetShot?.Invoke();
+        _resetShot = null;
+        _updateShot = null;
+
         _isReturned = false;
+        _shotSpeed = speed;
+        _shotLifetime = timeoutDelay;
+        _shotStartedAt = Time.time;
+
         ResetSpawnPosition();
-        projectileSpawned.Invoke(timeoutDelay);
-        StartCoroutine(DeactivateRoutine(timeoutDelay));
+        configureShot?.Invoke(this);
+
+        projectileSpawned.Invoke(_shotLifetime);
+        StartCoroutine(DeactivateRoutine(_shotLifetime));
+    }
+
+    public void ConfigureShot(
+        float shotSpeed,
+        float shotLifetime,
+        Action<float> updateShot,
+        Action resetShot)
+    {
+        _shotSpeed = shotSpeed;
+        _shotLifetime = Mathf.Max(0.001f, shotLifetime);
+        _updateShot = updateShot;
+        _resetShot = resetShot;
+        _updateShot?.Invoke(0f);
     }
 #endregion
 

@@ -13,7 +13,7 @@ public class SightDetector : MonoBehaviour
         if (dir.magnitude > range) return false;
 
         float pAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        float tAngle = origin.eulerAngles.z;
+        float tAngle = origin.eulerAngles.z + 90f;
         float delta = Mathf.Abs(Mathf.DeltaAngle(tAngle, pAngle));
 
         return delta <= coneAngle/2f;
@@ -27,10 +27,10 @@ public class SightDetector : MonoBehaviour
     {
         Vector2 toTarget = target.position - origin.position;
 
-        float forwardDist = Vector2.Dot(toTarget, origin.right);
+        float forwardDist = Vector2.Dot(toTarget, origin.up);
         if (forwardDist < 0f || forwardDist > range) return false;
 
-        float sidewaysDist = Mathf.Abs(Vector2.Dot(toTarget, origin.up));
+        float sidewaysDist = Mathf.Abs(Vector2.Dot(toTarget, origin.right));
         return sidewaysDist <= halfWidth;
     }
 }
