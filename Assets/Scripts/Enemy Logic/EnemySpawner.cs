@@ -138,7 +138,12 @@ public class EnemySpawner : MonoBehaviour
         enemy.StopAllCoroutines();
         enemy.ResetForSpawn();
         enemy.CoinValue = _activeCoinRewardValue;
-        enemy.CurrentHealth = _activeEnemyHealthValue;
+        
+        if (_activeEnemyHealthValue > 0)
+        {
+            enemy.CurrentHealth = _activeEnemyHealthValue;
+        }
+            
         enemy.EnemySpeed = _activeEnemySpeedValue;
         enemy.transform.SetPositionAndRotation(
             spawnPt.position,

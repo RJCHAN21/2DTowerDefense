@@ -5,7 +5,7 @@ public class Enemy : EnemyTarget, IHittable
 {
 #region Unity Inspector Fields
     [Header("Health Setup")]
-    [SerializeField, Min(1)] private int maxHealth = 1;
+    [SerializeField, Min(1)] private int baseHealth = 1;
 
     private float _currentHealth;
 
@@ -45,7 +45,7 @@ public class Enemy : EnemyTarget, IHittable
     public float CurrentHealth
     {
         get => _currentHealth;
-        set => _currentHealth = Mathf.Clamp(value, 0, maxHealth);
+        set => _currentHealth = Mathf.Max(baseHealth, value);
     }
 
     public int CoinValue
@@ -131,7 +131,7 @@ public class Enemy : EnemyTarget, IHittable
         isHit = false;
         _isReturned = false;
 
-        _currentHealth = maxHealth;
+        _currentHealth = baseHealth;
     }
 
     public void ReturnToPool()
