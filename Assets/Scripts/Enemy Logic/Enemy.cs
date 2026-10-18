@@ -4,6 +4,10 @@ using UnityEngine;
 public class Enemy : EnemyTarget, IHittable
 {
 #region Unity Inspector Fields
+    [Header("Health Setup")]
+    [SerializeField, Min(1)] private int maxHealth = 120;
+    private float _currentHealth;
+
     [Header("Hitbox")]
     [SerializeField] private float hitRadius = 0.5f;
 
@@ -30,6 +34,12 @@ public class Enemy : EnemyTarget, IHittable
     public bool IsInvincible { get; set; }   
     public float HitRadius => hitRadius;
 
+    public float CurrentHealth
+    {
+        get => _currentHealth;
+        set => _currentHealth = Mathf.Clamp(value, 0, maxHealth);
+    }
+
     public int CoinValue
     {
         get => coinValue;
@@ -46,15 +56,23 @@ public class Enemy : EnemyTarget, IHittable
 #endregion
 
 #region Hit Logic
-    public void Hit(PooledGun sourceGun)
+    public void Hit(PooledGun sourceGun, float damage)
     {
         if (isHit || isInvincible) return;
 
         isHit = true;
+        Debug.Log($"Enemy Health Before Hit: {_currentHealth}");
+        _currentHealth -= damage;
+        Debug.Log($"Enemy Health After Hit: {_currentHealth}");
 
-        if (_currency != null)
-            _currency.SpawnCoin(transform.position, coinValue);
-        ReturnToPool();
+        if (_currentHealth <= 0)
+        {
+            if (_currency != null)
+            {
+                _currency.SpawnCoin(transform.position, coinValue);
+            }
+            ReturnToPool();
+        }
     }
 #endregion
 
@@ -76,11 +94,11 @@ public class Enemy : EnemyTarget, IHittable
         base.OnEnable();
         _previousPosition = transform.position;
 
-        BaseWave.ActiveEnemiesInScene++;
+        BaseWave.ActiveEnemiesInScene++; //this will be called when the enemy is spawned from the pool
     }
     protected override void OnDisable()
     {
-        BaseWave.ActiveEnemiesInScene--;
+        BaseWave.ActiveEnemiesInScene--; //this will be called when the enemy is returned to the pool or destroyed
     }
 
     private void LateUpdate()
@@ -104,6 +122,8 @@ public class Enemy : EnemyTarget, IHittable
     {
         isHit = false;
         _isReturned = false;
+
+        _currentHealth = maxHealth;
     }
 
     public void ReturnToPool()

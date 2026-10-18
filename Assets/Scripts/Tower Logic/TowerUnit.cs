@@ -6,7 +6,7 @@ public class TowerUnit : MonoBehaviour
 {
 #region Inspector Fields
     [Header("Tower Config")]
-
+    
     [Tooltip("How far the tower can see. Note that this is the base range for towers without a specified range.")]
     [SerializeField] private float baseRange = 3f;
 

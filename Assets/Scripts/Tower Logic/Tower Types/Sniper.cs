@@ -3,13 +3,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Tower Defense/Tower Types/Sniper")]
 public sealed class Sniper : ScriptableObject, ITowerType
 {
+    [Header("Damage")]
+    [Tooltip("The amount of damage this tower will deal to the target.")]
+    [SerializeField, Min(0f)] private float damage = 2f;
+
     [Header("Sight")]
     [Tooltip("Maximum distance along the sniper's sight line.")]
     [SerializeField, Min(0f)] private float range = 4f;
 
     public void Fire(PooledGun gun)
     {
-        gun.FirePattern(1.5f, 0f);
+        gun.FirePattern(1.5f, damage, 0f);
     }
 
     public void UpdateFiring(PooledGun gun, bool shouldFire)

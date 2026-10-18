@@ -19,13 +19,14 @@ public class PooledProjectile : MonoBehaviour
     public IObjectPool<PooledProjectile> ObjPool { set => _objPool = value; }
     public float BaseSpeed => speed;
     public float BaseLifetime => timeoutDelay;
+
 #endregion
 
 #region Private Properties
     private IHittable _hitTarget;
     private PooledGun _sourceGun;
-    private PooledProjectile _pooledProj;
     private Vector3 _spawnPos;
+    private float _shotDamage;
     private float _shotSpeed;
     private float _shotLifetime;
     private float _shotStartedAt;
@@ -77,7 +78,7 @@ public class PooledProjectile : MonoBehaviour
 
             if ((center - closestPt).sqrMagnitude <= radius * radius)
             {
-                _hitTarget.Hit(_sourceGun);
+                _hitTarget.Hit(_sourceGun, _shotDamage);
                 ReturnToPool();
                 return;
             }
@@ -90,6 +91,11 @@ public class PooledProjectile : MonoBehaviour
     {
         _hitTarget = target;
         _sourceGun = gun;
+    }
+
+    public void SetDamage(float damage)
+    {
+        _shotDamage = Mathf.Max(0f, damage);
     }
 
     public void Deactivate()
