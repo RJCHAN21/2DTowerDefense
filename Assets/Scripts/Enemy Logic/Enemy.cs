@@ -60,13 +60,13 @@ public class Enemy : EnemyTarget, IHittable
     {
         if (isHit || isInvincible) return;
 
-        isHit = true;
         Debug.Log($"Enemy Health Before Hit: {_currentHealth}");
         _currentHealth -= damage;
         Debug.Log($"Enemy Health After Hit: {_currentHealth}");
 
         if (_currentHealth <= 0)
         {
+            isHit = true;
             if (_currency != null)
             {
                 _currency.SpawnCoin(transform.position, coinValue);
