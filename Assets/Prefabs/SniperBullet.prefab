@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledProjectile
   timeoutDelay: 1
-  speed: 10
+  speed: 20
   projectileSpawned:
     m_PersistentCalls:
       m_Calls: []

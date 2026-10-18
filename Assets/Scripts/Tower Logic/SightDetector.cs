@@ -33,4 +33,14 @@ public class SightDetector : MonoBehaviour
         float sidewaysDist = Mathf.Abs(Vector2.Dot(toTarget, origin.right));
         return sidewaysDist <= halfWidth;
     }
+
+    public static bool IsInRadius(
+        Transform origin,
+        Transform target,
+        float radius)
+    {
+        Vector2 toTarget = target.position - origin.position;
+
+        return toTarget.sqrMagnitude <= radius * radius;
+    }
 }

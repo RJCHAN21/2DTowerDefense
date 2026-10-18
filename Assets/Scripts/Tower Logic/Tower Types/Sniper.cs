@@ -5,10 +5,7 @@ public sealed class Sniper : ScriptableObject, ITowerType
 {
     [Header("Sight")]
     [Tooltip("Maximum distance along the sniper's sight line.")]
-    [SerializeField, Min(0f)] private float range = 10f;
-
-    [Tooltip("Full width of the detection strip.")]
-    [SerializeField, Min(0f)] private float lineWidth = 0.2f;
+    [SerializeField, Min(0f)] private float range = 4f;
 
     public void Fire(PooledGun gun)
     {
@@ -28,7 +25,7 @@ public sealed class Sniper : ScriptableObject, ITowerType
 
     public bool IsInSight(Transform origin, Transform target)
     {
-        return SightDetector.IsInLine(
-            origin, target, range, lineWidth * 0.5f);
+        return SightDetector.IsInRadius(
+            origin, target, range);
     }
 }
