@@ -87,7 +87,16 @@ public class PolylinePathSolver : MonoBehaviour
 #region Gizmos
     private void OnDrawGizmos()
     {
-        if (!IsValid) return;
+        if (startingPoint == null ||
+            targetPoint == null ||
+            controlPoints == null)
+            return;
+
+        foreach (Transform controlPt in controlPoints)
+        {
+            if (controlPt == null)
+                return;
+        }
 
         Gizmos.color = Color.yellow;
 
