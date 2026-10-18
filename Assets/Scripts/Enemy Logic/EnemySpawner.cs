@@ -97,6 +97,9 @@ public class EnemySpawner : MonoBehaviour
         QuadraticPathSolver quadratic =
             spawnPt.GetComponentInParent<QuadraticPathSolver>();
         
+        PolylinePathSolver polyline =
+            spawnPt.GetComponentInParent<PolylinePathSolver>();
+
         if (cubic != null)
         {
             if (!cubic.IsValid)
@@ -110,6 +113,14 @@ public class EnemySpawner : MonoBehaviour
             if (!quadratic.IsValid)
             {
                 Debug.LogError("The quadratic path is not configured correctly.", quadratic);
+                return;
+            }
+        }
+        else if (polyline != null)
+        {
+            if (!polyline.IsValid)
+            {
+                Debug.LogError("The polyline path is not configured correctly.", polyline);
                 return;
             }
         }
@@ -138,12 +149,20 @@ public class EnemySpawner : MonoBehaviour
                 cubic.GetPath,
                 () => enemy.ReachTarget(playerHealth)));
         }
-        else
+        else if (quadratic != null)
         {
             enemy.StartCoroutine(PathFind.FollowPath(
                 enemy.transform,
                 quadratic.Duration,
                 quadratic.GetPath,
+                () => enemy.ReachTarget(playerHealth)));
+        } 
+        else if (polyline != null)
+        {
+            enemy.StartCoroutine(PathFind.FollowPath(
+                enemy.transform,
+                polyline.Duration,
+                polyline.GetPath,
                 () => enemy.ReachTarget(playerHealth)));
         }
     }
