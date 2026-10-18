@@ -4,5 +4,5 @@ public interface IHittable
 {
     Vector2 HitPosition { get; }
     float HitRadius { get; }
-    void Hit(PooledGun sourceGun, float damage);
+    void Hit(PooledGun sourceGun, int damage);
 }

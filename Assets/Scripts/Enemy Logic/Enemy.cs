@@ -8,6 +8,8 @@ public class Enemy : EnemyTarget, IHittable
     [SerializeField, Min(1)] private int maxHealth = 120;
     private float _currentHealth;
 
+    private float _speed;
+
     [Header("Hitbox")]
     [SerializeField] private float hitRadius = 0.5f;
 
@@ -34,6 +36,11 @@ public class Enemy : EnemyTarget, IHittable
     public bool IsInvincible { get; set; }   
     public float HitRadius => hitRadius;
 
+    public float EnemySpeed
+    {
+        get => _speed;
+        set => _speed = Mathf.Max(0f, value);
+    }
     public float CurrentHealth
     {
         get => _currentHealth;
@@ -56,7 +63,7 @@ public class Enemy : EnemyTarget, IHittable
 #endregion
 
 #region Hit Logic
-    public void Hit(PooledGun sourceGun, float damage)
+    public void Hit(PooledGun sourceGun, int damage)
     {
         if (isHit || isInvincible) return;
 

@@ -5,7 +5,7 @@ public sealed class Shotgunner : ScriptableObject, ITowerType
 {
     [Header("Damage")]
     [Tooltip("The amount of damage this tower will deal to the target.")]
-    [SerializeField, Min(0f)] private float damage = 1f;
+    [SerializeField, Min(0f)] private int damage = 1;
 
     [Header("Sight")]
     [Tooltip("Maximum detection distance.")]

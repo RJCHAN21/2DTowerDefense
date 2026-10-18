@@ -26,7 +26,7 @@ public class PooledProjectile : MonoBehaviour
     private IHittable _hitTarget;
     private PooledGun _sourceGun;
     private Vector3 _spawnPos;
-    private float _shotDamage;
+    private int _shotDamage;
     private float _shotSpeed;
     private float _shotLifetime;
     private float _shotStartedAt;
@@ -93,9 +93,9 @@ public class PooledProjectile : MonoBehaviour
         _sourceGun = gun;
     }
 
-    public void SetDamage(float damage)
+    public void SetDamage(int damage)
     {
-        _shotDamage = Mathf.Max(0f, damage);
+        _shotDamage = Mathf.Max(0, damage);
     }
 
     public void Deactivate()

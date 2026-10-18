@@ -38,14 +38,14 @@ public class PooledGun : MonoBehaviour
 
     public void Shoot() => _towerType.Fire(this);
 
-    public void FirePattern(float shotInterval, float damage, params float[] angleOffsets)
+    public void FirePattern(float shotInterval, int damage, params float[] angleOffsets)
     {
         FirePattern(shotInterval, damage, null, angleOffsets);
     }
 
     public void FirePattern(
         float shotInterval,
-        float damage,
+        int damage,
         Action<PooledProjectile> configureShot,
         params float[] angleOffsets)
     {
