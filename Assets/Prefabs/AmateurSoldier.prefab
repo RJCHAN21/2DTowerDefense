@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9064474471252441209}
   - component: {fileID: 3378228057927681335}
-  - component: {fileID: 412331861842157466}
   m_Layer: 0
   m_Name: AmateurSoldier
   m_TagString: Untagged
@@ -93,19 +92,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!114 &412331861842157466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2725135409146945003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77504be41bbe50a409c9da6abefc26d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  maxHealth: 1
-  hitRadius: 0.5
-  turningSpeed: 360
-  coinValue: 1

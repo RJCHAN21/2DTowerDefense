@@ -275,11 +275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03936aee406a2042bbf44f544b47f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  HPBar: {fileID: 0}
+  HPBarFill: {fileID: 4612929109892131101}
   HPTxt: {fileID: 0}
   maxHP: 1
-  ghostHPBar: {fileID: 0}
-  ghostDelay: 0.3
+  ghostHPBarFill: {fileID: 5951337824991244759}
+  ghostDelay: 0.1
   ghostDuration: 0.6
 --- !u!1 &8708113299997338634
 GameObject:
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 539816405673508528}
   - component: {fileID: 5951337824991244759}
   m_Layer: 5
-  m_Name: GhostHPFill
+  m_Name: GhostHPBarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

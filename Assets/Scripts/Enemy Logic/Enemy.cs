@@ -20,7 +20,6 @@ public class Enemy : EnemyTarget, IHittable
 #endregion
 
 #region Private Properties
-    private float _currentHealth;
     private float _speed;
     private bool isHit;
     private bool isInvincible = false;
@@ -40,10 +39,10 @@ public class Enemy : EnemyTarget, IHittable
         get => _speed;
         set => _speed = Mathf.Max(0f, value);
     }
-    public float CurrentHealth
+    public int CurrentHealth
     {
-        get => _currentHealth;
-        set => _currentHealth = Mathf.Max(health.HP, value);
+        get => health.HP;
+        set => health.ResetHealth(value);
     }
 
     public int CoinValue
@@ -66,19 +65,17 @@ public class Enemy : EnemyTarget, IHittable
     {
         if (isHit || isInvincible) return;
 
-        Debug.Log($"Enemy Health Before Hit: {_currentHealth}");
-        _currentHealth -= damage;
-        Debug.Log($"Enemy Health After Hit: {_currentHealth}");
+        health.TakeDamage(damage);
+    }
 
-        if (_currentHealth <= 0)
-        {
-            isHit = true;
-            if (_currency != null)
-            {
-                _currency.SpawnCoin(transform.position, coinValue);
-            }
-            ReturnToPool();
-        }
+    private void OnDied()
+    {
+        isHit = true;
+
+        if (_currency != null)
+            _currency.SpawnCoin(transform.position, coinValue);
+
+        ReturnToPool();
     }
 #endregion
 
@@ -101,10 +98,12 @@ public class Enemy : EnemyTarget, IHittable
         _previousPosition = transform.position;
 
         BaseWave.ActiveEnemiesInScene++; //this will be called when the enemy is spawned from the pool
+        health.Died += OnDied;
     }
     protected override void OnDisable()
     {
         BaseWave.ActiveEnemiesInScene--; //this will be called when the enemy is returned to the pool or destroyed
+        health.Died -= OnDied;
     }
 
     private void LateUpdate()
@@ -128,8 +127,7 @@ public class Enemy : EnemyTarget, IHittable
     {
         isHit = false;
         _isReturned = false;
-
-        _currentHealth = health.HP;
+        health.ResetHealth();
     }
 
     public void ReturnToPool()

@@ -7,12 +7,12 @@ public class Health : MonoBehaviour
 {
 #region Unity Inspector Fields
     [Header("Health")]
-    [SerializeField] private Image HPBar;
+    [SerializeField] private Image HPBarFill;
     [SerializeField] private TextMeshProUGUI HPTxt;
     [SerializeField] private int maxHP = 1;
 
     [Header("Ghost Bar")]
-    [SerializeField] private Image ghostHPBar;
+    [SerializeField] private Image ghostHPBarFill;
 
     [Tooltip("Seconds the ghost bar waits after the latest damage.")]
     [SerializeField, Min(0f)] private float ghostDelay = 0.3f;
@@ -27,6 +27,7 @@ public class Health : MonoBehaviour
 #endregion
 
 #region Private Properties
+    private int _spawnMaxHP;
     private int _hp;
     private float _ghostStartFill;
     private float _ghostElapsed;
@@ -43,16 +44,12 @@ public class Health : MonoBehaviour
             return;
         }
 
-        _hp = maxHP;
-        UpdateHUDVisual();
-
-        if (ghostHPBar != null)
-            ghostHPBar.fillAmount = 1f;
+        ResetHealth();
     }
 
     private void Update()
     {
-        if (!_ghostAnimating || ghostHPBar == null) return;
+        if (!_ghostAnimating || ghostHPBarFill == null) return;
 
         _ghostElapsed += Time.deltaTime;
 
@@ -63,9 +60,9 @@ public class Health : MonoBehaviour
             ghostDuration);
         
         float easedProgress = Ease.OutQuadratic(progress);
-        float targetFill = (float)_hp / maxHP;
+        float targetFill = (float)_hp / _spawnMaxHP;
 
-        ghostHPBar.fillAmount = _ghostStartFill
+        ghostHPBarFill.fillAmount = _ghostStartFill
             + (targetFill - _ghostStartFill) * easedProgress;
 
         if (progress >= 1f)
@@ -78,29 +75,45 @@ public class Health : MonoBehaviour
     {
         if (!isActiveAndEnabled || damage <= 0f || _hp <= 0f)
             return;
-        
+
         _hp = Mathf.Max(0, _hp - damage);
         UpdateHUDVisual();
 
-        if (_hp <= 0f)
+        if (ghostHPBarFill != null)
         {
-            Died?.Invoke();
+            _ghostStartFill = ghostHPBarFill.fillAmount;
+            _ghostElapsed = 0f;
+            _ghostAnimating = true;
         }
 
-        if (ghostHPBar == null) return;
-
-        _ghostStartFill = ghostHPBar.fillAmount;
-        _ghostElapsed = 0f;
-        _ghostAnimating = true;
+        if (_hp <= 0f)
+            Died?.Invoke();
     }
-    
+
+    public void ResetHealth() => ResetHealth(maxHP);
+
+    public void ResetHealth(int value)
+    {
+        _spawnMaxHP = Mathf.Max(maxHP, value);
+        _hp = _spawnMaxHP;
+
+        _ghostAnimating = false;
+        _ghostElapsed = 0f;
+        _ghostStartFill = 1f;
+
+        UpdateHUDVisual();
+
+        if (ghostHPBarFill != null)
+            ghostHPBarFill.fillAmount = 1f;
+    }
+        
     private void UpdateHUDVisual()
     {
-        if (HPBar != null)
-            HPBar.fillAmount = (float)_hp / maxHP;
-        
+        if (HPBarFill != null)
+            HPBarFill.fillAmount = (float)_hp / _spawnMaxHP;
+
         if (HPTxt != null)
-            HPTxt.text = $"{_hp} / {maxHP} HP";
+            HPTxt.text = $"{_hp} / {_spawnMaxHP} HP";
     }
 #endregion
 }
