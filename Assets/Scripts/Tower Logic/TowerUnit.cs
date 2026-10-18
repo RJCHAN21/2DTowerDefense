@@ -239,8 +239,7 @@ public class TowerUnit : MonoBehaviour
     private void OnDied()
     {
         _isHit = true;
-        // Disable or Destroy
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 #endregion
 
