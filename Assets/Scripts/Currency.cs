@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Currency : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class Currency : MonoBehaviour
 
 #region Private Properties
     private readonly List<GameObject> _flyingCoins = new();
+    private IObjectPool<GameObject> _objPool;
+    private bool _isReturned;
     private int _balance;
     private float _displayedBalance;
     private float _countStart;
@@ -51,6 +54,11 @@ public class Currency : MonoBehaviour
 
 #region Public Properties
     public int Balance => _balance;
+
+    public IObjectPool<GameObject> ObjPool
+    {
+        set => _objPool = value;
+    }
 #endregion
 
 #region Unity Life Cycle
@@ -58,13 +66,16 @@ public class Currency : MonoBehaviour
     {
         StopAllCoroutines();
 
-        foreach (GameObject coin in _flyingCoins)
+        while (_flyingCoins.Count > 0)
         {
-            if (coin != null)
-                Destroy(coin);
+            GameObject coin = _flyingCoins[_flyingCoins.Count - 1];
+
+            if (coin == null)
+                _flyingCoins.RemoveAt(_flyingCoins.Count - 1);
+            else
+                ReturnToPool(coin);
         }
 
-        _flyingCoins.Clear();
         _animating = false;
 
         if (!_initialized) return;
@@ -96,6 +107,8 @@ public class Currency : MonoBehaviour
         _balance = Mathf.Clamp(startingBalance, 0, moneyCap);
         _displayedBalance = _balance;
         balanceText.text = _balance.ToString("N0", CultureInfo.InvariantCulture);
+
+        InitializePool();
         _initialized = true;
     }
 
@@ -129,6 +142,60 @@ public class Currency : MonoBehaviour
             _animating = false;
         }
     }
+
+    private void OnDestroy()
+    {
+        _objPool?.Clear();
+    }
+#endregion
+
+#region Pooling
+    private void InitializePool()
+    {
+        _objPool = new ObjectPool<GameObject>(
+            CreateCoin,
+            null,
+            OnReleaseToPool,
+            OnDestroyPooledObject,
+            true,
+            20,
+            100);
+    }
+
+    private GameObject CreateCoin()
+    {
+        GameObject coin = Instantiate(coinPrefab);
+        coin.SetActive(false);
+        return coin;
+    }
+
+    private void OnReleaseToPool(GameObject coin)
+    {
+        coin.SetActive(false);
+    }
+
+    private void OnDestroyPooledObject(GameObject coin)
+    {
+        if (coin != null)
+            Destroy(coin);
+    }
+
+    private void ResetForSpawn(GameObject coin, Vector3 pos)
+    {
+        coin.transform.SetPositionAndRotation(
+            pos, coinPrefab.transform.rotation);
+
+        coin.SetActive(true);
+    }
+
+    public void ReturnToPool(GameObject coin)
+    {
+        if (coin == null) return;
+
+        if (!_flyingCoins.Remove(coin)) return;
+
+        _objPool.Release(coin);
+    }
 #endregion
 
 #region Coin Collection
@@ -145,8 +212,8 @@ public class Currency : MonoBehaviour
             return;
         }
 
-        GameObject coin = Instantiate(
-            coinPrefab, pos, coinPrefab.transform.rotation);
+        GameObject coin = _objPool.Get();
+        ResetForSpawn(coin, pos);
 
         _flyingCoins.Add(coin);
         StartCoroutine(FlyCoin(coin, pos, depth, value));
@@ -172,10 +239,7 @@ public class Currency : MonoBehaviour
             },
             () => Deposit(value));
         
-        _flyingCoins.Remove(coin);
-
-        if (coin != null)
-            Destroy(coin);
+        ReturnToPool(coin);
     }
 
     private Vector3 GetTargetPosition(float depth)

@@ -1690,6 +1690,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &829844453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8114569891491074361, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
+  m_PrefabInstance: {fileID: 3329718849529427864}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03936aee406a2042bbf44f544b47f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
 --- !u!1 &847767166
 GameObject:
   m_ObjectHideFlags: 0
@@ -4192,6 +4203,17 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1634418099 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3443841087888755742, guid: c087fc961d22f4b4db29f2dcf93751a9, type: 3}
+  m_PrefabInstance: {fileID: 4224681438500670837}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03936aee406a2042bbf44f544b47f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
 --- !u!1 &1682958905
 GameObject:
   m_ObjectHideFlags: 0
@@ -4652,6 +4674,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &1768514528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6842842661378625307, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
+  m_PrefabInstance: {fileID: 1400683383374317472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03936aee406a2042bbf44f544b47f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
 --- !u!1 &1786318420
 GameObject:
   m_ObjectHideFlags: 0
@@ -5091,6 +5124,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 216480049714251040, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1768514528}
     - target: {fileID: 7756968343986522187, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
       propertyPath: m_Positions.Array.size
       value: 65
@@ -6760,6 +6797,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -158.94
       objectReference: {fileID: 0}
+    - target: {fileID: 8016026224026870412, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 829844453}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6817,6 +6858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flamethrower
       objectReference: {fileID: 0}
+    - target: {fileID: 4351162694620492946, guid: c087fc961d22f4b4db29f2dcf93751a9, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1634418099}
     - target: {fileID: 5639079013397146099, guid: c087fc961d22f4b4db29f2dcf93751a9, type: 3}
       propertyPath: m_SortingOrder
       value: 2
