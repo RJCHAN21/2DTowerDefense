@@ -21,8 +21,8 @@ public class Enemy : EnemyTarget, IHittable
 
 #region Private Properties
     private float _speed;
-    private bool isHit;
-    private bool isInvincible = false;
+    private bool _isHit;
+    private bool _isInvincible = false;
     private Vector2 _previousPosition;
     private IObjectPool<Enemy> _objPool;
     private bool _isReturned;
@@ -63,14 +63,14 @@ public class Enemy : EnemyTarget, IHittable
 #region Hit Logic
     public void Hit(PooledGun sourceGun, int damage)
     {
-        if (isHit || isInvincible) return;
+        if (_isHit || _isInvincible) return;
 
         health.TakeDamage(damage);
     }
 
     private void OnDied()
     {
-        isHit = true;
+        _isHit = true;
 
         if (_currency != null)
             _currency.SpawnCoin(transform.position, coinValue);
@@ -82,7 +82,7 @@ public class Enemy : EnemyTarget, IHittable
 #region Damage Player Logic
     public void ReachTarget(Health playerHealth)
     {
-        if (_isReturned || isHit) return;
+        if (_isReturned || _isHit) return;
 
         if (playerHealth != null)
             playerHealth.TakeDamage(1);
@@ -125,7 +125,7 @@ public class Enemy : EnemyTarget, IHittable
 #region Pooling
     public void ResetForSpawn()
     {
-        isHit = false;
+        _isHit = false;
         _isReturned = false;
         health.ResetHealth();
     }

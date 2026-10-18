@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 public class TowerUnit : MonoBehaviour
 {
 #region Inspector Fields
+    [Header("Health Setup")]
+    [SerializeField] private Health health;
+
     [Header("Tower Config")]
     
     [Tooltip("How far the tower can see. Note that this is the base range for towers without a specified range.")]
@@ -29,6 +32,7 @@ public class TowerUnit : MonoBehaviour
 
 #region Public Properties
     public LineRenderer LineRenderer => lineRenderer;
+    public bool IsInvincible { get; set; }   
 #endregion
 
 #region Private Properties
@@ -40,11 +44,14 @@ public class TowerUnit : MonoBehaviour
             : towerType) as ITowerType;
     private bool _canFire = true;
     private static TowerUnit selectedTower = null;
+    private bool _isInvincible = false;
+    private bool _isHit = false;
 #endregion
 
 #region Unity Life Cycle
     private void OnEnable()
     {
+        health.Died += OnDied;
         if (!Application.IsPlaying(gameObject)) return;
 
         if (lineRenderer != null)
@@ -59,6 +66,7 @@ public class TowerUnit : MonoBehaviour
 
     private void OnDisable()
     {
+        health.Died -= OnDied;
         if (AssignedTowerType is Flamethrower flamethrower)
             flamethrower.ResetFiring();
     }
@@ -219,4 +227,21 @@ public class TowerUnit : MonoBehaviour
         }
     }
 #endregion
+
+#region Hit Logic
+    public void Hit(int damage)
+    {
+        if (_isHit || _isInvincible) return;
+
+        health.TakeDamage(damage);
+    }
+
+    private void OnDied()
+    {
+        _isHit = true;
+        // Disable or Destroy
+        gameObject.SetActive(false);
+    }
+#endregion
+
 }
