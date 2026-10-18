@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 [ExecuteAlways]
 public class TowerUnit : MonoBehaviour
@@ -32,7 +31,8 @@ public class TowerUnit : MonoBehaviour
 
 #region Public Properties
     public LineRenderer LineRenderer => lineRenderer;
-    public bool IsInvincible { get; set; }   
+    public bool IsInvincible { get; set; }
+    public Health Health => health;
 #endregion
 
 #region Private Properties
