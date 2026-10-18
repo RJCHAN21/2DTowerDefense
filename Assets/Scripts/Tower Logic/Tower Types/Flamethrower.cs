@@ -4,7 +4,7 @@ using UnityEngine;
 public sealed class Flamethrower : ScriptableObject, ITowerType
 {
 #region Unity Inspector Fields
-
+    
     #region Firing Tail
 
     [Header("Firing")]
