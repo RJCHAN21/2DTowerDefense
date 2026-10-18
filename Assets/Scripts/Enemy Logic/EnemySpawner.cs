@@ -156,7 +156,7 @@ public class EnemySpawner : MonoBehaviour
         {
             enemy.StartCoroutine(PathFind.FollowPath(
                 enemy.transform,
-                cubic.Duration,
+                cubic.Duration / enemy.EnemySpeed,
                 cubic.GetPath,
                 () => enemy.ReachTarget(playerHealth)));
         }
@@ -164,7 +164,7 @@ public class EnemySpawner : MonoBehaviour
         {
             enemy.StartCoroutine(PathFind.FollowPath(
                 enemy.transform,
-                quadratic.Duration,
+                quadratic.Duration / enemy.EnemySpeed,
                 quadratic.GetPath,
                 () => enemy.ReachTarget(playerHealth)));
         } 
@@ -172,7 +172,7 @@ public class EnemySpawner : MonoBehaviour
         {
             enemy.StartCoroutine(PathFind.FollowPath(
                 enemy.transform,
-                polyline.Duration,
+                polyline.Duration / enemy.EnemySpeed,
                 polyline.GetPath,
                 () => enemy.ReachTarget(playerHealth)));
         }
