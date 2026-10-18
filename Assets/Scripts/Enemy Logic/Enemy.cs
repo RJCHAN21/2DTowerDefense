@@ -78,7 +78,7 @@ public class Enemy : EnemyTarget, IHittable
 
         BaseWave.ActiveEnemiesInScene++;
     }
-    protected virtual void OnDisable()
+    protected override void OnDisable()
     {
         BaseWave.ActiveEnemiesInScene--;
     }

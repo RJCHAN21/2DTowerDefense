@@ -27,6 +27,7 @@ public class GameOverSequence : MonoBehaviour
         if (gameOverScreen == null) yield break;
 
         gameOverScreen.alpha = 0f;
+        gameOverScreen.blocksRaycasts = true;
         gameOverScreen.gameObject.SetActive(true);
 
         float elapsed = 0f;

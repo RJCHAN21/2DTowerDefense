@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [ExecuteAlways]
 public class TowerUnit : MonoBehaviour
@@ -26,6 +27,10 @@ public class TowerUnit : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
 #endregion
 
+#region Public Properties
+    public LineRenderer LineRenderer => lineRenderer;
+#endregion
+
 #region Private Properties
     private Transform _target;
     private ScriptableObject _runtimeTowerType;
@@ -34,12 +39,16 @@ public class TowerUnit : MonoBehaviour
             ? _runtimeTowerType
             : towerType) as ITowerType;
     private bool _canFire = true;
+    private static TowerUnit selectedTower = null;
 #endregion
 
 #region Unity Life Cycle
     private void OnEnable()
     {
         if (!Application.IsPlaying(gameObject)) return;
+
+        if (lineRenderer != null)
+            lineRenderer.enabled = false;
 
         if (_runtimeTowerType == null && towerType is ITowerType)
             _runtimeTowerType = Instantiate(towerType);
@@ -83,6 +92,7 @@ public class TowerUnit : MonoBehaviour
         if (towerType == null) return;
 
         pooledGun.SetTowerType(towerType);
+
         MapVisualToRange();
 
         Transform detectedEnemy = FindVisibleEnemy();
