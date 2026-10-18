@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Min(1)] private int maxSize = 100;
 
     [Tooltip("Player health damaged when an enemy completes its path.")]
-    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private Health playerHealth;
 
     [Header("Rewards")]
     [SerializeField] private Currency currency;
@@ -138,7 +138,7 @@ public class EnemySpawner : MonoBehaviour
         enemy.StopAllCoroutines();
         enemy.ResetForSpawn();
         enemy.CoinValue = _activeCoinRewardValue;
-        
+
         if (_activeEnemyHealthValue > 0)
         {
             enemy.CurrentHealth = _activeEnemyHealthValue;

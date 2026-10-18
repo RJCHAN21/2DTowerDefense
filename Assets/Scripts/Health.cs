@@ -1,13 +1,15 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
+public class Health : MonoBehaviour
 {
 #region Unity Inspector Fields
     [Header("Health")]
     [SerializeField] private Image HPBar;
-    [SerializeField] private int maxHP = 20;
+    [SerializeField] private TextMeshProUGUI HPTxt;
+    [SerializeField] private int maxHP = 1;
 
     [Header("Ghost Bar")]
     [SerializeField] private Image ghostHPBar;
@@ -20,7 +22,8 @@ public class EnemyHealth : MonoBehaviour
 #endregion
 
 #region Public Properties
-    public int EnemyHP => _hp;
+    public int HP => _hp;
+    public event Action Died;
 #endregion
 
 #region Private Properties
@@ -81,10 +84,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (_hp <= 0f)
         {
-            if (GameManager.Instance != null)
-                GameManager.Instance.CallGameEnd();
-            else
-                Debug.LogError("No active GameManager exists.", this);
+            Died?.Invoke();
         }
 
         if (ghostHPBar == null) return;
@@ -93,11 +93,14 @@ public class EnemyHealth : MonoBehaviour
         _ghostElapsed = 0f;
         _ghostAnimating = true;
     }
-
+    
     private void UpdateHUDVisual()
     {
         if (HPBar != null)
             HPBar.fillAmount = (float)_hp / maxHP;
+        
+        if (HPTxt != null)
+            HPTxt.text = $"{_hp} / {maxHP} HP";
     }
 #endregion
 }

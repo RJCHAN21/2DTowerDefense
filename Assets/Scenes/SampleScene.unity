@@ -1443,7 +1443,7 @@ MonoBehaviour:
   collectionCheck: 1
   defaultCapacity: 20
   maxSize: 100
-  playerHealth: {fileID: 1198593313}
+  playerHealth: {fileID: 0}
   currency: {fileID: 1323631459}
 --- !u!4 &622778053
 Transform:
@@ -1947,32 +1947,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1198593314}
-  - component: {fileID: 1198593313}
+  - component: {fileID: 1198593316}
+  - component: {fileID: 1198593315}
   m_Layer: 0
-  m_Name: PlayerHealth
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1198593313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198593312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03936aee406a2042bbf44f544b47f90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  HPBar: {fileID: 7435664}
-  HPTxt: {fileID: 515116880}
-  maxHP: 20
-  ghostHPBar: {fileID: 11919407}
-  ghostDelay: 0.3
-  ghostDuration: 0.6
 --- !u!4 &1198593314
 Transform:
   m_ObjectHideFlags: 0
@@ -1988,6 +1971,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1198593315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198593312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03936aee406a2042bbf44f544b47f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  HPBar: {fileID: 1398692932}
+  HPTxt: {fileID: 515116880}
+  maxHP: 20
+  ghostHPBar: {fileID: 11919407}
+  ghostDelay: 0.3
+  ghostDuration: 0.6
+--- !u!114 &1198593316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198593312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d613bdab39519f2498d78ea902b44b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  health: {fileID: 1198593315}
 --- !u!1 &1323631458
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,11 +5,7 @@ public class Enemy : EnemyTarget, IHittable
 {
 #region Unity Inspector Fields
     [Header("Health Setup")]
-    [SerializeField, Min(1)] private int baseHealth = 1;
-
-    private float _currentHealth;
-
-    private float _speed;
+    [SerializeField] private Health health;
 
     [Header("Hitbox")]
     [SerializeField] private float hitRadius = 0.5f;
@@ -24,6 +20,8 @@ public class Enemy : EnemyTarget, IHittable
 #endregion
 
 #region Private Properties
+    private float _currentHealth;
+    private float _speed;
     private bool isHit;
     private bool isInvincible = false;
     private Vector2 _previousPosition;
@@ -45,7 +43,7 @@ public class Enemy : EnemyTarget, IHittable
     public float CurrentHealth
     {
         get => _currentHealth;
-        set => _currentHealth = Mathf.Max(baseHealth, value);
+        set => _currentHealth = Mathf.Max(health.HP, value);
     }
 
     public int CoinValue
@@ -85,7 +83,7 @@ public class Enemy : EnemyTarget, IHittable
 #endregion
 
 #region Damage Player Logic
-    public void ReachTarget(PlayerHealth playerHealth)
+    public void ReachTarget(Health playerHealth)
     {
         if (_isReturned || isHit) return;
 
@@ -131,7 +129,7 @@ public class Enemy : EnemyTarget, IHittable
         isHit = false;
         _isReturned = false;
 
-        _currentHealth = baseHealth;
+        _currentHealth = health.HP;
     }
 
     public void ReturnToPool()
