@@ -5,7 +5,8 @@ public class Enemy : EnemyTarget, IHittable
 {
 #region Unity Inspector Fields
     [Header("Health Setup")]
-    [SerializeField, Min(1)] private int maxHealth = 120;
+    [SerializeField, Min(1)] private int maxHealth = 1;
+
     private float _currentHealth;
 
     private float _speed;
@@ -112,7 +113,7 @@ public class Enemy : EnemyTarget, IHittable
     {
         Vector2 movement = (Vector2)transform.position - _previousPosition;
         _previousPosition = transform.position;
-
+        
         if (movement.sqrMagnitude <= 0.00000001f) return;
         
         float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;

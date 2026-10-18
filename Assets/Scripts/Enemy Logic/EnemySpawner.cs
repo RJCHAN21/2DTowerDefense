@@ -205,7 +205,7 @@ public class EnemySpawner : MonoBehaviour
     }
 #endregion
 
-    public void ConfigureAndStartSpawner(int enemyPrefabIndex, int enemySpeed, int enemyHealth, int count, float interval, int coinReward)
+    public void ConfigureAndStartSpawner(int enemyPrefabIndex,  int enemyHealth, int enemySpeed, int count, float interval, int coinReward)
     {
         if (enemyPrefabsDatabase == null || enemyPrefabIndex < 0 || enemyPrefabIndex >= enemyPrefabsDatabase.Length)
         {
