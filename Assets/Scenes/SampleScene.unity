@@ -1188,7 +1188,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 551749743}
   - {fileID: 801296608}
-  spawnCount: 50
+  spawnCount: 100
   spawnInterval: 0.2
   collectionCheck: 1
   defaultCapacity: 20

@@ -11,11 +11,28 @@ Gameplay clips showcasing the game’s evolution, from early prototypes to the f
 
 ## Asset Credits
 
-This project uses assets from **[Tower Defense (Top-Down)](https://kenney.nl/assets/tower-defense-top-down)** by **Kenney**.
+This project uses third-party assets created by the following authors and publishers.
+
+### Kenney — Tower Defense (Top-Down)
 
 - **Creator:** Kenney
 - **Asset Pack:** Tower Defense (Top-Down)
-- **License:** [Creative Commons CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
-- **Source:** https://kenney.nl/assets/tower-defense-top-down
+- **License:** Creative Commons CC0 1.0 Universal
+- **Source:** Kenney — Tower Defense (Top-Down)
 
-These assets are licensed under CC0 and may be used, modified, and distributed without attribution. Credit is provided here in appreciation of Kenney's work.
+The assets in this pack are released under CC0 and may be used, modified, and distributed without attribution. Credit is provided here in appreciation of Kenney's work.
+
+### Jean Moreno — Cartoon FX Remaster Free
+
+- **Creator / Publisher:** Jean Moreno
+- **Asset Pack:** Cartoon FX Remaster Free
+- **Platform:** Unity Asset Store
+- **License:** Standard Unity Asset Store EULA
+- **License Type:** Extension Asset
+- **Source:** Unity Asset Store — Cartoon FX Remaster Free
+
+Cartoon FX Remaster Free is used in accordance with the Unity Asset Store End User License Agreement. All rights to the original asset remain with its respective creator and publisher.
+
+## Third-Party Licenses
+
+Third-party assets included or used in this project remain subject to their respective licenses. The inclusion of an asset in this project does not transfer ownership of that asset or grant rights beyond those provided by its original license.
