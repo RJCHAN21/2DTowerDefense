@@ -82,7 +82,7 @@ public class Enemy : EnemyTarget, IHittable
         if (_isReturned || isHit) return;
 
         if (playerHealth != null)
-            playerHealth.TakeDamage(1f);
+            playerHealth.TakeDamage(1);
 
         ReturnToPool();
     }

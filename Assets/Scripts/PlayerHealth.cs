@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health")]
     [SerializeField] private Image HPBar;
     [SerializeField] private TextMeshProUGUI HPTxt;
-    [SerializeField] private float maxHP = 20f;
+    [SerializeField] private int maxHP = 20;
 
     [Header("Ghost Bar")]
     [SerializeField] private Image ghostHPBar;
@@ -21,11 +21,11 @@ public class PlayerHealth : MonoBehaviour
 #endregion
 
 #region Public Properties
-    public float PlayerHP => _hp;
+    public int PlayerHP => _hp;
 #endregion
 
 #region Private Properties
-    private float _hp;
+    private int _hp;
     private float _ghostStartFill;
     private float _ghostElapsed;
     private bool _ghostAnimating;
@@ -61,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
             ghostDuration);
         
         float easedProgress = Ease.OutQuadratic(progress);
-        float targetFill = _hp / maxHP;
+        float targetFill = (float)_hp / maxHP;
 
         ghostHPBar.fillAmount = _ghostStartFill
             + (targetFill - _ghostStartFill) * easedProgress;
@@ -72,12 +72,12 @@ public class PlayerHealth : MonoBehaviour
 #endregion
 
 #region Health
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         if (!isActiveAndEnabled || damage <= 0f || _hp <= 0f)
             return;
         
-        _hp = Mathf.Max(0f, _hp - damage);
+        _hp = Mathf.Max(0, _hp - damage);
         UpdateHUDVisual();
 
         if (_hp <= 0f)
@@ -98,7 +98,7 @@ public class PlayerHealth : MonoBehaviour
     private void UpdateHUDVisual()
     {
         if (HPBar != null)
-            HPBar.fillAmount = _hp / maxHP;
+            HPBar.fillAmount = (float)_hp / maxHP;
         
         if (HPTxt != null)
             HPTxt.text = $"{_hp} / {maxHP} HP";
