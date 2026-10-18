@@ -4,6 +4,10 @@ using UnityEngine;
 public class Enemy : EnemyTarget, IHittable
 {
 #region Unity Inspector Fields
+    [Header("Health Setup")]
+    [SerializeField, Min(1)] private int maxHealth = 10;
+    private float _currentHealth;
+
     [Header("Hitbox")]
     [SerializeField] private float hitRadius = 0.5f;
 
@@ -29,6 +33,12 @@ public class Enemy : EnemyTarget, IHittable
     public Vector2 HitPosition => transform.position;
     public bool IsInvincible { get; set; }   
     public float HitRadius => hitRadius;
+
+    public float CurrentHealth
+    {
+        get => _currentHealth;
+        set => _currentHealth = Mathf.Clamp(value, 0, maxHealth);
+    }
 
     public int CoinValue
     {
@@ -76,11 +86,11 @@ public class Enemy : EnemyTarget, IHittable
         base.OnEnable();
         _previousPosition = transform.position;
 
-        BaseWave.ActiveEnemiesInScene++;
+        BaseWave.ActiveEnemiesInScene++; //this will be called when the enemy is spawned from the pool
     }
-    protected virtual void OnDisable()
+    protected override void OnDisable()
     {
-        BaseWave.ActiveEnemiesInScene--;
+        BaseWave.ActiveEnemiesInScene--; //this will be called when the enemy is returned to the pool or destroyed
     }
 
     private void LateUpdate()
@@ -104,6 +114,8 @@ public class Enemy : EnemyTarget, IHittable
     {
         isHit = false;
         _isReturned = false;
+
+        _currentHealth = maxHealth;
     }
 
     public void ReturnToPool()

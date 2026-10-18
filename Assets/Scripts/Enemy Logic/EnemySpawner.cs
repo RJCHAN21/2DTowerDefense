@@ -36,6 +36,8 @@ public class EnemySpawner : MonoBehaviour
     private IObjectPool<Enemy> _objPool;
     private int _spawnedCount;
     private bool isSpawnerActive = false;
+    private int _activeCoinRewardValue;
+    private int _activeEnemyHealthValue;
 #endregion
 
 #region Unity Life Cycle
@@ -135,6 +137,7 @@ public class EnemySpawner : MonoBehaviour
         enemy.StopAllCoroutines();
         enemy.ResetForSpawn();
         enemy.CoinValue = _activeCoinRewardValue;
+        enemy.CurrentHealth = _activeEnemyHealthValue;
         enemy.transform.SetPositionAndRotation(
             spawnPt.position,
             spawnPt.rotation);
@@ -200,8 +203,7 @@ public class EnemySpawner : MonoBehaviour
     }
 #endregion
 
-    private int _activeCoinRewardValue;
-    public void ConfigureAndStartSpawner(int enemyPrefabIndex, int count, float interval, int coinReward)
+    public void ConfigureAndStartSpawner(int enemyPrefabIndex, int enemyHealth, int count, float interval, int coinReward)
     {
         if (enemyPrefabsDatabase == null || enemyPrefabIndex < 0 || enemyPrefabIndex >= enemyPrefabsDatabase.Length)
         {
@@ -228,7 +230,7 @@ public class EnemySpawner : MonoBehaviour
         _activeCoinRewardValue = coinReward;
         _spawnedCount = 0;
         _nextSpawnTime = Time.time + spawnInterval;
-
+        _activeEnemyHealthValue = enemyHealth;
         isSpawnerActive = true; 
     }
 
