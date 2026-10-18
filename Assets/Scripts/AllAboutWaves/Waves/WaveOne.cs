@@ -8,7 +8,7 @@ public class WaveOne : BaseWave
         Debug.Log("Wave 1 Script Started!");
         
         // Command unchanged pooler: [index number], [number of enemies], [time between each spawn]
-        enemySpawner.ConfigureAndStartSpawner(0, 20, 0.5f);
+        enemySpawner.ConfigureAndStartSpawner(0, 20, 0.5f, 1);
 
         if (enemySpawner == null)
         {

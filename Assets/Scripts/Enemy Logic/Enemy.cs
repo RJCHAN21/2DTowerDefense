@@ -29,6 +29,12 @@ public class Enemy : EnemyTarget, IHittable
     public Vector2 HitPosition => transform.position;
     public bool IsInvincible { get; set; }   
     public float HitRadius => hitRadius;
+
+    public int CoinValue
+    {
+        get => coinValue;
+        set => coinValue = Mathf.Max(0, value); 
+    }
     public IObjectPool<Enemy> ObjPool
     {
         set => _objPool = value;

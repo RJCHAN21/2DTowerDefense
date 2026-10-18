@@ -134,6 +134,7 @@ public class EnemySpawner : MonoBehaviour
 
         enemy.StopAllCoroutines();
         enemy.ResetForSpawn();
+        enemy.CoinValue = _activeCoinRewardValue;
         enemy.transform.SetPositionAndRotation(
             spawnPt.position,
             spawnPt.rotation);
@@ -198,7 +199,9 @@ public class EnemySpawner : MonoBehaviour
         Destroy(enemy.gameObject);
     }
 #endregion
-    public void ConfigureAndStartSpawner(int enemyPrefabIndex, int count, float interval)
+
+    private int _activeCoinRewardValue;
+    public void ConfigureAndStartSpawner(int enemyPrefabIndex, int count, float interval, int coinReward)
     {
         if (enemyPrefabsDatabase == null || enemyPrefabIndex < 0 || enemyPrefabIndex >= enemyPrefabsDatabase.Length)
         {
@@ -222,6 +225,7 @@ public class EnemySpawner : MonoBehaviour
         _activeEnemyPrefab = targetPrefab;
         spawnCount = count;
         spawnInterval = interval;
+        _activeCoinRewardValue = coinReward;
         _spawnedCount = 0;
         _nextSpawnTime = Time.time + spawnInterval;
 

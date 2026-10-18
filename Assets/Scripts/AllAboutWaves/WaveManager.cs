@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    [Header("Assign your Wave Data files here")]
+    [Header("Assign Wave Data files here")]
     [SerializeField] private BaseWave[] allWaves; 
     
     [SerializeField] private float timeBetweenWaves = 3f; // Time in seconds between waves
