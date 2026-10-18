@@ -907,7 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6bc04d442eb7646bcdbdfa05089183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveTwo
-  enemySpawner: {fileID: 0}
+  enemySpawner: {fileID: 622778052}
 --- !u!1 &551749741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e104f8c5dd5d18b4fa2248ea9c25af4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveOne
-  enemySpawner: {fileID: 0}
+  enemySpawner: {fileID: 622778052}
 --- !u!1 &1051350637
 GameObject:
   m_ObjectHideFlags: 0

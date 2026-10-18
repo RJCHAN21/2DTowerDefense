@@ -5,6 +5,14 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 {
 #region Unity Inspector Fields
 
+    #region Damage
+
+    [Header("Damage")]
+    [Tooltip("The amount of damage this tower will deal to the target.")]
+    [SerializeField, Min(0f)] private float damage = 1f;
+
+    #endregion
+
     #region Firing Tail
 
     [Header("Firing")]
@@ -122,7 +130,7 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
         for (int i = 0; i < count; i++)
             angles[i] = Random.Range(-halfSpread, halfSpread);
 
-        gun.FirePattern(shotInterval, ConfigureProjectile, angles);
+        gun.FirePattern(shotInterval, damage, ConfigureProjectile, angles);
     }
 #endregion
 

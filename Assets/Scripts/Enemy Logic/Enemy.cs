@@ -5,7 +5,7 @@ public class Enemy : EnemyTarget, IHittable
 {
 #region Unity Inspector Fields
     [Header("Health Setup")]
-    [SerializeField, Min(1)] private int maxHealth = 10;
+    [SerializeField, Min(1)] private int maxHealth = 120;
     private float _currentHealth;
 
     [Header("Hitbox")]
@@ -56,15 +56,23 @@ public class Enemy : EnemyTarget, IHittable
 #endregion
 
 #region Hit Logic
-    public void Hit(PooledGun sourceGun)
+    public void Hit(PooledGun sourceGun, float damage)
     {
         if (isHit || isInvincible) return;
 
         isHit = true;
+        Debug.Log($"Enemy Health Before Hit: {_currentHealth}");
+        _currentHealth -= damage;
+        Debug.Log($"Enemy Health After Hit: {_currentHealth}");
 
-        if (_currency != null)
-            _currency.SpawnCoin(transform.position, coinValue);
-        ReturnToPool();
+        if (_currentHealth <= 0)
+        {
+            if (_currency != null)
+            {
+                _currency.SpawnCoin(transform.position, coinValue);
+            }
+            ReturnToPool();
+        }
     }
 #endregion
 
