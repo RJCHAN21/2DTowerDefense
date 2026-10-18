@@ -23,7 +23,7 @@ public sealed class Sniper : ScriptableObject, ITowerType
 
     public void DrawSightVisual(LineRenderer renderer)
     {
-        LineRendShape.DrawLine(renderer, range, lineWidth);
+        LineRendShape.DrawCircle(renderer, range);
     }
 
     public bool IsInSight(Transform origin, Transform target)
