@@ -7,9 +7,6 @@ public sealed class Shotgunner : ScriptableObject, ITowerType
     [Tooltip("Maximum detection distance.")]
     [SerializeField, Min(0f)] private float range = 1f;
 
-    [Tooltip("Full angle of the detection cone.")]
-    [SerializeField, Range(0f, 179f)] private float detectionAngle = 60f;
-
     private static readonly float[] pelletAngles =
         { -20f, -10f, 0f, 10f, 20f };
 
@@ -20,12 +17,12 @@ public sealed class Shotgunner : ScriptableObject, ITowerType
 
     public void DrawSightVisual(LineRenderer renderer)
     {
-        LineRendShape.DrawCone(renderer, range, detectionAngle);
+        LineRendShape.DrawCircle(renderer, range);
     }
 
     public bool IsInSight(Transform origin, Transform target)
     {
-        return SightDetector.IsInCone(
-            origin, target, range, detectionAngle);
+        return SightDetector.IsInRadius(
+            origin, target, range);
     }
 }

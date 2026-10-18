@@ -15,8 +15,9 @@ public class TowerUnit : MonoBehaviour
     [Tooltip("Defines how the tower will behave.")]
     [SerializeField] private ScriptableObject towerType;
 
-    [Tooltip("The angle (in degrees) that this turret can see in a field-of-view arc.")]
-    [SerializeField] private float detectionAngle = 60f;
+    // No longer needed: but if in case I ever make a new tower type with a cone range in the future, you do need this.
+    // [Tooltip("The angle (in degrees) that this turret can see in a field-of-view arc.")]
+    // [SerializeField] private float detectionAngle = 60f;
 
     [Header("Pooling")]
     [SerializeField] private PooledGun pooledGun;
@@ -204,7 +205,7 @@ public class TowerUnit : MonoBehaviour
         }
         else
         {
-            LineRendShape.DrawCone(lineRenderer, baseRange, detectionAngle);
+            LineRendShape.DrawCircle(lineRenderer, baseRange);
         }
     }
 #endregion

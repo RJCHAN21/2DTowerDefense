@@ -19,8 +19,8 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     [Tooltip("Maximum detection distance.")]
     [SerializeField, Min(0f)] private float range = 1f;
 
-    [Tooltip("Full angle of the sight cone and flame spread.")]
-    [SerializeField, Range(0f, 179f)] private float detectionAngle = 60f;
+    [Tooltip("Full angle of the flame spread.")]
+    [SerializeField, Range(0f, 179f)] private float flameSpread = 60f;
 
     #endregion
 
@@ -116,7 +116,7 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
         if (intensity <= 0f || range <= 0f) return;
 
         int count = Mathf.CeilToInt(projectilesPerBurst * intensity);
-        float halfSpread = detectionAngle * 0.5f;
+        float halfSpread = flameSpread * 0.5f;
         float[] angles = new float[count];
 
         for (int i = 0; i < count; i++)
@@ -203,13 +203,13 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 #region Sight Behavior
     public void DrawSightVisual(LineRenderer renderer)
     {
-        LineRendShape.DrawCone(renderer, range, detectionAngle);
+        LineRendShape.DrawCircle(renderer, range);
     }
 
     public bool IsInSight(Transform origin, Transform target)
     {
-        return SightDetector.IsInCone(
-            origin, target, range, detectionAngle);
+        return SightDetector.IsInRadius(
+            origin, target, range);
     }
 #endregion
 }
