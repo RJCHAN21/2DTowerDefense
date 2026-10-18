@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawning Settings")]
 
     [Tooltip("The enemy to spawn")]
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject[] enemyPrefabsDatabase;
 
     [Tooltip("Points where the enemy can spawn")]
     [SerializeField] private Transform[] spawnPoints;
@@ -31,25 +31,29 @@ public class EnemySpawner : MonoBehaviour
 #endregion
 
 #region Private Properties
+    private GameObject _activeEnemyPrefab;
     private float _nextSpawnTime;
     private IObjectPool<Enemy> _objPool;
     private int _spawnedCount;
+    private bool isSpawnerActive = false;
 #endregion
 
 #region Unity Life Cycle
     private void Awake()
     {
-        if (enemyPrefab == null ||
-            enemyPrefab.GetComponent<Enemy>() == null)
+        if (enemyPrefabsDatabase != null && enemyPrefabsDatabase.Length > 0)
         {
-            Debug.LogError(
-                "Assign an enemy prefab with an Enemy component on its root.",
-                this);
-
-            enabled = false;
-            return;
+            _activeEnemyPrefab = enemyPrefabsDatabase[0];
         }
+        else
+        {
+            Debug.LogError("No enemy prefabs assigned in the EnemySpawner.", this);
+        }
+        InitializePool();
 
+    }
+    private void InitializePool()
+    {
         _objPool = new ObjectPool<Enemy>(
             CreateEnemy,
             null,
@@ -67,12 +71,17 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (_spawnedCount >= spawnCount) return;
+        if (!isSpawnerActive) return;
+        if (_spawnedCount >= spawnCount)
+        {
+            isSpawnerActive = false;
+            return;
+        } 
         if (Time.time < _nextSpawnTime) return;
 
         _nextSpawnTime = Time.time + spawnInterval;
 
-        if (enemyPrefab == null ||
+        if (enemyPrefabsDatabase == null ||
             spawnPoints == null ||
             spawnPoints.Length == 0)
             return;
@@ -143,7 +152,12 @@ public class EnemySpawner : MonoBehaviour
 #region Pooling
     private Enemy CreateEnemy()
     {
-        GameObject instance = Instantiate(enemyPrefab);
+        if (_activeEnemyPrefab == null)
+        {
+            Debug.LogError("No active enemy prefab assigned for spawning.", this);
+            return null;
+        }
+        GameObject instance = Instantiate(_activeEnemyPrefab);
         instance.SetActive(false);
 
         Enemy enemy = instance.GetComponent<Enemy>();
@@ -165,4 +179,34 @@ public class EnemySpawner : MonoBehaviour
         Destroy(enemy.gameObject);
     }
 #endregion
+    public void ConfigureAndStartSpawner(int enemyPrefabIndex, int count, float interval)
+    {
+        if (enemyPrefabsDatabase == null || enemyPrefabIndex < 0 || enemyPrefabIndex >= enemyPrefabsDatabase.Length)
+        {
+            Debug.LogError($"Invalid Enemy Prefab Index ({enemyPrefabIndex}) requested by wave script!", this);
+            return;
+        }
+
+        GameObject targetPrefab = enemyPrefabsDatabase[enemyPrefabIndex];
+
+        if (targetPrefab == null)
+        {
+            Debug.LogError("Target enemy prefab is null.", this);
+            return;
+        }
+
+        if (_activeEnemyPrefab != targetPrefab && _objPool != null)
+        {
+            _objPool.Clear();
+        }
+
+        _activeEnemyPrefab = targetPrefab;
+        spawnCount = count;
+        spawnInterval = interval;
+        _spawnedCount = 0;
+        _nextSpawnTime = Time.time + spawnInterval;
+
+        isSpawnerActive = true; 
+    }
+
 }

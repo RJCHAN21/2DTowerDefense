@@ -69,6 +69,12 @@ public class Enemy : EnemyTarget, IHittable
     {
         base.OnEnable();
         _previousPosition = transform.position;
+
+        BaseWave.ActiveEnemiesInScene++;
+    }
+    protected virtual void OnDisable()
+    {
+        BaseWave.ActiveEnemiesInScene--;
     }
 
     private void LateUpdate()
