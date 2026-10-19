@@ -2674,7 +2674,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 350}
+  m_SizeDelta: {x: 800, y: 350}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &813563842
 MonoBehaviour:
@@ -2688,6 +2688,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63cadc77706993b4997435faed2adfa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerMenuController
+  toggleVisibleKeybind:
+    m_Name: Toggle Visible Keybind
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 3865209e-fbd6-4b14-8a6d-256de5a185bb
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 40d7d015-ca04-4601-a8e4-9cfaa4b5d27d
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Toggle Visible Keybind
+      m_Flags: 0
+    m_Flags: 0
+    m_Priority: 0
   towerMenu: {fileID: 1708903097}
   towerMenuCanvasGroup: {fileID: 1708903101}
   slideDuration: 0.3
@@ -8319,11 +8337,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8414861792032062856, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.54
+      value: -1.95
       objectReference: {fileID: 0}
     - target: {fileID: 8414861792032062856, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.41
+      value: -1.39
       objectReference: {fileID: 0}
     - target: {fileID: 8414861792032062856, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
       propertyPath: m_LocalPosition.z

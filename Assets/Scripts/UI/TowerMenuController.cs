@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-#region UnityInspector Fields
+#region Unity Inspector Fields
+    [SerializeField] private InputAction toggleVisibleKeybind;
     [SerializeField] private RectTransform towerMenu;
     [SerializeField] private CanvasGroup towerMenuCanvasGroup;
     [SerializeField, Min(0.01f)] private float slideDuration = 0.3f;
@@ -14,9 +16,15 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
     private Vector2 visiblePos;
     private Vector2 hiddenPos;
     private Coroutine menuAnim;
+    private bool isVisible;
 #endregion
 
 #region Unity Life Cycle
+    private void OnEnable()
+    {
+        toggleVisibleKeybind.Enable();
+    }
+
     private void OnDisable()
     {
         if (menuAnim != null)
@@ -24,6 +32,7 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
             StopCoroutine(menuAnim);
             menuAnim = null;
         }
+        toggleVisibleKeybind.Disable();
     }
 
     private void Awake()
@@ -32,6 +41,29 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
         hiddenPos = visiblePos - new Vector2(0f, 350f);
         towerMenu.anchoredPosition = hiddenPos;
         towerMenuCanvasGroup.alpha = 0f;
+        towerMenuCanvasGroup.interactable = false;
+    }
+
+    private void Update()
+    {
+        if (toggleVisibleKeybind.WasPressedThisFrame())
+        {
+            if (toggleVisibleKeybind.WasPressedThisFrame())
+                SetVisible(!isVisible);
+        }
+    }
+#endregion
+
+#region Visibility Handling
+    private void SetVisible(bool visible)
+    {
+        isVisible = visible;
+
+        if (menuAnim != null)
+            StopCoroutine(menuAnim);
+
+        menuAnim = StartCoroutine(
+            visible ? slideAndFadeIn() : slideAndFadeOut());
     }
 #endregion
 
@@ -41,6 +73,9 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
         Vector2 a = towerMenu.anchoredPosition;
         float startAlpha = towerMenuCanvasGroup.alpha;
         float elapsed = 0f;
+
+        towerMenuCanvasGroup.interactable = true;
+        towerMenuCanvasGroup.blocksRaycasts = true;
 
         while (elapsed < slideDuration)
         {
@@ -67,6 +102,9 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
         float startAlpha = towerMenuCanvasGroup.alpha;
         float elapsed = 0f;
 
+        towerMenuCanvasGroup.interactable = false;
+        towerMenuCanvasGroup.blocksRaycasts = false;
+
         while (elapsed < slideDuration)
         {
             elapsed += Time.unscaledDeltaTime;
@@ -86,22 +124,16 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
         towerMenuCanvasGroup.alpha = 0f;
     }
 #endregion
+
 #region Cursor Mouse Handling
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("test");
-        if (menuAnim != null)
-            StopCoroutine(menuAnim);
-
-        menuAnim = StartCoroutine(slideAndFadeIn());
+        SetVisible(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (menuAnim != null)
-            StopCoroutine(menuAnim);
-
-        menuAnim = StartCoroutine(slideAndFadeOut());
+        SetVisible(false);
     }
 #endregion
 }
