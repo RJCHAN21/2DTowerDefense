@@ -585,7 +585,6 @@ RectTransform:
   - {fileID: 1398692931}
   - {fileID: 1952459469}
   - {fileID: 1697390718}
-  - {fileID: 1708903097}
   - {fileID: 813563841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2647,8 +2646,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 813563841}
+  - component: {fileID: 813563842}
+  - component: {fileID: 813563844}
+  - component: {fileID: 813563843}
   m_Layer: 5
-  m_Name: TowerMenuArea
+  m_Name: TowerMenuController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2665,7 +2667,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1708903097}
   m_Father: {fileID: 98489854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -2673,6 +2676,59 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1000, y: 350}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &813563842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813563840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63cadc77706993b4997435faed2adfa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerMenuController
+  towerMenu: {fileID: 1708903097}
+  towerMenuCanvasGroup: {fileID: 1708903101}
+  slideDuration: 0.3
+--- !u!114 &813563843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813563840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &813563844
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813563840}
+  m_CullTransparentMesh: 1
 --- !u!114 &829844453 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8114569891491074361, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
@@ -6075,6 +6131,7 @@ GameObject:
   - component: {fileID: 1708903100}
   - component: {fileID: 1708903099}
   - component: {fileID: 1708903098}
+  - component: {fileID: 1708903101}
   m_Layer: 5
   m_Name: TowerMenu
   m_TagString: Untagged
@@ -6097,7 +6154,7 @@ RectTransform:
   - {fileID: 470736210}
   - {fileID: 1988708215}
   - {fileID: 718222124}
-  m_Father: {fileID: 98489854}
+  m_Father: {fileID: 813563841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -6172,6 +6229,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1708903096}
   m_CullTransparentMesh: 1
+--- !u!225 &1708903101
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708903096}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1718450410
 GameObject:
   m_ObjectHideFlags: 0
