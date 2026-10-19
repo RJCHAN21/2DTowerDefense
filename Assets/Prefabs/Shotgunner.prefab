@@ -384,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d037cd55c5b2c446a3ac3ecf6c1378c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerUnit
+  health: {fileID: 8114569891491074361}
   baseRange: 3
   gunTurningSpeed: 180
   towerType: {fileID: 11400000, guid: e97bcdfa01b254241b0176e62031a598, type: 2}

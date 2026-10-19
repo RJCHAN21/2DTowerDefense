@@ -11,6 +11,9 @@ public class TowerUnit : MonoBehaviour
     
     [Tooltip("How far the tower can see. Note that this is the base range for towers without a specified range.")]
     [SerializeField] private float baseRange = 3f;
+    
+    [Tooltip("How much space the tower occupies on the map.")]
+    [SerializeField] private float baseRadius = 0.35f;
 
     [Tooltip("How fast the tower's gun can turn and aim at the target.")]
     [SerializeField] private float gunTurningSpeed = 90f;
@@ -33,6 +36,8 @@ public class TowerUnit : MonoBehaviour
     public LineRenderer LineRenderer => lineRenderer;
     public bool IsInvincible { get; set; }
     public Health Health => health;
+    public void SetPreview(bool enabled) => _isPreview = enabled;
+    public float BaseRadius => baseRadius;
 #endregion
 
 #region Private Properties
@@ -46,6 +51,7 @@ public class TowerUnit : MonoBehaviour
     private static TowerUnit selectedTower = null;
     private bool _isInvincible = false;
     private bool _isHit = false;
+    private bool _isPreview = false;
 #endregion
 
 #region Unity Life Cycle
@@ -91,6 +97,12 @@ public class TowerUnit : MonoBehaviour
                 MapVisualToRange();
             }
 
+            return;
+        }
+
+        if (_isPreview)
+        {
+            MapVisualToRange();
             return;
         }
 

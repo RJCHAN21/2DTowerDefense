@@ -6,7 +6,18 @@ using UnityEngine.InputSystem;
 public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 #region Unity Inspector Fields
+    [Header("Input Handling")]
     [SerializeField] private InputAction toggleVisibleKeybind;
+
+    [Header("Tower Registry")]
+    [SerializeField] private TowerDefinition[] towerDefinitions;
+
+    [Header("Placement Logic")]
+    [SerializeField] private TowerPlacementController towerPlacementController;
+
+    [Header("UI Setup")]
+    [SerializeField] private RectTransform towerMenuContent;
+    [SerializeField] private TowerMenuItem towerMenuItemPrefab;
     [SerializeField] private RectTransform towerMenu;
     [SerializeField] private CanvasGroup towerMenuCanvasGroup;
     [SerializeField] private CanvasGroup towerMenuHintCanvasGroup;
@@ -45,6 +56,8 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
         towerMenuCanvasGroup.interactable = false;
         towerMenuCanvasGroup.blocksRaycasts = false;
         towerMenuHintCanvasGroup.alpha = 1f;
+
+        PopulateMenu();
     }
 
     private void Update()
@@ -52,6 +65,17 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
         if (toggleVisibleKeybind.WasPressedThisFrame())
         {
             SetVisible(!isVisible);
+        }
+    }
+#endregion
+
+#region Menu Item Population
+    private void PopulateMenu()
+    {
+        foreach (TowerDefinition td in towerDefinitions)
+        {
+            TowerMenuItem item = Instantiate(towerMenuItemPrefab, towerMenuContent);
+            item.Initialize(td, towerPlacementController);
         }
     }
 #endregion
@@ -135,11 +159,13 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         SetVisible(true);
+        towerPlacementController.SetPointerOverMenu(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         SetVisible(false);
+        towerPlacementController.SetPointerOverMenu(false);
     }
 #endregion
 }
