@@ -9,6 +9,7 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] private InputAction toggleVisibleKeybind;
     [SerializeField] private RectTransform towerMenu;
     [SerializeField] private CanvasGroup towerMenuCanvasGroup;
+    [SerializeField] private CanvasGroup towerMenuHintCanvasGroup;
     [SerializeField, Min(0.01f)] private float slideDuration = 0.3f;
 #endregion
 
@@ -42,14 +43,15 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
         towerMenu.anchoredPosition = hiddenPos;
         towerMenuCanvasGroup.alpha = 0f;
         towerMenuCanvasGroup.interactable = false;
+        towerMenuCanvasGroup.blocksRaycasts = false;
+        towerMenuHintCanvasGroup.alpha = 1f;
     }
 
     private void Update()
     {
         if (toggleVisibleKeybind.WasPressedThisFrame())
         {
-            if (toggleVisibleKeybind.WasPressedThisFrame())
-                SetVisible(!isVisible);
+            SetVisible(!isVisible);
         }
     }
 #endregion
@@ -88,12 +90,14 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
                 a + (visiblePos - a) * eased;
 
             towerMenuCanvasGroup.alpha = startAlpha + (1f - startAlpha) * eased;
+            towerMenuHintCanvasGroup.alpha = 1f - towerMenuCanvasGroup.alpha;
 
             yield return null;
         }
 
         towerMenu.anchoredPosition = visiblePos;
         towerMenuCanvasGroup.alpha = 1f;
+        towerMenuHintCanvasGroup.alpha = 0f;
     }
 
     private IEnumerator slideAndFadeOut()
@@ -116,12 +120,14 @@ public class TowerMenuController : MonoBehaviour, IPointerEnterHandler, IPointer
                 a + (hiddenPos - a) * eased;
 
             towerMenuCanvasGroup.alpha = startAlpha + (0f - startAlpha) * eased;
+            towerMenuHintCanvasGroup.alpha = 1f - towerMenuCanvasGroup.alpha;
 
             yield return null;
         }
 
         towerMenu.anchoredPosition = hiddenPos;
         towerMenuCanvasGroup.alpha = 0f;
+        towerMenuHintCanvasGroup.alpha = 1f;
     }
 #endregion
 
