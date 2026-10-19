@@ -46,6 +46,17 @@ public class TowerPlacementController : MonoBehaviour
 
         Vector2 cursorScreenPos = pointAction.action.ReadValue<Vector2>();
 
+        Rect cameraRect = mainCamera.pixelRect;
+
+        if (cursorScreenPos.x <= cameraRect.xMin ||
+            cursorScreenPos.x >= cameraRect.xMax ||
+            cursorScreenPos.y <= cameraRect.yMin ||
+            cursorScreenPos.y >= cameraRect.yMax)
+        {
+            CancelPlacement();
+            return;
+        }
+
         float depth = 0f - mainCamera.transform.position.z;
 
         Vector3 cursorWorldPos = mainCamera.ScreenToWorldPoint(
