@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [ExecuteAlways]
-public class TowerUnit : MonoBehaviour
+public class TowerUnit : TowerTarget
 {
 #region Inspector Fields
     [Header("Health Setup")]
@@ -49,8 +49,15 @@ public class TowerUnit : MonoBehaviour
 #endregion
 
 #region Unity Life Cycle
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+
+        if (health == null)
+        {
+            health = GetComponent<Health>();
+        }
+
         health.Died += OnDied;
         if (!Application.IsPlaying(gameObject)) return;
 
@@ -64,8 +71,10 @@ public class TowerUnit : MonoBehaviour
             flamethrower.ResetFiring();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
+
         health.Died -= OnDied;
         if (AssignedTowerType is Flamethrower flamethrower)
             flamethrower.ResetFiring();
