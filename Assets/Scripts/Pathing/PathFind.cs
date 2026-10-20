@@ -8,7 +8,8 @@ public static class PathFind
         Transform objectToMove,
         float duration,
         Func<float, Vector3> getPath,
-        Action onCompleted = null)
+        Action onCompleted = null,
+        Func<bool> isPaused = null)
     {
         if (objectToMove == null || getPath == null || duration <= 0f)
         {
@@ -24,6 +25,12 @@ public static class PathFind
             objectToMove.gameObject.activeInHierarchy &&
             elapsed < duration)
         {
+            if (isPaused != null && isPaused())
+            {
+                yield return null;
+                continue;
+            }
+            
             elapsed += Time.deltaTime;
 
             float progress = Interpolate.GetLerpTime(elapsed, duration);
