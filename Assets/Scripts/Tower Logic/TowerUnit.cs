@@ -320,6 +320,12 @@ public class TowerUnit : TowerTarget, IHittable
     private void OnDied()
     {
         _isHit = true;
+
+        if (FXManager.Instance != null)
+        {
+            FXManager.Instance.PlayDeathBurst(transform.position);
+        }
+        
         Destroy(gameObject);
     }
 #endregion

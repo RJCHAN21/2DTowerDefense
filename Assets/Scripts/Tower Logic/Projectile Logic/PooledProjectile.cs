@@ -82,6 +82,10 @@ public class PooledProjectile : MonoBehaviour
 
             if ((center - closestPt).sqrMagnitude <= radius * radius)
             {
+                if (FXManager.Instance != null)
+                {
+                    FXManager.Instance.PlayHitSpark(closestPt);
+                }
                 _hitTarget.Hit(_sourceGun, _shotDamage);
                 ReturnToPool();
                 return;
