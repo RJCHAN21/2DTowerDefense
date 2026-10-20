@@ -6,15 +6,29 @@ public class TowerTarget : MonoBehaviour
     private static readonly HashSet<TowerTarget> _activeTowers =
         new HashSet<TowerTarget>();
 
-    public static IEnumerable<TowerTarget> ActiveEnemies => _activeTowers;
+    public static IEnumerable<TowerTarget> ActiveTowers => _activeTowers;
 
     protected virtual void OnEnable()
     {
-        _activeTowers.Add(this);
+        SetTargetable(true);
     }
 
     protected virtual void OnDisable()
     {
-        _activeTowers.Remove(this);
+        SetTargetable(false);
+    }
+
+    protected void SetTargetable(bool targetable)
+    {
+        if (targetable &&
+            Application.IsPlaying(gameObject) &&
+            isActiveAndEnabled)
+        {
+            _activeTowers.Add(this);
+        }
+        else
+        {
+            _activeTowers.Remove(this);
+        }
     }
 }

@@ -37,13 +37,18 @@ public class TowerUnit : TowerTarget
     public LineRenderer LineRenderer => lineRenderer;
     public bool IsInvincible { get; set; }
     public Health Health => health;
-    public void SetPreview(bool enabled) {
+    public void SetPreview(bool enabled)
+    {
         _isPreview = enabled;
-        
+
         if (enabled)
             towers.Remove(this);
-        else if (Application.IsPlaying(gameObject) && isActiveAndEnabled && !towers.Contains(this))
+        else if (Application.IsPlaying(gameObject) &&
+                isActiveAndEnabled &&
+                !towers.Contains(this))
             towers.Add(this);
+
+        SetTargetable(!enabled);
     }
     public float BaseRadius => baseRadius;
     public static IReadOnlyList<TowerUnit> Towers => towers;
@@ -67,7 +72,7 @@ public class TowerUnit : TowerTarget
 #region Unity Life Cycle
     protected override void OnEnable()
     {
-        base.OnEnable();
+        SetTargetable(!_isPreview);
 
         if (health == null)
         {
@@ -268,7 +273,7 @@ public class TowerUnit : TowerTarget
 #region Hit Logic
     public void Hit(int damage)
     {
-        if (_isHit || _isInvincible) return;
+        if (_isPreview || _isHit || _isInvincible) return;
 
         health.TakeDamage(damage);
     }
