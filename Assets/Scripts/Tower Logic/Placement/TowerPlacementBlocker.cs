@@ -3,7 +3,7 @@ using UnityEngine;
 public class TowerPlacementBlocker : MonoBehaviour
 {
 #region Unity Inspector Fields
-    [SerializeField] private Vector2 size = Vector2.one;
+    [SerializeField, Min(0)] private Vector2 size = Vector2.one;
 #endregion
 
 #region Overlap Blocking
@@ -25,4 +25,16 @@ public class TowerPlacementBlocker : MonoBehaviour
         return distSq <= radius * radius;
     }
 #endregion
+
+#region Editor Visualization
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(
+            transform.position,
+            new Vector3(size.x, size.y, 0f));
+    }
+#endregion
 }
+
+enum BlockerShape { Rectangle, Polygon};

@@ -1869,7 +1869,8 @@ MonoBehaviour:
     m_Priority: 0
   currency: {fileID: 1323631459}
   towerSelection: {fileID: 2146407562}
-  towerPlacementBlockers: []
+  towerPlacementBlockers:
+  - {fileID: 1752674244}
   mainCamera: {fileID: 519420031}
   invalidRangeGradient:
     serializedVersion: 2
@@ -2297,7 +2298,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefabsDatabase:
   - {fileID: 2725135409146945003, guid: 2ce368f73d8600a49bf7e268319269f7, type: 3}
-  - {fileID: 2725135409146945003, guid: 34830b7055314254a844096554dbf08f, type: 3}
   spawnPoints:
   - {fileID: 551749743}
   - {fileID: 801296608}
@@ -6408,6 +6408,51 @@ Transform:
   - {fileID: 1461151480}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1752674243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1752674245}
+  - component: {fileID: 1752674244}
+  m_Layer: 0
+  m_Name: TowerPlacementBlocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1752674244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752674243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f677321d92fbf6a4db965ae88b5c5d7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerPlacementBlocker
+  size: {x: 4.4, y: 1.74}
+--- !u!4 &1752674245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752674243}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.58, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1766521663
 GameObject:
   m_ObjectHideFlags: 0
@@ -7423,4 +7468,5 @@ SceneRoots:
   - {fileID: 1323631460}
   - {fileID: 1347552891}
   - {fileID: 367450236}
+  - {fileID: 1752674245}
   - {fileID: 2146407563}
