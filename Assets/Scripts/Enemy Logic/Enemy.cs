@@ -100,11 +100,21 @@ public class Enemy : EnemyTarget, IHittable
 
         BaseWave.ActiveEnemiesInScene++; //this will be called when the enemy is spawned from the pool
         health.Died += OnDied;
+        health.Damaged += OnDamaged;
     }
     protected override void OnDisable()
     {
         BaseWave.ActiveEnemiesInScene--; //this will be called when the enemy is returned to the pool or destroyed
         health.Died -= OnDied;
+        health.Damaged -= OnDamaged;
+    }
+
+    private void OnDamaged(int damage, Vector3 position)
+    {
+        if (DamageNumberManager.Instance != null)
+        {
+            DamageNumberManager.Instance.SpawnDamageNumber(damage, position, isTower: false);
+        }
     }
 
     private void LateUpdate()

@@ -24,6 +24,7 @@ public class Health : MonoBehaviour
 #region Public Properties
     public int HP => _hp;
     public event Action Died;
+    public event Action<int, Vector3> Damaged;
 #endregion
 
 #region Private Properties
@@ -78,6 +79,8 @@ public class Health : MonoBehaviour
 
         _hp = Mathf.Max(0, _hp - damage);
         UpdateHUDVisual();
+
+        Damaged?.Invoke(damage, transform.position);
 
         if (ghostHPBarFill != null)
         {

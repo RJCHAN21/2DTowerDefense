@@ -82,8 +82,12 @@ public class TowerUnit : TowerTarget, IHittable
             health = GetComponent<Health>();
         }
 
-        health.Died += OnDied;
-
+        if (health != null)
+        {
+            health.Died += OnDied;
+            health.Damaged += OnDamaged;
+        }
+        
         if (!Application.IsPlaying(gameObject)) return;
 
         if (lineRenderer != null)
@@ -103,11 +107,24 @@ public class TowerUnit : TowerTarget, IHittable
     {
         base.OnDisable();
 
-        health.Died -= OnDied;
+        if (health != null)
+        {
+            health.Died -= OnDied;
+            health.Damaged -= OnDamaged;
+        }
+
         if (AssignedTowerType is Flamethrower flamethrower)
             flamethrower.ResetFiring();
 
         towers.Remove(this);
+    }
+
+    private void OnDamaged(int damage, Vector3 position)
+    {
+        if (DamageNumberManager.Instance != null)
+        {
+            DamageNumberManager.Instance.SpawnDamageNumber(damage, position, isTower: true);
+        }
     }
 
     private void Start()
@@ -287,7 +304,7 @@ public class TowerUnit : TowerTarget, IHittable
         {
             health.TakeDamage(damage);
         }
-        
+
         else
         {
             Debug.LogError("TowerUnit is missing a Health component.", this);
