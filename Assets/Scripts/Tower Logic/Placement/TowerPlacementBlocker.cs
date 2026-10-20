@@ -19,10 +19,10 @@ public class TowerPlacementBlocker : MonoBehaviour
 
         float closestX = Mathf.Max(l, Mathf.Min(circleCenter.x, r));
         float closestY = Mathf.Max(b, Mathf.Min(circleCenter.y, t));
-        float dist = (circleCenter.x - closestX) * (circleCenter.x - closestX)
+        float distSq = (circleCenter.x - closestX) * (circleCenter.x - closestX)
                 + (circleCenter.y - closestY) * (circleCenter.y - closestY);
         
-        return dist <= radius * radius;
+        return distSq <= radius * radius;
     }
 #endregion
 }

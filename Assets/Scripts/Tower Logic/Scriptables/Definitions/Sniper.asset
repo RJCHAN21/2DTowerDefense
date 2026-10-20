@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefinition
   towerPrefab: {fileID: 216480049714251040, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
   towerSprite: {fileID: -3406780426092485941, guid: 615e9367febfaad43805818f85f29bce, type: 3}
-  cost: 120
+  cost: 10

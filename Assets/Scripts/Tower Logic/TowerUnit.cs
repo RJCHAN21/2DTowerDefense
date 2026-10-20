@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -36,8 +37,16 @@ public class TowerUnit : MonoBehaviour
     public LineRenderer LineRenderer => lineRenderer;
     public bool IsInvincible { get; set; }
     public Health Health => health;
-    public void SetPreview(bool enabled) => _isPreview = enabled;
+    public void SetPreview(bool enabled) {
+        _isPreview = enabled;
+        
+        if (enabled)
+            towers.Remove(this);
+        else if (Application.IsPlaying(gameObject) && isActiveAndEnabled && !towers.Contains(this))
+            towers.Add(this);
+    }
     public float BaseRadius => baseRadius;
+    public static IReadOnlyList<TowerUnit> Towers => towers;
 #endregion
 
 #region Private Properties
@@ -52,12 +61,14 @@ public class TowerUnit : MonoBehaviour
     private bool _isInvincible = false;
     private bool _isHit = false;
     private bool _isPreview = false;
+    private static List<TowerUnit> towers = new List<TowerUnit>();
 #endregion
 
 #region Unity Life Cycle
     private void OnEnable()
     {
         health.Died += OnDied;
+
         if (!Application.IsPlaying(gameObject)) return;
 
         if (lineRenderer != null)
@@ -68,6 +79,9 @@ public class TowerUnit : MonoBehaviour
 
         if (AssignedTowerType is Flamethrower flamethrower)
             flamethrower.ResetFiring();
+        
+        if (!_isPreview)
+            towers.Add(this);
     }
 
     private void OnDisable()
@@ -75,6 +89,8 @@ public class TowerUnit : MonoBehaviour
         health.Died -= OnDied;
         if (AssignedTowerType is Flamethrower flamethrower)
             flamethrower.ResetFiring();
+
+        towers.Remove(this);
     }
 
     private void Start()

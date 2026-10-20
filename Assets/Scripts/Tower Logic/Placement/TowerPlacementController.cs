@@ -4,8 +4,15 @@ using UnityEngine.InputSystem;
 public class TowerPlacementController : MonoBehaviour
 {
 #region Unity Inspector Fields
+    [Header("Inputs")]
     [SerializeField] private InputActionReference pointAction;
+    [SerializeField] private InputActionReference clickAction;
     [SerializeField] private InputAction cancelPlacementAction;
+    
+
+    [Header("Tower Placement Logic Dependencies")]
+    [SerializeField] private Currency currency;
+    [SerializeField] private TowerSelection towerSelection;
     [SerializeField] private TowerPlacementBlocker[] towerPlacementBlockers;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Gradient invalidRangeGradient;
@@ -13,6 +20,8 @@ public class TowerPlacementController : MonoBehaviour
 
 #region Public Properties
     public void SetPointerOverMenu(bool isOverMenu) => _pointerOverMenu = isOverMenu;
+    public bool BlocksTowerSelection =>
+        _previewTower != null || _placementEndFrame == Time.frameCount;
 #endregion
 
 #region Runtime Properties
@@ -20,7 +29,8 @@ public class TowerPlacementController : MonoBehaviour
     private TowerUnit _previewTower;
     private bool _pointerOverMenu;
     private Gradient _normalRangeGradient;
-    
+    private int _placementEndFrame = -1;
+    private bool _awaitingInitialRelease;
 #endregion
 
 #region Unity Life Cycle
@@ -77,6 +87,24 @@ public class TowerPlacementController : MonoBehaviour
 
         _previewTower.LineRenderer.colorGradient =
             valid ? _normalRangeGradient : invalidRangeGradient;
+
+        if (_awaitingInitialRelease)
+        {
+            if (clickAction.action.WasReleasedThisFrame())
+            {
+                _awaitingInitialRelease = false;
+
+                if (!_pointerOverMenu)
+                    TryPlaceTower();
+            }
+
+            return;
+        }
+
+        if (clickAction.action.WasPressedThisFrame() && !_pointerOverMenu)
+        {
+            TryPlaceTower();
+        }
     }
 #endregion
 
@@ -95,6 +123,7 @@ public class TowerPlacementController : MonoBehaviour
         _normalRangeGradient = _previewTower.LineRenderer.colorGradient;
         _previewTower.SetPreview(true);
         _previewTower.gameObject.SetActive(false);
+        _awaitingInitialRelease = true;
     }
 
     private void CancelPlacement()
@@ -103,10 +132,38 @@ public class TowerPlacementController : MonoBehaviour
         {
             _previewTower.gameObject.SetActive(false);
             Destroy(_previewTower.gameObject);
+            _placementEndFrame = Time.frameCount;
             _previewTower = null;
             _td = null;
             _normalRangeGradient = null;
         }
+    }
+
+    private bool TryPlaceTower()
+    {
+        if (_previewTower == null || _td == null)
+            return false;
+        
+        if (_pointerOverMenu)
+            return false;
+        
+        if (!IsValidPlacement(_previewTower.transform.position, _previewTower.BaseRadius))
+            return false;
+        
+        if (!currency.TrySpend(_td.Cost))
+            return false;
+        
+        TowerUnit placedTower = _previewTower;
+        placedTower.LineRenderer.colorGradient = _normalRangeGradient;
+        placedTower.SetPreview(false);
+        towerSelection.SelectTower(placedTower);
+        _placementEndFrame = Time.frameCount;
+
+        _previewTower = null;
+        _td = null;
+        _normalRangeGradient = null;
+
+        return true;
     }
 #endregion
 
@@ -121,6 +178,20 @@ public class TowerPlacementController : MonoBehaviour
             if (blocker.OverlapsCircle(towerPlacementPosition, towerBaseRadius))
                 return false;
         }
+
+        foreach (TowerUnit t in TowerUnit.Towers)
+        {
+            float distSq = (towerPlacementPosition.x - t.transform.position.x) 
+                        * (towerPlacementPosition.x - t.transform.position.x)
+                        + (towerPlacementPosition.y - t.transform.position.y)
+                        * (towerPlacementPosition.y - t.transform.position.y);
+
+            float combinedRadius = towerBaseRadius + t.BaseRadius;
+
+            if (distSq <= combinedRadius * combinedRadius)
+                return false;
+        }
+
         return true;
     }
 

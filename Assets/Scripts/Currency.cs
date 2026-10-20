@@ -149,6 +149,21 @@ public class Currency : MonoBehaviour
     }
 #endregion
 
+#region Transaction Logic
+    public bool TrySpend(int amount)
+    {
+        if (amount < 0 || amount > _balance)
+            return false;
+        
+        _balance -= amount;
+        _countStart = _displayedBalance;
+        _animationElapsed = 0f;
+        _animating = true;
+
+        return true;
+    }
+#endregion
+
 #region Pooling
     private void InitializePool()
     {
