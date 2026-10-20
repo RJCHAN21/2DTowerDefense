@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteAlways]
-public class TowerUnit : TowerTarget
+public class TowerUnit : TowerTarget, IHittable
 {
 #region Inspector Fields
     [Header("Health Setup")]
@@ -52,6 +52,9 @@ public class TowerUnit : TowerTarget
     }
     public float BaseRadius => baseRadius;
     public static IReadOnlyList<TowerUnit> Towers => towers;
+    public Vector2 HitPosition => transform.position;
+    public float HitRadius => 0.6f; // or serialize this in the Inspector
+    
 #endregion
 
 #region Private Properties
@@ -275,7 +278,26 @@ public class TowerUnit : TowerTarget
     {
         if (_isPreview || _isHit || _isInvincible) return;
 
-        health.TakeDamage(damage);
+        if (health == null)
+        {
+            health = GetComponent<Health>();
+        }
+
+        if(health != null)
+        {
+            health.TakeDamage(damage);
+        }
+        
+        else
+        {
+            Debug.LogError("TowerUnit is missing a Health component.", this);
+        }
+        
+    }
+
+    public void Hit(PooledGun sourceGun, int damage)
+    {
+        Hit(damage);
     }
 
     private void OnDied()

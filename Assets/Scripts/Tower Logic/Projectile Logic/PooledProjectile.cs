@@ -65,6 +65,10 @@ public class PooledProjectile : MonoBehaviour
 
         _updateShot?.Invoke(age);
 
+        if (_hitTarget is UnityEngine.Object targetObj && targetObj == null)
+        {
+            _hitTarget = null;
+        }
         if (_hitTarget != null)
         {
             Vector2 center = _hitTarget.HitPosition;

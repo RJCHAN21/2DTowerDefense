@@ -1260,7 +1260,7 @@ MonoBehaviour:
   enemyPrefabsDatabase:
   - {fileID: 2725135409146945003, guid: 2ce368f73d8600a49bf7e268319269f7, type: 3}
   - {fileID: 2725135409146945003, guid: 34830b7055314254a844096554dbf08f, type: 3}
-  - {fileID: 2725135409146945003, guid: 2ce368f73d8600a49bf7e268319269f7, type: 3}
+  - {fileID: 2725135409146945003, guid: e1b033b120cad4949a11eb03b5f29647, type: 3}
   spawnPoints:
   - {fileID: 551749743}
   - {fileID: 801296608}
@@ -1378,34 +1378,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!1 &748406489 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3526114795283734833, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
-  m_PrefabInstance: {fileID: 3329718849529427864}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &748406490 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8114569891491074361, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
   m_PrefabInstance: {fileID: 3329718849529427864}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748406489}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e03936aee406a2042bbf44f544b47f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
---- !u!114 &748406496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748406489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 620d2f5c8b562874f894cfa7bda87d2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerTarget
 --- !u!1 &801296607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1845,10 +1828,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03936aee406a2042bbf44f544b47f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  HPBarFill: {fileID: 0}
+  HPBarFill: {fileID: 7435664}
   HPTxt: {fileID: 515116880}
   maxHP: 20
-  ghostHPBarFill: {fileID: 0}
+  ghostHPBarFill: {fileID: 11919407}
   ghostDelay: 0.3
   ghostDuration: 0.6
 --- !u!4 &1198593314
@@ -6265,10 +6248,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3526114795283734833, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 748406496}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
 --- !u!1001 &4224681438500670837
 PrefabInstance:
