@@ -158,7 +158,8 @@ public class EnemySpawner : MonoBehaviour
                 enemy.transform,
                 cubic.Duration / enemy.EnemySpeed,
                 cubic.GetPath,
-                () => enemy.ReachTarget(playerHealth)));
+                () => enemy.ReachTarget(playerHealth),
+                () => enemy.IsPathPaused));
         }
         else if (quadratic != null)
         {
@@ -166,7 +167,8 @@ public class EnemySpawner : MonoBehaviour
                 enemy.transform,
                 quadratic.Duration / enemy.EnemySpeed,
                 quadratic.GetPath,
-                () => enemy.ReachTarget(playerHealth)));
+                () => enemy.ReachTarget(playerHealth),
+                () => enemy.IsPathPaused));
         } 
         else if (polyline != null)
         {
@@ -174,7 +176,8 @@ public class EnemySpawner : MonoBehaviour
                 enemy.transform,
                 polyline.Duration / enemy.EnemySpeed,
                 polyline.GetPath,
-                () => enemy.ReachTarget(playerHealth)));
+                () => enemy.ReachTarget(playerHealth),
+                () => enemy.IsPathPaused));
         }
     }
 #endregion

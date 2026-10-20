@@ -33,6 +33,8 @@ public class EnemySuicideBomber : MonoBehaviour
     private IObjectPool<GameObject> _vfxPool;
     private bool _hasBrokenAway = false;
     private Transform _targetTowerTransform;
+    private Vector3 _breakawayPoint;
+    private bool _isReturningtoPath = false;
 #endregion
 
 #region Unity Life Cycle
@@ -55,28 +57,17 @@ public class EnemySuicideBomber : MonoBehaviour
     {
         if (TowerTarget.ActiveTowers == null) return;
 
-        if (!_hasBrokenAway)
+        if (!_hasBrokenAway && !_isReturningtoPath)
         {
-            TowerTarget closestTower = null;
-            float closestSqrDist = towerDetectionRange * towerDetectionRange;
-
-            foreach (TowerTarget targetTower in TowerTarget.ActiveTowers)
-            {
-                if (targetTower == null || !targetTower.isActiveAndEnabled) continue;
-
-                float sqrDist = ((Vector2)targetTower.transform.position - (Vector2)transform.position).sqrMagnitude;
-                if (sqrDist <= closestSqrDist)
-                {
-                    closestSqrDist = sqrDist;
-                    closestTower = targetTower;
-                }
-            }
+            TowerTarget closestTower = GetNearestTower();
 
             if (closestTower != null)
             {
+                _breakawayPoint = transform.position;
+
                 if (_baseEnemyComponent != null)
                 {
-                    _baseEnemyComponent.StopAllCoroutines();
+                    _baseEnemyComponent.IsPathPaused = true;
                 }
 
                 _targetTowerTransform = closestTower.transform;
@@ -88,8 +79,19 @@ public class EnemySuicideBomber : MonoBehaviour
         {
             if (_targetTowerTransform == null || !_targetTowerTransform.gameObject.activeInHierarchy)
             {
-                _hasBrokenAway = false;
-                return;
+                TowerTarget nextTower = GetNearestTower();
+
+                if (nextTower != null)
+                {
+                    _targetTowerTransform = nextTower.transform;
+                }
+                else
+                {
+                    _hasBrokenAway = false;
+                    _isReturningtoPath = true;
+                    _targetTowerTransform = null;
+                    return;
+                }
             }
 
             Vector3 direction = (_targetTowerTransform.position - transform.position).normalized;
@@ -100,11 +102,49 @@ public class EnemySuicideBomber : MonoBehaviour
                 ExecuteExplosionPayload();
             }
         }
+
+        if (_isReturningtoPath)
+        {
+            Vector3 returnDirection = (_breakawayPoint - transform.position).normalized;
+            transform.position += returnDirection * offPathSprintSpeed * Time.deltaTime;
+
+            if (Vector2.Distance(transform.position, _breakawayPoint) <= 0.15f)
+            {
+                transform.position = _breakawayPoint;
+                _isReturningtoPath = false;
+
+                if (_baseEnemyComponent != null)
+                {
+                    _baseEnemyComponent.IsPathPaused = false;
+                }
+            }
+        }
+    }
+
+    private TowerTarget GetNearestTower()
+    {
+        TowerTarget closestTower = null;
+        float closestSqrDist = towerDetectionRange * towerDetectionRange;
+
+        foreach (TowerTarget targetTower in TowerTarget.ActiveTowers)
+        {
+            if (targetTower == null || !targetTower.isActiveAndEnabled) continue;
+
+            float sqrDist = ((Vector2)targetTower.transform.position - (Vector2)transform.position).sqrMagnitude;
+            if (sqrDist <= closestSqrDist)
+            {
+                closestSqrDist = sqrDist;
+                closestTower = targetTower;
+            }
+        }
+
+        return closestTower;
     }
 
     private void OnDisable()
     {
         _hasBrokenAway = false;
+        _isReturningtoPath = false;
         _targetTowerTransform = null;
     }
 #endregion
@@ -112,7 +152,11 @@ public class EnemySuicideBomber : MonoBehaviour
 #region Core Detonation Sequence Calculation
     private void ExecuteExplosionPayload()
     {
-        if (_baseEnemyComponent == null) return;
+        if (_baseEnemyComponent == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
         if (_vfxPool != null && explosionVFXPrefab != null)
         {
@@ -124,13 +168,16 @@ public class EnemySuicideBomber : MonoBehaviour
             }
         }
 
-        foreach (TowerTarget towerInstance in TowerTarget.ActiveTowers)
+       
+        var towersCopy = new System.Collections.Generic.List<TowerTarget>(TowerTarget.ActiveTowers);
+
+        foreach (TowerTarget towerInstance in towersCopy)
         {
-            if (towerInstance == null) continue;
+            if (towerInstance == null || !towerInstance.isActiveAndEnabled) continue;
 
             if (SightDetector.IsInRadius(transform, towerInstance.transform, blastDamageRadius))
             {
-                if (towerInstance.TryGetComponent<TowerUnit>(out TowerUnit towerUnit))
+                if (towerInstance.TryGetComponent(out TowerUnit towerUnit))
                 {
                     if (towerUnit.Health != null)
                     {
@@ -140,7 +187,9 @@ public class EnemySuicideBomber : MonoBehaviour
             }
         }
 
+        // 3. Return to pool and disable
         _baseEnemyComponent.ReturnToPool();
+        gameObject.SetActive(false); 
     }
 #endregion
 

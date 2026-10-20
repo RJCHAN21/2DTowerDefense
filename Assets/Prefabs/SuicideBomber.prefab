@@ -299,9 +299,9 @@ MonoBehaviour:
   defaultCapacity: 10
   maxSize: 50
   detonationProximity: 0.6
-  blastDamageRadius: 0.15
+  blastDamageRadius: 1
   structuralPayloadDamage: 10
-  towerDetectionRange: 4
+  towerDetectionRange: 1
   offPathSprintSpeed: 3.5
 --- !u!1 &8708113299997338634
 GameObject:

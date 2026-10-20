@@ -30,6 +30,7 @@ public class Enemy : EnemyTarget, IHittable
 #endregion
 
 #region Public Properties
+    public bool IsPathPaused { get; set; } = false;
     public Vector2 HitPosition => transform.position;
     public bool IsInvincible { get; set; }   
     public float HitRadius => hitRadius;
@@ -127,6 +128,7 @@ public class Enemy : EnemyTarget, IHittable
     {
         _isHit = false;
         _isReturned = false;
+        IsPathPaused = false;
         health.ResetHealth();
     }
 
