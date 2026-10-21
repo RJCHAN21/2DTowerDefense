@@ -91,7 +91,10 @@ public class TowerPlacementController : MonoBehaviour
 
         _previewTower.LineRenderer.enabled = visible;
 
-        bool valid = IsValidPlacement(cursorWorldPos, _previewTower.BaseRadius);
+        bool canAfford = currency.Balance >= _td.Cost;
+
+        bool valid = canAfford &&
+            IsValidPlacement(cursorWorldPos, _previewTower.BaseRadius);
 
         _previewTower.LineRenderer.colorGradient =
             valid ? _normalRangeGradient : invalidRangeGradient;
@@ -182,7 +185,7 @@ public class TowerPlacementController : MonoBehaviour
         _td = null;
         _normalRangeGradient = null;
         SoundManager.Instance?.PlaySFX(placementSFX);
-        
+
         return true;
     }
 #endregion

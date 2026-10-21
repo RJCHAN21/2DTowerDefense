@@ -4310,10 +4310,10 @@ MonoBehaviour:
     m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  placementSFX: {fileID: 0}
-  rejectSFX: {fileID: 0}
-  cancelSFX: {fileID: 0}
-  selectSFX: {fileID: 0}
+  placementSFX: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
+  rejectSFX: {fileID: 8300000, guid: dc6614beca09347ec9b258f12d154bdd, type: 3}
+  cancelSFX: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+  selectSFX: {fileID: 8300000, guid: 6aab63312d871b04683c4331c73dd789, type: 3}
 --- !u!4 &564085835
 Transform:
   m_ObjectHideFlags: 0
