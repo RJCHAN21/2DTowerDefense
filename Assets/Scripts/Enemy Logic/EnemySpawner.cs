@@ -28,6 +28,9 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Rewards")]
     [SerializeField] private Currency currency;
+
+    [Tooltip("Keep spawning until this scene ends. Used for the title background.")]
+    [SerializeField] private bool spawnContinuously;
 #endregion
 
 #region Private Properties
@@ -75,7 +78,7 @@ public class EnemySpawner : MonoBehaviour
     private void Update()
     {
         if (!isSpawnerActive) return;
-        if (_spawnedCount >= spawnCount)
+        if (!spawnContinuously && _spawnedCount >= spawnCount)
         {
             isSpawnerActive = false;
             return;
@@ -150,7 +153,8 @@ public class EnemySpawner : MonoBehaviour
             spawnPt.rotation);
 
         enemy.gameObject.SetActive(true);
-        _spawnedCount++;
+        if (!spawnContinuously)
+            _spawnedCount++;
 
         if (cubic != null)
         {
