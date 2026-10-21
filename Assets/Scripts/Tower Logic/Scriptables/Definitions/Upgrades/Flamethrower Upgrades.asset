@@ -34,6 +34,9 @@ MonoBehaviour:
         flameWidthMultiplier: 0
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
+        overrideBlastRadius: 0
+        blastRadius: 0
+        isHoming: 0
   - stageLabel: Level Two
     options:
     - upgradeName: Improved Range
@@ -48,13 +51,16 @@ MonoBehaviour:
         overrideShotInterval: 0
         shotInterval: 0
         overrideRange: 1
-        range: 1.25
+        range: 2
         overrideRechargeDuration: 0
         rechargeDuration: 0
         overrideFlameWidth: 0
         flameWidthMultiplier: 0
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
+        overrideBlastRadius: 0
+        blastRadius: 0
+        isHoming: 0
   - stageLabel: Level Three
     options:
     - upgradeName: Larger Flames
@@ -76,3 +82,6 @@ MonoBehaviour:
         flameWidthMultiplier: 1.3
         overrideProjectilesPerBurst: 1
         projectilesPerBurst: 7
+        overrideBlastRadius: 0
+        blastRadius: 0
+        isHoming: 0

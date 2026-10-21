@@ -9,17 +9,25 @@ public class PooledProjectile : MonoBehaviour
 #region Unity Inspector Fields
     [Tooltip("How long it takes for this projectile to despawn.")]
     [SerializeField] private float timeoutDelay = 3f;
+
     [Tooltip("A constant speed that determines how fast the projectile will travel.")]
     [SerializeField] private float speed = 10f;
+
     [Tooltip("Invoked after positioning each shot. Passes its lifetime in seconds.")]
-    [SerializeField] private UnityEvent<float> projectileSpawned = new UnityEvent<float>();
+    [SerializeField] private UnityEvent<float> projectileSpawned =
+        new UnityEvent<float>();
 #endregion
 
 #region Public Properties
-    public IObjectPool<PooledProjectile> ObjPool { set => _objPool = value; }
+    public IObjectPool<PooledProjectile> ObjPool
+    {
+        set => _objPool = value;
+    }
+
     public float BaseSpeed => speed;
     public float BaseLifetime => timeoutDelay;
-
+    public IHittable HitTarget => _hitTarget;
+    public PooledGun SourceGun => _sourceGun;
 #endregion
 
 #region Private Properties
@@ -35,20 +43,21 @@ public class PooledProjectile : MonoBehaviour
     private Action _onImpact;
     private Action _resetShot;
 
-    // OBJECT POOLING \\
-    
     private IObjectPool<PooledProjectile> _objPool;
     private bool _isReturned;
+    private bool _isImpacting;
 #endregion
 
 #region Unity Life Cycle
     private void OnDisable()
     {
         _resetShot?.Invoke();
+
         _resetShot = null;
         _updateShot = null;
+        _onImpact = null;
     }
-    
+
     private void Start()
     {
         _spawnPos = transform.position;
@@ -56,8 +65,14 @@ public class PooledProjectile : MonoBehaviour
 
     private void Update()
     {
+        if (_isReturned || Time.deltaTime <= 0f)
+            return;
+
         Vector2 from = transform.position;
-        transform.position += transform.up * _shotSpeed * Time.deltaTime;
+
+        transform.position +=
+            transform.up * _shotSpeed * Time.deltaTime;
+
         Vector2 path = (Vector2)transform.position - from;
 
         float age = Interpolate.GetLerpTime(
@@ -66,18 +81,27 @@ public class PooledProjectile : MonoBehaviour
 
         _updateShot?.Invoke(age);
 
-        if (_hitTarget is UnityEngine.Object targetObj && targetObj == null)
+        if (_isReturned ||
+            !gameObject.activeInHierarchy ||
+            _onImpact != null)
+            return;
+
+        if (_hitTarget is UnityEngine.Object targetObj &&
+            targetObj == null)
         {
             _hitTarget = null;
         }
+
         if (_hitTarget != null)
         {
             Vector2 center = _hitTarget.HitPosition;
             float lengthSquared = path.sqrMagnitude;
+
             float t = lengthSquared > 0f
-                ? Mathf.Clamp01(Vector2.Dot(center - from, path) / lengthSquared)
+                ? Mathf.Clamp01(
+                    Vector2.Dot(center - from, path) / lengthSquared)
                 : 0f;
-            
+
             Vector2 closestPt = from + path * t;
             float radius = _hitTarget.HitRadius;
 
@@ -85,7 +109,8 @@ public class PooledProjectile : MonoBehaviour
             {
                 if (FXManager.Instance != null)
                 {
-                    if (_hitTarget is Component comp && comp.TryGetComponent(out EnemyTankBoss tankBoss))
+                    if (_hitTarget is Component comp &&
+                        comp.TryGetComponent(out EnemyTankBoss tankBoss))
                     {
                         FXManager.Instance.PlayExplosionOne(closestPt);
                     }
@@ -94,6 +119,7 @@ public class PooledProjectile : MonoBehaviour
                         FXManager.Instance.PlayEnemyHitFeedback(closestPt);
                     }
                 }
+
                 _hitTarget.Hit(_sourceGun, _shotDamage);
                 ReturnToPool();
                 return;
@@ -107,6 +133,7 @@ public class PooledProjectile : MonoBehaviour
     {
         _onImpact = onImpact;
     }
+
     public void SetHitContext(IHittable target, PooledGun gun)
     {
         _hitTarget = target;
@@ -128,10 +155,14 @@ public class PooledProjectile : MonoBehaviour
         StopAllCoroutines();
 
         _resetShot?.Invoke();
+
         _resetShot = null;
         _updateShot = null;
+        _onImpact = null;
 
         _isReturned = false;
+        _isImpacting = false;
+
         _shotSpeed = speed;
         _shotLifetime = timeoutDelay;
         _shotStartedAt = Time.time;
@@ -153,7 +184,27 @@ public class PooledProjectile : MonoBehaviour
         _shotLifetime = Mathf.Max(0.001f, shotLifetime);
         _updateShot = updateShot;
         _resetShot = resetShot;
+
         _updateShot?.Invoke(0f);
+    }
+
+    public void Impact()
+    {
+        if (_isReturned ||
+            _isImpacting ||
+            !gameObject.activeInHierarchy)
+            return;
+
+        _isImpacting = true;
+
+        try
+        {
+            _onImpact?.Invoke();
+        }
+        finally
+        {
+            ReturnToPool();
+        }
     }
 #endregion
 
@@ -166,7 +217,7 @@ public class PooledProjectile : MonoBehaviour
     private IEnumerator DeactivateRoutine(float delay)
     {
         yield return new WaitForSeconds(delay);
-        ReturnToPool();
+        Impact();
     }
 
     private void ReturnToPool()

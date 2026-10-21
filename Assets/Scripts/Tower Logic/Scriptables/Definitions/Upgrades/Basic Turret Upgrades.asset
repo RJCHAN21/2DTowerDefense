@@ -37,14 +37,17 @@ MonoBehaviour:
         flameWidthMultiplier: 0
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
+        overrideBlastRadius: 0
+        blastRadius: 0
+        isHoming: 0
   - stageLabel: Level Two
     options:
     - upgradeName: Become a Shotgunner
       description: 'Turns the basic turret into a Shotgunner that fires five bullets at once.
 
-        Range: 1.5 -> 1.3
+        Range: 2 -> 1.5
 
-        FIre Rate: 0.4s -> 1s '
+        FIre Rate: 0.4s -> 1.5s '
       icon: {fileID: 21300000, guid: 2cc18b6b7fc273d40ba2726c514dac17, type: 3}
       cost: 120
       replacementPrefab: {fileID: 8016026224026870412, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
@@ -62,6 +65,9 @@ MonoBehaviour:
         flameWidthMultiplier: 0
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
+        overrideBlastRadius: 0
+        blastRadius: 0
+        isHoming: 0
     - upgradeName: Become a Sniper
       description: 'Turns the basic turret into a Sniper.
 
@@ -69,7 +75,7 @@ MonoBehaviour:
 
         Range: 1.5 -> 4
 
-        Fire Rate: 0.4s -> 1.5s '
+        Fire Rate: 0.4s -> 2s '
       icon: {fileID: 21300000, guid: d0a30c4e5fa8e69469e78a48f517d1ed, type: 3}
       cost: 140
       replacementPrefab: {fileID: 216480049714251040, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
@@ -87,6 +93,9 @@ MonoBehaviour:
         flameWidthMultiplier: 0
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
+        overrideBlastRadius: 0
+        blastRadius: 0
+        isHoming: 0
   - stageLabel: Level Three (Shotgunner)
     options:
     - upgradeName: Increased Damage
@@ -110,23 +119,26 @@ MonoBehaviour:
         flameWidthMultiplier: 0
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
+        overrideBlastRadius: 0
+        blastRadius: 0
+        isHoming: 0
   - stageLabel: Level Three (Sniper)
     options:
-    - upgradeName: Pro Sniper
-      description: 'Fire significantly faster and deal significantly more damage.
+    - upgradeName: Enhanced Sniper
+      description: 'Fires faster and deals slightly more damage.
 
-        Fire Rate: 1.5s -> 0.4s
+        Fire Rate: 2s -> 1.5s
 
-        Damage: 3 -> 8 '
+        Damage: 3 -> 4 '
       icon: {fileID: 21300000, guid: ac311d36096784641ab3cfc7d59d6ee7, type: 3}
       cost: 120
       replacementPrefab: {fileID: 0}
       nextStageIndex: -1
       towerUpgradeEffects:
         overrideDamage: 1
-        damage: 8
+        damage: 4
         overrideShotInterval: 1
-        shotInterval: 0.4
+        shotInterval: 0.8
         overrideRange: 0
         range: 0
         overrideRechargeDuration: 0
@@ -135,3 +147,6 @@ MonoBehaviour:
         flameWidthMultiplier: 0
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
+        overrideBlastRadius: 0
+        blastRadius: 0
+        isHoming: 0

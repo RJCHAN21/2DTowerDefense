@@ -572,7 +572,7 @@ MonoBehaviour:
   health: {fileID: 8114569891491074361}
   baseRange: 3
   baseRadius: 0.35
-  gunTurningSpeed: 180
+  gunTurningSpeed: 360
   towerTypeBehavior: {fileID: 11400000, guid: 649f6830563b52e4f8aeb78e8e46155d, type: 2}
   regenerationDelay: 5
   regenerationInterval: 2
@@ -598,6 +598,8 @@ MonoBehaviour:
   collectionCheck: 1
   defaultCapacity: 20
   maxSize: 100
+  firingSound: {fileID: 0}
+  firingLoopSource: {fileID: 0}
 --- !u!58 &8296600183650615577
 CircleCollider2D:
   m_ObjectHideFlags: 0

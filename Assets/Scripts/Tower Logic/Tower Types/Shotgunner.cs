@@ -20,7 +20,23 @@ public sealed class Shotgunner : ScriptableObject, ITowerType
 
     public void Fire(PooledGun gun)
     {
-        gun.FirePattern(shotInterval, damage, pelletAngles);
+        gun.FirePattern(shotInterval, damage, projectile =>
+        {
+            float lifetime = projectile.BaseLifetime;
+
+            if (projectile.BaseSpeed > 0f)
+            {
+                lifetime = Mathf.Min(
+                    lifetime,
+                    range / projectile.BaseSpeed);
+            }
+
+            projectile.ConfigureShot(
+                projectile.BaseSpeed,
+                lifetime,
+                null,
+                null);
+        }, pelletAngles);
     }
 
     public void DrawSightVisual(LineRenderer renderer)

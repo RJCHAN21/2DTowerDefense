@@ -103,16 +103,19 @@ public class PooledGun : MonoBehaviour
 
         if (Time.timeScale > 0f)
         {
-            if (firingSound != null)
-                firingSound.Play();
-
-            if (firingLoopSource != null &&
-                firingLoopSource.clip != null)
+            if (firingLoopSource != null)
             {
-                _firingLoopUntil = Time.time + shotInterval + 0.05f;
+                if (firingLoopSource.clip != null)
+                {
+                    _firingLoopUntil = Time.time + shotInterval + 0.05f;
 
-                if (!firingLoopSource.isPlaying)
-                    firingLoopSource.Play();
+                    if (!firingLoopSource.isPlaying)
+                        firingLoopSource.Play();
+                }
+            }
+            else if (firingSound != null)
+            {
+                firingSound.Play();
             }
         }
 
