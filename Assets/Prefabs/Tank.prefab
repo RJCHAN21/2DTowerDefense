@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 8114569891491074361}
   - component: {fileID: 5277599681738025211}
   - component: {fileID: -9000651748020226396}
+  - component: {fileID: 773824967462461699}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -307,7 +308,23 @@ MonoBehaviour:
   baseSpeed: 0.3
   hitRadius: 0.5
   turningSpeed: 360
-  coinValue: 100
+  coinReward: 1
+--- !u!114 &773824967462461699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526114795283734833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  clip: {fileID: 8300000, guid: e11a5a019377fbd4c81caa0adcb4c236, type: 3}
+  volume: 0.5
+  minimumInterval: 0
+  playOnButtonClick: 0
 --- !u!1 &3941106846367555508
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +438,8 @@ MonoBehaviour:
   collectionCheck: 1
   defaultCapacity: 20
   maxSize: 100
+  firingSound: {fileID: 0}
+  firingLoopSource: {fileID: 0}
 --- !u!1 &6030038426405118651
 GameObject:
   m_ObjectHideFlags: 0

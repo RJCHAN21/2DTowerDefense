@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 3378228057927681335}
   - component: {fileID: 412331861842157466}
   - component: {fileID: 2113115965285803655}
+  - component: {fileID: -2946963049884094262}
   m_Layer: 0
   m_Name: EliteSoldier
   m_TagString: Untagged
@@ -263,7 +264,7 @@ MonoBehaviour:
   baseSpeed: 1.2
   hitRadius: 0.5
   turningSpeed: 360
-  coinValue: 4
+  coinReward: 1
 --- !u!114 &2113115965285803655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +283,23 @@ MonoBehaviour:
   ghostHPBarFill: {fileID: 5951337824991244759}
   ghostDelay: 0.1
   ghostDuration: 0.6
+--- !u!114 &-2946963049884094262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725135409146945003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
+  damageClip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
+  deathClip: {fileID: 8300000, guid: 56c09d2f90afe1d49a9a9c4b32a139ca, type: 3}
+  damageVolume: 0.25
+  deathVolume: 0.4
+  damageSoundInterval: 0.1
 --- !u!1 &8708113299997338634
 GameObject:
   m_ObjectHideFlags: 0

@@ -264,7 +264,7 @@ MonoBehaviour:
   baseSpeed: 0.8
   hitRadius: 0.5
   turningSpeed: 360
-  coinValue: 11
+  coinReward: 1
 --- !u!114 &2113115965285803655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +300,7 @@ MonoBehaviour:
   structuralPayloadDamage: 10
   towerDetectionRange: 1
   offPathSprintSpeed: 3.5
+  explosionSFX: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
 --- !u!1 &8708113299997338634
 GameObject:
   m_ObjectHideFlags: 0

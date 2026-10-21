@@ -29,6 +29,7 @@ public class EnemySuicideBomber : MonoBehaviour
 
     [Header("SFX")]
     [SerializeField] private AudioClip explosionSFX;
+    [SerializeField, Range(0f, 1f)] private float explosionVolume = 0.15f;
 #endregion
 
 #region Private Properties
@@ -161,7 +162,7 @@ public class EnemySuicideBomber : MonoBehaviour
             return;
         }
 
-        SoundManager.Instance?.PlaySFX(explosionSFX, 0.5f);
+        SoundManager.Instance?.PlaySFX(explosionSFX, explosionVolume);
 
         if (FXManager.Instance != null)
         {
