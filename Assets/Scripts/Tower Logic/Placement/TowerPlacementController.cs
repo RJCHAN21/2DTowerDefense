@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class TowerPlacementController : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class TowerPlacementController : MonoBehaviour
     [SerializeField] private TowerPlacementBlocker[] towerPlacementBlockers;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Gradient invalidRangeGradient;
+
+    [Header("Placement Hint")]
+    [SerializeField] private TextMeshProUGUI cancelPlacementHint;
+    [SerializeField, Min(0.01f)] private float hintFadeDuration = 0.2f;
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip placementSFX;
@@ -47,10 +52,32 @@ public class TowerPlacementController : MonoBehaviour
     private void OnDisable()
     {
         cancelPlacementAction.Disable();
+
+        if (cancelPlacementHint != null)
+            cancelPlacementHint.alpha = 0f;
+    }
+
+    private void Awake()
+    {
+        if (cancelPlacementHint != null)
+        {
+            cancelPlacementHint.alpha = 0f;
+            cancelPlacementHint.raycastTarget = false;
+        }
     }
 
     private void Update()
     {
+        if (cancelPlacementHint != null)
+        {
+            float targetAlpha = _previewTower != null ? 1f : 0f;
+
+            cancelPlacementHint.alpha = Mathf.MoveTowards(
+                cancelPlacementHint.alpha,
+                targetAlpha,
+                Time.unscaledDeltaTime / hintFadeDuration);
+        }
+
         if (Time.timeScale == 0f)
             return;
 

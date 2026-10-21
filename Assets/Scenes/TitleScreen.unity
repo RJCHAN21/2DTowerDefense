@@ -3648,6 +3648,7 @@ GameObject:
   - component: {fileID: 562744537}
   - component: {fileID: 562744536}
   - component: {fileID: 562744535}
+  - component: {fileID: 562744538}
   m_Layer: 5
   m_Name: SettingsBtn
   m_TagString: Untagged
@@ -3757,6 +3758,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 562744533}
   m_CullTransparentMesh: 1
+--- !u!114 &562744538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562744533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  volume: 1
+  minimumInterval: 0
+  playOnButtonClick: 1
 --- !u!1 &608606611
 GameObject:
   m_ObjectHideFlags: 0
@@ -5081,6 +5098,8 @@ MonoBehaviour:
   deathBurstPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   explosionOnePrefab: {fileID: 0}
   explosionTwoPrefab: {fileID: 0}
+  explosionTwoVisualRadius: 1
+  muzzleFlashPrefab: {fileID: 0}
   defaultCapacity: 20
   maxPoolSize: 60
 --- !u!4 &1123938704
@@ -5277,6 +5296,7 @@ GameObject:
   - component: {fileID: 1176650252}
   - component: {fileID: 1176650251}
   - component: {fileID: 1176650250}
+  - component: {fileID: 1176650253}
   m_Layer: 5
   m_Name: CloseCreditsBtn
   m_TagString: Untagged
@@ -5386,6 +5406,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176650248}
   m_CullTransparentMesh: 1
+--- !u!114 &1176650253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176650248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  volume: 1
+  minimumInterval: 0
+  playOnButtonClick: 1
 --- !u!1 &1302501322
 GameObject:
   m_ObjectHideFlags: 0
@@ -5569,6 +5605,7 @@ GameObject:
   - component: {fileID: 1441657756}
   - component: {fileID: 1441657755}
   - component: {fileID: 1441657754}
+  - component: {fileID: 1441657757}
   m_Layer: 5
   m_Name: CreditsBtn
   m_TagString: Untagged
@@ -5678,6 +5715,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441657752}
   m_CullTransparentMesh: 1
+--- !u!114 &1441657757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441657752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  volume: 1
+  minimumInterval: 0
+  playOnButtonClick: 1
 --- !u!1 &1482490862
 GameObject:
   m_ObjectHideFlags: 0
@@ -5812,6 +5865,7 @@ GameObject:
   - component: {fileID: 1541428480}
   - component: {fileID: 1541428479}
   - component: {fileID: 1541428478}
+  - component: {fileID: 1541428481}
   m_Layer: 5
   m_Name: PlayBtn
   m_TagString: Untagged
@@ -5921,6 +5975,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541428476}
   m_CullTransparentMesh: 1
+--- !u!114 &1541428481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541428476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  volume: 1
+  minimumInterval: 0
+  playOnButtonClick: 1
 --- !u!1 &1589194212
 GameObject:
   m_ObjectHideFlags: 0
@@ -8455,6 +8525,7 @@ GameObject:
   - component: {fileID: 1713464520}
   - component: {fileID: 1713464519}
   - component: {fileID: 1713464518}
+  - component: {fileID: 1713464521}
   m_Layer: 5
   m_Name: CloseSettingsBtn
   m_TagString: Untagged
@@ -8564,6 +8635,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713464516}
   m_CullTransparentMesh: 1
+--- !u!114 &1713464521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713464516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  volume: 1
+  minimumInterval: 0
+  playOnButtonClick: 1
 --- !u!1 &1773207489
 GameObject:
   m_ObjectHideFlags: 0
@@ -8933,7 +9020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MusicPlaylistPlayer
   musicSource: {fileID: 1849861997}
   playlist:
-  - {fileID: 8300000, guid: 42473177e27deec47a049056af08c108, type: 3}
+  - {fileID: 8300000, guid: 457771d0864a67842a71c2fb0a3fdc1a, type: 3}
   shuffle: 1
 --- !u!4 &1849861999
 Transform:
@@ -9402,6 +9489,7 @@ GameObject:
   - component: {fileID: 1910124608}
   - component: {fileID: 1910124607}
   - component: {fileID: 1910124606}
+  - component: {fileID: 1910124609}
   m_Layer: 5
   m_Name: QuitBtn
   m_TagString: Untagged
@@ -9511,6 +9599,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910124604}
   m_CullTransparentMesh: 1
+--- !u!114 &1910124609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910124604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  volume: 1
+  minimumInterval: 0
+  playOnButtonClick: 1
 --- !u!1 &1915213936
 GameObject:
   m_ObjectHideFlags: 0

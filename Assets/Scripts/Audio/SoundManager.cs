@@ -36,6 +36,15 @@ public class SoundManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
+            MusicPlaylistPlayer currentPlaylist =
+                Instance.GetComponentInChildren<MusicPlaylistPlayer>(true);
+
+            MusicPlaylistPlayer incomingPlaylist =
+                GetComponentInChildren<MusicPlaylistPlayer>(true);
+
+            if (currentPlaylist != null && incomingPlaylist != null)
+                currentPlaylist.UsePlaylistFrom(incomingPlaylist);
+
             Destroy(gameObject);
             return;
         }

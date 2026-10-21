@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 3443841087888755742}
   - component: {fileID: -1341344194389534045}
   - component: {fileID: -4039117905518086827}
+  - component: {fileID: -7339959549082562863}
   m_Layer: 0
   m_Name: Flamethrower
   m_TagString: Untagged
@@ -554,7 +555,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1056508469237667693, guid: dd87ad8744fcab440a98794a00640975, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: db86153db4cab4f4d8e2ebe50f5a27ef, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -640,6 +641,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-7339959549082562863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3088859100675720411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
+  damageClip: {fileID: 8300000, guid: 4267b36b1ce8c4beebe7ef729212f7a8, type: 3}
+  deathClip: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
+  damageVolume: 0.25
+  deathVolume: 0.4
+  damageSoundInterval: 0.1
 --- !u!1 &5001940153021409162
 GameObject:
   m_ObjectHideFlags: 0

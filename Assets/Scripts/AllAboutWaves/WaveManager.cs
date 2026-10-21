@@ -40,6 +40,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private AudioClip waveStartSFX;
     [SerializeField] private AudioClip waveCompleteSFX;
     [SerializeField] private AudioClip speedChangeSFX;
+
+    [Header("Music")]
+    [SerializeField] private AudioClip finalWaveMusic;
 #endregion
 
 #region Public Properties
@@ -174,6 +177,9 @@ public class WaveManager : MonoBehaviour
         _isFastForward = false;
         Time.timeScale = 1f;
 
+        if (currentWaveIndex == allWaves.Length - 1)
+            SoundManager.Instance?.PlayMusic(finalWaveMusic);
+            
         waveNumberTMP.text =
             $"WAVE {currentWaveIndex + 1} / {allWaves.Length}";
 

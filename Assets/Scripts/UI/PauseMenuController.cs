@@ -20,6 +20,9 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
+    [Header("Pause Button")]
+    [SerializeField] private Button pauseBtn;
+
     [Header("Menu Buttons")]
     [SerializeField] private Button quitBtn;
     [SerializeField] private Button restartBtn;
@@ -66,6 +69,7 @@ public class PauseMenuController : MonoBehaviour
             menuButtons == null ||
             musicSlider == null ||
             sfxSlider == null ||
+            pauseBtn == null ||
             SoundManager.Instance == null)
         {
             Debug.LogError("Assign all PauseMenuController references.", this);
@@ -76,6 +80,7 @@ public class PauseMenuController : MonoBehaviour
         quitBtn.onClick.AddListener(QuitGame);
         restartBtn.onClick.AddListener(RestartGame);
         continueBtn.onClick.AddListener(ResumeGame);
+        pauseBtn.onClick.AddListener(PauseGame);
 
         _menuPosition = menuContent.anchoredPosition;
         _menuScale = menuContent.localScale;
@@ -143,6 +148,9 @@ public class PauseMenuController : MonoBehaviour
 
         if (continueBtn != null)
             continueBtn.onClick.RemoveListener(ResumeGame);
+
+        if (pauseBtn != null)
+            pauseBtn.onClick.RemoveListener(PauseGame);
     }
 #endregion
 

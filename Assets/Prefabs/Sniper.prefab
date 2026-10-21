@@ -902,6 +902,7 @@ GameObject:
   - component: {fileID: 6842842661378625307}
   - component: {fileID: 8742899763011857644}
   - component: {fileID: -6044892705114563319}
+  - component: {fileID: -8727631381849734863}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -1100,6 +1101,23 @@ MonoBehaviour:
   volume: 0.5
   minimumInterval: 0
   playOnButtonClick: 0
+--- !u!114 &-8727631381849734863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7931984054674912806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
+  damageClip: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
+  deathClip: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
+  damageVolume: 0.25
+  deathVolume: 0.4
+  damageSoundInterval: 0.1
 --- !u!1 &8422018602379672349
 GameObject:
   m_ObjectHideFlags: 0

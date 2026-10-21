@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 8296600183650615577}
   - component: {fileID: 8114569891491074361}
   - component: {fileID: 6289654508047144387}
+  - component: {fileID: -9080614572088149224}
   m_Layer: 0
   m_Name: Shotgunner
   m_TagString: Untagged
@@ -487,6 +488,23 @@ MonoBehaviour:
   volume: 0.5
   minimumInterval: 0
   playOnButtonClick: 0
+--- !u!114 &-9080614572088149224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526114795283734833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
+  damageClip: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
+  deathClip: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
+  damageVolume: 0.25
+  deathVolume: 0.4
+  damageSoundInterval: 0.1
 --- !u!1 &3941106846367555508
 GameObject:
   m_ObjectHideFlags: 0

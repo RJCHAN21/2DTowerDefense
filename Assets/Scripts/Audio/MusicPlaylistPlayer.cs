@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MusicPlaylistPlayer : MonoBehaviour
 {
@@ -15,6 +16,27 @@ public class MusicPlaylistPlayer : MonoBehaviour
 #endregion
 
 #region Unity Life Cycle
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (_playOrder.Count == 0 ||
+            musicSource == null ||
+            !musicSource.loop)
+            return;
+
+        musicSource.loop = false;
+        PlayNextTrack();
+    }
+
     private void Start()
     {
         if (musicSource == null ||
@@ -59,6 +81,34 @@ public class MusicPlaylistPlayer : MonoBehaviour
 #endregion
 
 #region Playlist
+    public void UsePlaylistFrom(MusicPlaylistPlayer other)
+    {
+        if (other == null ||
+            musicSource == null ||
+            other.playlist == null ||
+            other.playlist.Length == 0)
+            return;
+
+        foreach (AudioClip track in other.playlist)
+        {
+            if (track == null)
+            {
+                Debug.LogError(
+                    "The incoming music playlist contains an empty entry.",
+                    other);
+                return;
+            }
+        }
+
+        playlist = other.playlist;
+        shuffle = other.shuffle;
+
+        musicSource.loop = false;
+
+        BuildPlayOrder();
+        PlayNextTrack();
+    }
+    
     private void BuildPlayOrder()
     {
         _playOrder.Clear();
