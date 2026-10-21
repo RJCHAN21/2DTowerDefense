@@ -11,6 +11,7 @@ public class EnemyTankBoss : MonoBehaviour
     [Header("Gun References")]
     [SerializeField] private PooledGun gun;
     [SerializeField] private Transform turretPivot; 
+    [SerializeField] private Transform muzzle;
 
     private TowerTarget _currentTarget;
 
@@ -43,8 +44,16 @@ public class EnemyTankBoss : MonoBehaviour
 
         if (gun != null)
         {
-            gun.FirePattern(fireRate, damagePerShot, -90f);
+            gun.FirePattern(fireRate, damagePerShot, projectile =>
+            { 
+                if (FXManager.Instance != null && muzzle != null)
+                {
+                    FXManager.Instance.PlayMuzzleFlash(muzzle.position, muzzle.rotation);
+                }
+            }, -90f); 
         }
+        
+       
     }
 
     private bool IsTargetInRange(TowerTarget target)

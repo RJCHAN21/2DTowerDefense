@@ -180,6 +180,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &3296370318907656013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4851994937472093746}
+  m_Layer: 0
+  m_Name: Muzzle (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4851994937472093746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296370318907656013}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.25, y: 0.018, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6942347661280998542}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3526114795283734833
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +249,7 @@ Transform:
   - {fileID: 4210561554000201502}
   - {fileID: 1633497312349320752}
   - {fileID: 4034119196713663468}
+  - {fileID: 4851994937472093746}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &8296600183650615577
@@ -292,6 +324,7 @@ MonoBehaviour:
   turretTurnSpeed: 120
   gun: {fileID: 2663391834784664851}
   turretPivot: {fileID: 1633497312349320752}
+  muzzle: {fileID: 4851994937472093746}
 --- !u!114 &-9000651748020226396
 MonoBehaviour:
   m_ObjectHideFlags: 0

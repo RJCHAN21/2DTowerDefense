@@ -5782,7 +5782,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 939517202}
   m_HandleRect: {fileID: 939517201}
   m_Direction: 2
-  m_Value: 0.9999443
+  m_Value: 0.99994254
   m_Size: 0.9433333
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6258,7 +6258,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 43446205}
   m_HandleRect: {fileID: 43446204}
   m_Direction: 2
-  m_Value: 1.000001
+  m_Value: 1
   m_Size: 0.932
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9105,6 +9105,7 @@ MonoBehaviour:
   deathBurstPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   explosionOnePrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   explosionTwoPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  muzzleFlashPrefab: {fileID: 4593184484909914552, guid: 8fa410d951c38ed4ca76dad4972a106a, type: 3}
   defaultCapacity: 20
   maxPoolSize: 60
 --- !u!4 &1142202691
@@ -10167,7 +10168,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 403849122}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999998
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
