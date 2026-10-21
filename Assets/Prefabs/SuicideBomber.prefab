@@ -265,6 +265,8 @@ MonoBehaviour:
   hitRadius: 0.5
   turningSpeed: 360
   coinReward: 1
+  playerDamage: 3
+  instantKillPlayer: 0
 --- !u!114 &2113115965285803655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +303,7 @@ MonoBehaviour:
   towerDetectionRange: 1
   offPathSprintSpeed: 3.5
   explosionSFX: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
+  explosionVolume: 0.15
 --- !u!1 &8708113299997338634
 GameObject:
   m_ObjectHideFlags: 0

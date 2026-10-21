@@ -343,6 +343,8 @@ MonoBehaviour:
   hitRadius: 0.5
   turningSpeed: 360
   coinReward: 1
+  playerDamage: 20
+  instantKillPlayer: 1
 --- !u!114 &773824967462461699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,6 +361,7 @@ MonoBehaviour:
   volume: 0.5
   minimumInterval: 0
   playOnButtonClick: 0
+  playOnToggleChanged: 0
 --- !u!114 &-512856514491034709
 MonoBehaviour:
   m_ObjectHideFlags: 0
