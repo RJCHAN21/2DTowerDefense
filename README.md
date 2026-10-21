@@ -18,7 +18,7 @@ This project uses third-party assets created by the following authors and publis
 - **Creator:** Kenney
 - **Asset Pack:** Tower Defense (Top-Down)
 - **License:** Creative Commons CC0 1.0 Universal
-- **Source:** Kenney — Tower Defense (Top-Down)
+- **Source:** [Kenney — Tower Defense (Top-Down)](https://kenney.nl/assets/tower-defense-top-down)
 
 The assets in this pack are released under CC0 and may be used, modified, and distributed without attribution. Credit is provided here in appreciation of Kenney's work.
 
@@ -38,7 +38,7 @@ The assets in this pack are released under CC0 and may be used, modified, and di
 - **Platform:** Unity Asset Store
 - **License:** Standard Unity Asset Store EULA
 - **License Type:** Extension Asset
-- **Source:** Unity Asset Store — Cartoon FX Remaster Free
+- **Source:** [Unity Asset Store — Cartoon FX Remaster Free](https://assetstore.unity.com/packages/package/109565)
 
 Cartoon FX Remaster Free is used in accordance with the Unity Asset Store End User License Agreement. All rights to the original asset remain with its respective creator and publisher.
 
