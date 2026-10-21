@@ -75,6 +75,11 @@ public class Enemy : EnemyTarget, IHittable
     {
         _isHit = true;
 
+        if (FXManager.Instance != null)
+        {
+            FXManager.Instance.PlayDeathBurst(transform.position);
+        }
+
         if (_currency != null)
             _currency.SpawnCoin(transform.position, coinValue);
 

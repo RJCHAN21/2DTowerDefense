@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 2433282508523890284}
   - component: {fileID: 2433282508523921356}
   - component: {fileID: 2883620193154939874}
+  - component: {fileID: -4899189653176014802}
   m_Layer: 0
   m_Name: CFXR Explosion 1
   m_TagString: Untagged
@@ -3617,6 +3618,18 @@ MonoBehaviour:
     perlinColor: 0
     perlinColorSpeed: 1
   fadeOutReference: {fileID: 0}
+--- !u!114 &-4899189653176014802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2433282508537954060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef54b4c270f7a2740a1ef70e082978fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PooledParticleEffect
 --- !u!1 &2433282508753476420
 GameObject:
   m_ObjectHideFlags: 0

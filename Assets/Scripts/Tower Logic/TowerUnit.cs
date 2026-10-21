@@ -386,6 +386,11 @@ public class TowerUnit : TowerTarget, IHittable
         if(health != null)
         {
             health.TakeDamage(damage);
+
+            if (FXManager.Instance != null)
+            {
+                FXManager.Instance.PlayTowerHitFeedback(transform.position);
+            }
         }
 
         else
@@ -403,6 +408,12 @@ public class TowerUnit : TowerTarget, IHittable
     private void OnDied()
     {
         _isHit = true;
+
+        if (FXManager.Instance != null)
+        {
+            FXManager.Instance.PlayExplosion(transform.position);
+        }
+        
         Destroy(gameObject);
     }
 #endregion

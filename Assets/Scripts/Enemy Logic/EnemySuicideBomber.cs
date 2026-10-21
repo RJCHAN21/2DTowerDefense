@@ -4,11 +4,11 @@ using UnityEngine.Pool;
 public class EnemySuicideBomber : MonoBehaviour
 {
 #region Unity Inspector Fields
-    [Header("Explosion Setup & Pooling")]
-    [SerializeField] private GameObject explosionVFXPrefab;
-    [SerializeField] private bool collectionCheck = true;
-    [SerializeField] private int defaultCapacity = 10;
-    [SerializeField] private int maxSize = 50;
+    // [Header("Explosion Setup & Pooling")]
+    // [SerializeField] private GameObject explosionVFXPrefab;
+    // [SerializeField] private bool collectionCheck = true;
+    // [SerializeField] private int defaultCapacity = 10;
+    // [SerializeField] private int maxSize = 50;
 
     [Header("Detonation Proximity Coordinates")]
     [Tooltip("Distance threshold (radius) that triggers the explosion sequence.")]
@@ -30,7 +30,7 @@ public class EnemySuicideBomber : MonoBehaviour
 
 #region Private Properties
     private Enemy _baseEnemyComponent;
-    private IObjectPool<GameObject> _vfxPool;
+    // private IObjectPool<PooledExplosionVFX> _vfxPool;
     private bool _hasBrokenAway = false;
     private Transform _targetTowerTransform;
     private Vector3 _breakawayPoint;
@@ -42,15 +42,15 @@ public class EnemySuicideBomber : MonoBehaviour
     {
         _baseEnemyComponent = GetComponent<Enemy>();
 
-        _vfxPool = new ObjectPool<GameObject>(
-            CreateExplosionVFXInstance,
-            OnGetFromPool,
-            OnReleaseToPool,
-            OnDestroyPoolObject,
-            collectionCheck,
-            defaultCapacity,
-            maxSize
-        );
+        // _vfxPool = new ObjectPool<PooledExplosionVFX>(
+        //     CreateExplosionVFXInstance,
+        //     OnGetFromPool,
+        //     OnReleaseToPool,
+        //     OnDestroyPoolObject,
+        //     collectionCheck,
+        //     defaultCapacity,
+        //     maxSize
+        // );
     }
 
     private void Update()
@@ -158,19 +158,12 @@ public class EnemySuicideBomber : MonoBehaviour
             return;
         }
 
-        if (_vfxPool != null && explosionVFXPrefab != null)
+        if (FXManager.Instance != null)
         {
-            GameObject explosionObj = _vfxPool.Get();
-            if (explosionObj != null)
-            {
-                explosionObj.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-                explosionObj.gameObject.SetActive(true);
-            }
+            FXManager.Instance.PlayExplosion(transform.position);
         }
 
-       
         var towersCopy = new System.Collections.Generic.List<TowerTarget>(TowerTarget.ActiveTowers);
-
         foreach (TowerTarget towerInstance in towersCopy)
         {
             if (towerInstance == null || !towerInstance.isActiveAndEnabled) continue;
@@ -185,37 +178,35 @@ public class EnemySuicideBomber : MonoBehaviour
                     }
                 }
             }
-        }
-
-        // 3. Return to pool and disable
+        }   
         _baseEnemyComponent.ReturnToPool();
         gameObject.SetActive(false); 
     }
 #endregion
 
-#region Object Pooling 
-    private GameObject CreateExplosionVFXInstance()
-    {
-        GameObject instance = Instantiate(explosionVFXPrefab);
-        instance.SetActive(false);
+// #region Object Pooling 
+//     private PooledExplosionVFX CreateExplosionVFXInstance()
+//     {
+//         PooledExplosionVFX instance = Instantiate(explosionVFXPrefab);
+//         instance.SetActive(false);
 
-        if (!instance.TryGetComponent<PooledExplosionVFX>(out var poolTracker))
-        {
-            poolTracker = instance.AddComponent<PooledExplosionVFX>();
-        }
+//         if (!instance.TryGetComponent<PooledExplosionVFX>(out var poolTracker))
+//         {
+//             poolTracker = instance.AddComponent<PooledExplosionVFX>();
+//         }
 
-        return instance;
-    }
+//         return instance;
+//     }
 
-    private void OnGetFromPool(GameObject instance)
-    {
-        if (instance.TryGetComponent<PooledExplosionVFX>(out var poolTracker))
-        {
-            poolTracker.InitializeVFXContext(_vfxPool);
-        }
-    }
+//     private void OnGetFromPool(GameObject instance)
+//     {
+//         if (instance.TryGetComponent<PooledExplosionVFX>(out var poolTracker))
+//         {
+//             poolTracker.InitializeVFXContext(_vfxPool);
+//         }
+//     }
 
-    private void OnReleaseToPool(GameObject instance) => instance.SetActive(false);
-    private void OnDestroyPoolObject(GameObject instance) { if (instance != null) Destroy(instance); }
-#endregion
+//     private void OnReleaseToPool(GameObject instance) => instance.SetActive(false);
+//     private void OnDestroyPoolObject(GameObject instance) { if (instance != null) Destroy(instance); }
+// #endregion
 }
