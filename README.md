@@ -22,6 +22,15 @@ This project uses third-party assets created by the following authors and publis
 
 The assets in this pack are released under CC0 and may be used, modified, and distributed without attribution. Credit is provided here in appreciation of Kenney's work.
 
+### Kenney — UI Pack
+
+- **Creator:** Kenney
+- **Asset Pack:** UI Pack
+- **License:** Creative Commons CC0 1.0 Universal
+- **Source:** [Kenney — UI Pack](https://kenney.nl/assets/ui-pack)
+
+The assets in this pack are released under CC0 and may be used, modified, and distributed without attribution. Credit is provided here in appreciation of Kenney's work.
+
 ### Jean Moreno — Cartoon FX Remaster Free
 
 - **Creator / Publisher:** Jean Moreno

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Basic Turret
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefinition
   towerPrefab: {fileID: 8016026224026870412, guid: 3115c443ba6d8c14fb9af87c3ad291f3, type: 3}
-  towerSprite: {fileID: -3406780426092485941, guid: 615e9367febfaad43805818f85f29bce, type: 3}
+  towerSprite: {fileID: 21300000, guid: 32f1798246226f7448deec2f2b271e43, type: 3}
   cost: 50
   upgradeDefinition: {fileID: 11400000, guid: 0a0567653cafc89419bb1ba8edfb173c, type: 2}

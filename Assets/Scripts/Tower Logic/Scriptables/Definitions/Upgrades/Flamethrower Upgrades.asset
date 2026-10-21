@@ -17,7 +17,7 @@ MonoBehaviour:
     options:
     - upgradeName: Faster Recharge
       description: Reduces recharge from 3s to 1.5s.
-      icon: {fileID: 0}
+      icon: {fileID: 21300000, guid: 649f1a1957d74c54fba5432211b02d3c, type: 3}
       cost: 60
       replacementPrefab: {fileID: 0}
       nextStageIndex: 1
@@ -38,7 +38,7 @@ MonoBehaviour:
     options:
     - upgradeName: Improved Range
       description: Increases flame range by 25%.
-      icon: {fileID: 0}
+      icon: {fileID: 21300000, guid: eb253c7cb94e69442b0838c406a4a3f9, type: 3}
       cost: 100
       replacementPrefab: {fileID: 0}
       nextStageIndex: 2
@@ -59,7 +59,7 @@ MonoBehaviour:
     options:
     - upgradeName: Larger Flames
       description: Widens the flame spread by 30% and increases projectiles per burst from 5 to 7, improving coverage against groups of enemies.
-      icon: {fileID: 0}
+      icon: {fileID: 21300000, guid: 189248117a5c1e047aaa59b65c6c8db2, type: 3}
       cost: 120
       replacementPrefab: {fileID: 0}
       nextStageIndex: -1
