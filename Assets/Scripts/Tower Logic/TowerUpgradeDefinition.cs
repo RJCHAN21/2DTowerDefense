@@ -46,6 +46,10 @@ public struct TowerUpgradeOption
     [SerializeField, Min(-1)] private int nextStageIndex;
 
     [SerializeField] private TowerUpgradeEffects towerUpgradeEffects;
+
+    [Header("Purchase Feedback")]
+    [SerializeField] private AudioClip upgradeSFX;
+    [SerializeField] private GameObject upgradeVFX;
 #endregion
 
 #region Public Properties
@@ -56,6 +60,8 @@ public struct TowerUpgradeOption
     public TowerUnit ReplacementPrefab => replacementPrefab;
     public int NextStageIndex => nextStageIndex;
     public TowerUpgradeEffects TowerUpgradeEffects => towerUpgradeEffects;
+    public AudioClip UpgradeSFX => upgradeSFX;
+    public GameObject UpgradeVFX => upgradeVFX;
 #endregion
 }
 

@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections.Generic;
 
 public class FXManager : MonoBehaviour
 {
     public static FXManager Instance { get; private set; }
 
+#region Unity Inspector Fields
     [Header("Particle Prefabs (GameObjects)")]
     [SerializeField] private GameObject enemyHitFeedbackPrefab;
     [SerializeField] private GameObject towerHitFeedbackPrefab;
@@ -15,13 +17,18 @@ public class FXManager : MonoBehaviour
     [Header("Pool Capacities")]
     [SerializeField] private int defaultCapacity = 20;
     [SerializeField] private int maxPoolSize = 60;
+#endregion
 
+#region Runtime Properties
     private IObjectPool<PooledParticleEffect> _enemyHitFeedbackPool;
     private IObjectPool<PooledParticleEffect> _towerHitFeedbackPool;
     private IObjectPool<PooledParticleEffect> _deathBurstPool;
     private IObjectPool<PooledExplosionVFX> _explosionOnePool;
     private IObjectPool<PooledExplosionVFX> _explosionTwoPool;
+    private readonly Dictionary<GameObject, IObjectPool<PooledParticleEffect>> _upgradeEffectPools = new();
+#endregion
 
+#region Unity Life Cycle
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -130,7 +137,9 @@ public class FXManager : MonoBehaviour
             );
         }
     }
+#endregion
 
+#region Feedbacks
     private PooledParticleEffect CreatePooledEffect(
         GameObject prefab,
         IObjectPool<PooledParticleEffect> pool)
@@ -188,4 +197,43 @@ public class FXManager : MonoBehaviour
         explosion.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
         explosion.gameObject.SetActive(true);
     }
+
+    public void PlayUpgradeEffect(GameObject prefab, Vector3 position)
+    {
+        if (prefab == null)
+            return;
+
+        if (!_upgradeEffectPools.TryGetValue(
+                prefab,
+                out IObjectPool<PooledParticleEffect> pool))
+        {
+            pool = new ObjectPool<PooledParticleEffect>(
+                createFunc: () => CreatePooledEffect(
+                    prefab, _upgradeEffectPools[prefab]),
+
+                actionOnGet: null,
+
+                actionOnRelease: effect =>
+                {
+                    if (effect != null)
+                        effect.gameObject.SetActive(false);
+                },
+
+                actionOnDestroy: effect =>
+                {
+                    if (effect != null)
+                        Destroy(effect.gameObject);
+                },
+
+                collectionCheck: false,
+                defaultCapacity: defaultCapacity,
+                maxSize: maxPoolSize
+            );
+
+            _upgradeEffectPools.Add(prefab, pool);
+        }
+
+        pool.Get().PlayAt(position, Quaternion.identity);
+    }
+#endregion
 }

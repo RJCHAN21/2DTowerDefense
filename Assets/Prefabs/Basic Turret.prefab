@@ -388,7 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: d351a3745445e4c458f3ee6f4108d966, type: 3}
+  clip: {fileID: 8300000, guid: ba3d33391dcef4288a8ab5210877f166, type: 3}
   volume: 0.5
   minimumInterval: 0
   playOnButtonClick: 0

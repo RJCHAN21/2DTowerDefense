@@ -37,6 +37,8 @@ MonoBehaviour:
         overrideBlastRadius: 0
         blastRadius: 0
         isHoming: 0
+      upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+      upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - stageLabel: Level Two
     options:
     - upgradeName: Improved Range
@@ -61,6 +63,8 @@ MonoBehaviour:
         overrideBlastRadius: 0
         blastRadius: 0
         isHoming: 0
+      upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+      upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - stageLabel: Level Three
     options:
     - upgradeName: Larger Flames
@@ -85,3 +89,5 @@ MonoBehaviour:
         overrideBlastRadius: 0
         blastRadius: 0
         isHoming: 0
+      upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+      upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}

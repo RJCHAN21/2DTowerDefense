@@ -29,6 +29,8 @@ public class TowerInfoMenuController : MonoBehaviour
     [Header("Upgrade Choices")]
     [SerializeField] private RectTransform upgradesContent;
     [SerializeField] private TowerUpgradeItem towerUpgradeItemPrefab;
+    [SerializeField] private Button previousUpgradeBtn;
+    [SerializeField] private Button nextUpgradeBtn;
 
     [Header("Selling")]
     [SerializeField] private Button sellBtn;
@@ -69,6 +71,8 @@ public class TowerInfoMenuController : MonoBehaviour
         leftArrowBtn.onClick.AddListener(PreviousFocus);
         rightArrowBtn.onClick.AddListener(NextFocus);
         closeBtn.onClick.AddListener(CloseMenu);
+        previousUpgradeBtn.onClick.AddListener(PreviousUpgrade);
+        nextUpgradeBtn.onClick.AddListener(NextUpgrade);
 
         ShowTower(towerSelection.SelectedTower);
     }
@@ -81,6 +85,8 @@ public class TowerInfoMenuController : MonoBehaviour
         leftArrowBtn.onClick.RemoveListener(PreviousFocus);
         rightArrowBtn.onClick.RemoveListener(NextFocus);
         closeBtn.onClick.RemoveListener(CloseMenu);
+        previousUpgradeBtn.onClick.RemoveListener(PreviousUpgrade);
+        nextUpgradeBtn.onClick.RemoveListener(NextUpgrade);
 
         if (_fadeAnim != null)
         {
@@ -139,6 +145,9 @@ public class TowerInfoMenuController : MonoBehaviour
 
         IReadOnlyList<TowerUpgradeOption> options = _tower.AvailableUpgrades;
 
+        previousUpgradeBtn.interactable = false;
+        nextUpgradeBtn.interactable = false;
+
         if (options.Count == 0)
         {
             _selectedUpgradeIndex = -1;
@@ -196,12 +205,29 @@ public class TowerInfoMenuController : MonoBehaviour
         descriptionTMP.text = option.Description;
         upgradeBtnTMP.text = $"UPGRADE: ${option.Cost:N0}";
         upgradeBtn.interactable = true;
+        previousUpgradeBtn.interactable = optionIndex > 0;
+        nextUpgradeBtn.interactable = optionIndex < options.Count - 1;
+    }
+
+    private void PreviousUpgrade()
+    {
+        SelectUpgrade(_selectedUpgradeIndex - 1);
+    }
+
+    private void NextUpgrade()
+    {
+        SelectUpgrade(_selectedUpgradeIndex + 1);
     }
 
     private void PurchaseUpgrade()
     {
-        if (_tower == null || _selectedUpgradeIndex < 0)
+        if (_tower == null ||
+            _selectedUpgradeIndex < 0 ||
+            _selectedUpgradeIndex >= _tower.AvailableUpgrades.Count)
             return;
+
+        TowerUpgradeOption option =
+            _tower.AvailableUpgrades[_selectedUpgradeIndex];
 
         if (!_tower.TryPurchaseUpgrade(
                 _selectedUpgradeIndex,
@@ -212,7 +238,16 @@ public class TowerInfoMenuController : MonoBehaviour
             return;
         }
 
-        SoundManager.Instance?.PlaySFX(upgradeSFX);
+        AudioClip purchaseSound = option.UpgradeSFX != null
+            ? option.UpgradeSFX
+            : upgradeSFX;
+
+        SoundManager.Instance?.PlaySFX(purchaseSound);
+
+        FXManager.Instance?.PlayUpgradeEffect(
+            option.UpgradeVFX,
+            resultingTower.transform.position);
+
         towerSelection.SelectTower(resultingTower);
     }
 

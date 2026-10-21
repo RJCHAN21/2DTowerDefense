@@ -85,6 +85,18 @@ Free Sound Effects Pack Starter - All categories is used in accordance with the 
 
 Only SFX demo sounds from this package are used in this project. All rights to the original assets remain with their respective creators and publisher.
 
+### More Mountains — Feel
+
+- **Creator / Publisher:** More Mountains
+- **Asset Pack:** Feel
+- **Assets Used:** Sound effects (SFX)
+- **Platform:** Unity Asset Store
+- **License:** Standard Unity Asset Store EULA
+- **License Type:** Extension Asset
+- **Source:** [Unity Asset Store — Feel](https://assetstore.unity.com/packages/tools/particles-effects/feel-183370)
+
+Sound effects from Feel are used in this project. All rights to the original assets remain with their respective creators and publisher.
+
 ### raphavpires — Flamethrower (loop)
 
 - **Creator:** raphavpires
@@ -96,6 +108,17 @@ Only SFX demo sounds from this package are used in this project. All rights to t
 - **Source:** [Freesound — Flamethrower (loop)](https://freesound.org/people/raphavpires/sounds/867029/)
 
 This sound is released under CC0. Credit is provided here in appreciation of the creator's work.
+
+### kiddpark — Cash Register
+
+- **Creator:** kiddpark
+- **Sound:** Cash Register
+- **Platform:** Freesound
+- **License:** Creative Commons Attribution 4.0 International (CC BY 4.0)
+- **License Link:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Source:** [Freesound — Cash Register](https://freesound.org/people/kiddpark/sounds/201159/)
+
+Cash Register by kiddpark is used under CC BY 4.0. All rights to the original sound remain with its creator.
 
 ### Andrew Sitkov Music — FREE Battle Music Pack
 

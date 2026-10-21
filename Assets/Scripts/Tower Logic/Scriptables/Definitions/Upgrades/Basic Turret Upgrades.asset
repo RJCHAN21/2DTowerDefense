@@ -40,6 +40,8 @@ MonoBehaviour:
         overrideBlastRadius: 0
         blastRadius: 0
         isHoming: 0
+      upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+      upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - stageLabel: Level Two
     options:
     - upgradeName: Become a Shotgunner
@@ -68,6 +70,8 @@ MonoBehaviour:
         overrideBlastRadius: 0
         blastRadius: 0
         isHoming: 0
+      upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+      upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
     - upgradeName: Become a Sniper
       description: 'Turns the basic turret into a Sniper.
 
@@ -96,6 +100,8 @@ MonoBehaviour:
         overrideBlastRadius: 0
         blastRadius: 0
         isHoming: 0
+      upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+      upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - stageLabel: Level Three (Shotgunner)
     options:
     - upgradeName: Increased Damage
@@ -122,6 +128,8 @@ MonoBehaviour:
         overrideBlastRadius: 0
         blastRadius: 0
         isHoming: 0
+      upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+      upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - stageLabel: Level Three (Sniper)
     options:
     - upgradeName: Enhanced Sniper
@@ -150,3 +158,5 @@ MonoBehaviour:
         overrideBlastRadius: 0
         blastRadius: 0
         isHoming: 0
+      upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+      upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}

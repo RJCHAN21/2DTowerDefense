@@ -24,6 +24,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private Sprite fastForwardBackground;
     [SerializeField] private Sprite fastForwardIcon;
     [SerializeField, Min(1f)] private float fastForwardSpeed = 2f;
+    [SerializeField] private TextMeshProUGUI gameControlTMP;
 
     [Header("Wave Completion Reward")]
     [SerializeField] private Currency currency;
@@ -207,6 +208,28 @@ public class WaveManager : MonoBehaviour
             waveControlBtn.interactable =
                 _state == WaveState.Waiting ||
                 _state == WaveState.Running;
+        }
+
+        if (gameControlTMP != null)
+        {
+            switch (_state)
+            {
+                case WaveState.Waiting:
+                    gameControlTMP.text = "START WAVE";
+                    break;
+
+                case WaveState.Running:
+                    gameControlTMP.text = "FAST-FORWARD";
+                    break;
+
+                case WaveState.Cooldown:
+                    gameControlTMP.text = "INTERMISSION";
+                    break;
+
+                default:
+                    gameControlTMP.text = "";
+                    break;
+            }
         }
     }
 #endregion
