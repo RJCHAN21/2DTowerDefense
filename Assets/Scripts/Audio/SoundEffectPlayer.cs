@@ -12,11 +12,15 @@ public class SoundEffectPlayer : MonoBehaviour
 
     [Tooltip("Automatically play when the Button on this object is clicked.")]
     [SerializeField] private bool playOnButtonClick;
+
+    [Tooltip("Automatically play when the Toggle on this object changes.")]
+    [SerializeField] private bool playOnToggleChanged;
 #endregion
 
 #region Private Properties
     private Button _button;
     private float _nextPlayTime;
+    private Toggle _toggle;
 #endregion
 
 #region Unity Life Cycle
@@ -27,16 +31,29 @@ public class SoundEffectPlayer : MonoBehaviour
 
         if (playOnButtonClick && _button != null)
             _button.onClick.AddListener(Play);
+        
+        _toggle = GetComponent<Toggle>();
+
+        if (playOnToggleChanged && _toggle != null)
+            _toggle.onValueChanged.AddListener(OnToggleChanged);
     }
 
     private void OnDisable()
     {
         if (_button != null)
             _button.onClick.RemoveListener(Play);
+
+        if (_toggle != null)
+            _toggle.onValueChanged.RemoveListener(OnToggleChanged);
     }
 #endregion
 
 #region Playback
+    private void OnToggleChanged(bool isOn)
+    {
+        Play();
+    }
+    
     public void Play()
     {
         if (clip == null ||

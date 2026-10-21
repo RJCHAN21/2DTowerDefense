@@ -3028,8 +3028,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 0}
-  m_SizeDelta: {x: 1483.1, y: 192.09998}
+  m_AnchoredPosition: {x: 300, y: -14.766}
+  m_SizeDelta: {x: 871.859, y: 147.8}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &540631337
 MonoBehaviour:
@@ -3117,7 +3117,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 173.9502, w: 0}
+  m_margin: {x: 0, y: -2.2759552, z: 2.0987244, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4708,7 +4708,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!114 &784838335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8364,7 +8364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TOWER WARS
+  m_text: TURRET WARS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -8736,7 +8736,7 @@ MonoBehaviour:
   musicMutedSprite: {fileID: 21300000, guid: bc2de3134448b0d469e33d6c23be524f, type: 3}
   sfxUnmutedSprite: {fileID: 21300000, guid: 09e4944b6b66a864c961e33bc26877d9, type: 3}
   sfxMutedSprite: {fileID: 21300000, guid: 17c14d08823460442aa4cd1b1bdba3c1, type: 3}
-  fullscreenToggle: {fileID: 0}
+  fullscreenToggle: {fileID: 784838334}
 --- !u!114 &1624646748
 MonoBehaviour:
   m_ObjectHideFlags: 0
