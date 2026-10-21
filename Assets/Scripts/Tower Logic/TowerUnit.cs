@@ -107,7 +107,6 @@ public class TowerUnit : TowerTarget, IHittable
             ? _runtimeTowerType
             : towerTypeBehavior) as ITowerType;
     private bool _canFire = true;
-    private static TowerUnit selectedTower = null;
     private bool _isInvincible = false;
     private bool _isHit = false;
     private float _nextRegenerationTime;

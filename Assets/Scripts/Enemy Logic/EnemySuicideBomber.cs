@@ -26,6 +26,9 @@ public class EnemySuicideBomber : MonoBehaviour
 
     [Tooltip("Movement speed when sprinting directly toward a tower off-path.")]
     [SerializeField] private float offPathSprintSpeed = 3.5f;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClip explosionSFX;
 #endregion
 
 #region Private Properties
@@ -157,6 +160,8 @@ public class EnemySuicideBomber : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
+
+        SoundManager.Instance?.PlaySFX(explosionSFX, 0.5f);
 
         if (FXManager.Instance != null)
         {

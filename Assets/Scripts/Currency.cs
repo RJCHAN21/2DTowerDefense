@@ -37,6 +37,9 @@ public class Currency : MonoBehaviour
 
     [Tooltip("Additional scale at the punch peak. 0.2 means 20% larger.")]
     [SerializeField, Min(0f)] private float punchAmount = 0.2f;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClip coinCollectSFX;
 #endregion
 
 #region Private Properties
@@ -261,7 +264,11 @@ public class Currency : MonoBehaviour
                 return Bezier.Quadratic(
                     start, control, end, progress);
             },
-            () => Deposit(value));
+            () =>
+            {
+                Deposit(value);
+                SoundManager.Instance?.PlaySFX(coinCollectSFX, 0.15f);
+            });
         
         ReturnToPool(coin);
     }

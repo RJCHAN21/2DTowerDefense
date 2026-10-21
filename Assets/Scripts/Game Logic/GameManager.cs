@@ -6,8 +6,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public static event Action GameEnded;
+
+    public bool IsVictory { get; private set; }
+
     private bool _isGameOver;
-    
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,9 +34,20 @@ public class GameManager : MonoBehaviour
 
         _isGameOver = true;
         GameEnded?.Invoke();
+
+        Time.timeScale = 0f;
     }
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    public void CallGameWin()
+    {
+        if (_isGameOver) return;
+
+        IsVictory = true;
+        CallGameEnd();
+    }
+
+    [RuntimeInitializeOnLoadMethod(
+        RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStaticState()
     {
         Instance = null;

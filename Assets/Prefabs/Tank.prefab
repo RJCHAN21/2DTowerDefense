@@ -269,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   HPBarFill: {fileID: 6843263409601684364}
   HPTxt: {fileID: 0}
-  maxHP: 1
+  maxHP: 120
   ghostHPBarFill: {fileID: 8440904659706811329}
   ghostDelay: 0.3
   ghostDuration: 0.6
@@ -304,9 +304,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: {fileID: 8114569891491074361}
+  baseSpeed: 0.3
   hitRadius: 0.5
   turningSpeed: 360
-  coinValue: 1
+  coinValue: 100
 --- !u!1 &3941106846367555508
 GameObject:
   m_ObjectHideFlags: 0

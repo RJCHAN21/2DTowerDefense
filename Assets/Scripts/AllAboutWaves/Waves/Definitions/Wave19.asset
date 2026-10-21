@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60439eec611f63b41853d6b312135de4, type: 3}
+  m_Name: Wave19
+  m_EditorClassIdentifier: Assembly-CSharp::WaveDefinition
+  bursts:
+  - enemyPrefabIndex: 0
+    count: 22
+    spawnInterval: 0.55
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 0
+  - enemyPrefabIndex: 2
+    count: 14
+    spawnInterval: 0.8
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 1.5
+  - enemyPrefabIndex: 1
+    count: 5
+    spawnInterval: 2.1
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 2
+  - enemyPrefabIndex: 0
+    count: 22
+    spawnInterval: 0.5
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 2
+  - enemyPrefabIndex: 2
+    count: 13
+    spawnInterval: 0.75
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 1.5
+  - enemyPrefabIndex: 1
+    count: 5
+    spawnInterval: 2
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 2
+  - enemyPrefabIndex: 0
+    count: 21
+    spawnInterval: 0.45
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 2
+  - enemyPrefabIndex: 2
+    count: 13
+    spawnInterval: 0.7
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 1.5
+  - enemyPrefabIndex: 1
+    count: 5
+    spawnInterval: 1.9
+    overrideHealth: 0
+    enemyHealth: 0
+    overrideSpeed: 0
+    enemySpeed: 0
+    overrideReward: 0
+    coinReward: 0
+    waitForEnemiesToClear: 0
+    delayBeforeBurst: 2

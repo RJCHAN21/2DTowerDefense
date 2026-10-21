@@ -141,6 +141,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip)
     {
+        PlaySFX(clip, 1f);
+    }
+
+    public void PlaySFX(AudioClip clip, float volume)
+    {
         if (clip == null)
             return;
 
@@ -150,7 +155,7 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        sfxSource.PlayOneShot(clip);
+        sfxSource.PlayOneShot(clip, Mathf.Clamp01(volume));
     }
 #endregion
 }

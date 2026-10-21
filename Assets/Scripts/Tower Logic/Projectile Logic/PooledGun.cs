@@ -12,6 +12,12 @@ public class PooledGun : MonoBehaviour
     [SerializeField] private bool collectionCheck = true;
     [SerializeField] private int defaultCapacity = 20;
     [SerializeField] private int maxSize = 100;
+
+    [Header("Firing Audio")]
+    [SerializeField] private SoundEffectPlayer firingSound;
+
+    [Tooltip("Optional looping firing audio, used by the flamethrower.")]
+    [SerializeField] private AudioSource firingLoopSource;
 #endregion
 
 #region Private Properties
@@ -19,6 +25,7 @@ public class PooledGun : MonoBehaviour
     private float _nextTimeToShoot;
     private ITowerType _towerType;
     private IHittable _hitTarget;
+    private float _firingLoopUntil;
 #endregion
 
 #region Unity Life Cycle
@@ -27,6 +34,27 @@ public class PooledGun : MonoBehaviour
         _objPool = new ObjectPool<PooledProjectile>(CreateProjectile,
             OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject,
             collectionCheck, defaultCapacity, maxSize);
+        
+        if (firingLoopSource != null)
+        {
+            firingLoopSource.playOnAwake = false;
+            firingLoopSource.loop = true;
+        }
+    }
+
+    private void Update()
+    {
+        if (firingLoopSource == null || !firingLoopSource.isPlaying)
+            return;
+
+        if (Time.timeScale == 0f || Time.time >= _firingLoopUntil)
+            firingLoopSource.Stop();
+    }
+
+    private void OnDisable()
+    {
+        if (firingLoopSource != null)
+            firingLoopSource.Stop();
     }
 #endregion
 
@@ -72,6 +100,22 @@ public class PooledGun : MonoBehaviour
         if (shotsFired == 0) return;
 
         _nextTimeToShoot = Time.time + shotInterval;
+
+        if (Time.timeScale > 0f)
+        {
+            if (firingSound != null)
+                firingSound.Play();
+
+            if (firingLoopSource != null &&
+                firingLoopSource.clip != null)
+            {
+                _firingLoopUntil = Time.time + shotInterval + 0.05f;
+
+                if (!firingLoopSource.isPlaying)
+                    firingLoopSource.Play();
+            }
+        }
+
         gunFired.Invoke();
     }
 

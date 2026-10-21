@@ -1,79 +1,340 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
-    [Header("Assign Wave Data files here")]
-    [SerializeField] private BaseWave[] allWaves;
+#region Unity Inspector Fields
+    [Header("Wave Setup")]
+    [SerializeField] private WaveDefinition[] allWaves;
+    [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private TextMeshProUGUI waveNumberTMP;
-    
-    [SerializeField] private float timeBetweenWaves = 3f; // Time in seconds between waves
+
+    [Tooltip("Cooldown before the next wave can be started manually.")]
+    [SerializeField, Min(0f)] private float timeBetweenWaves = 3f;
+
+    [Header("Wave Control")]
+    [SerializeField] private Button waveControlBtn;
+    [SerializeField] private Image waveControlIcon;
+    [SerializeField] private Image waveControlBackground;
+    [SerializeField] private Sprite playBackground;
+    [SerializeField] private Sprite playIcon;
+    [SerializeField] private Sprite fastForwardBackground;
+    [SerializeField] private Sprite fastForwardIcon;
+    [SerializeField, Min(1f)] private float fastForwardSpeed = 2f;
+
+    [Header("Wave Completion Reward")]
+    [SerializeField] private Currency currency;
+    [SerializeField, Min(0)] private int baseCompletionReward = 20;
+    [SerializeField, Min(0)] private int rewardIncreasePerWave = 5;
 
     [Header("Wave Number Animation")]
     [SerializeField, Min(0.01f)] private float waveAnimationDuration = 0.5f;
     [SerializeField] private float waveRiseDistance = 20f;
     [SerializeField, Min(0f)] private float wavePulseAmount = 0.15f;
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip waveStartSFX;
+    [SerializeField] private AudioClip waveCompleteSFX;
+    [SerializeField] private AudioClip speedChangeSFX;
+#endregion
+
+#region Public Properties
+    public event Action AllWavesCompleted;
+#endregion
+
+#region Private Properties
+    private enum WaveState
+    {
+        Waiting,
+        Running,
+        Cooldown,
+        Finished,
+        Stopped
+    }
+
+    private WaveState _state = WaveState.Stopped;
+    private int currentWaveIndex;
+    private bool _isFastForward;
+
     private Vector2 _wavePosition;
     private Vector3 _waveScale;
     private float _waveAlpha;
     private Coroutine _waveAnimation;
-    private int currentWaveIndex = 0; // Index of the current wave
+    private bool _visualReady;
+#endregion
 
-    private BaseWave baseWaveScript;
-
-    void Start()
+#region Unity Life Cycle
+    private void OnEnable()
     {
-        // Initialize the active wave scripts array
-        BaseWave.ActiveEnemiesInScene = 0;
-        _wavePosition = waveNumberTMP.rectTransform.anchoredPosition;
-        _waveScale = waveNumberTMP.rectTransform.localScale;
-        _waveAlpha = waveNumberTMP.alpha;
+        GameManager.GameEnded += StopWaves;
+    }
 
-        if (allWaves.Length <= 0)
+    private void Start()
+    {
+        if (enemySpawner == null ||
+            currency == null ||
+            waveNumberTMP == null ||
+            waveControlBtn == null ||
+            waveControlIcon == null ||
+            playIcon == null ||
+            fastForwardIcon == null ||
+            allWaves == null ||
+            waveControlBackground == null ||
+            playBackground == null ||
+            fastForwardBackground == null ||
+            allWaves.Length == 0)
         {
-            Debug.LogError("No waves assigned in the WaveManager.");
+            Debug.LogError("Assign all WaveManager references and waves.", this);
+            enabled = false;
             return;
         }
 
-        StartNextWave();
+        foreach (WaveDefinition wave in allWaves)
+        {
+            if (wave == null || wave.Bursts == null || wave.Bursts.Length == 0)
+            {
+                Debug.LogError(
+                    "Every wave needs an assigned definition with at least one burst.",
+                    this);
+
+                enabled = false;
+                return;
+            }
+
+            foreach (WaveSpawnBurst burst in wave.Bursts)
+            {
+                if (burst.DelayBeforeBurst < 0f ||
+                    float.IsNaN(burst.DelayBeforeBurst) ||
+                    float.IsInfinity(burst.DelayBeforeBurst))
+                {
+                    Debug.LogError("Burst delays must be finite and nonnegative.", wave);
+                    enabled = false;
+                    return;
+                }
+            }
+        }
+
+        _wavePosition = waveNumberTMP.rectTransform.anchoredPosition;
+        _waveScale = waveNumberTMP.rectTransform.localScale;
+        _waveAlpha = waveNumberTMP.alpha;
+        _visualReady = true;
+
+        waveControlBtn.onClick.AddListener(OnWaveControlClicked);
+
+        Time.timeScale = 1f;
+        _state = WaveState.Waiting;
+
+        waveNumberTMP.text = $"WAVE 1 / {allWaves.Length}";
+        RefreshControlButton();
+    }
+
+    private void OnDisable()
+    {
+        GameManager.GameEnded -= StopWaves;
+        StopWaves();
+    }
+
+    private void OnDestroy()
+    {
+        if (waveControlBtn != null)
+            waveControlBtn.onClick.RemoveListener(OnWaveControlClicked);
+    }
+#endregion
+
+#region Wave Control
+    private void OnWaveControlClicked()
+    {
+        if (Time.timeScale == 0f)
+            return;
+
+        if (_state == WaveState.Waiting)
+        {
+            StartNextWave();
+        }
+        else if (_state == WaveState.Running)
+        {
+            _isFastForward = !_isFastForward;
+
+            Time.timeScale = _isFastForward
+                ? fastForwardSpeed
+                : 1f;
+
+            SoundManager.Instance?.PlaySFX(speedChangeSFX);
+            RefreshControlButton();
+        }
     }
 
     private void StartNextWave()
     {
-        if (currentWaveIndex >= allWaves.Length)
-        {
-            Debug.Log("All waves completed!");
-            return;
-        }
+        _state = WaveState.Running;
+        _isFastForward = false;
+        Time.timeScale = 1f;
 
-        waveNumberTMP.text = $"WAVE {currentWaveIndex + 1} / {allWaves.Length}";
+        waveNumberTMP.text =
+            $"WAVE {currentWaveIndex + 1} / {allWaves.Length}";
+
         if (_waveAnimation != null)
             StopCoroutine(_waveAnimation);
 
         _waveAnimation = StartCoroutine(AnimateWaveNumber());
-        baseWaveScript = allWaves[currentWaveIndex];
-        baseWaveScript.OnWaveComplete += ProgressSequence; // Subscribe to the wave completion event
-        baseWaveScript.StartWave();
 
+        RefreshControlButton();
+        SoundManager.Instance?.PlaySFX(waveStartSFX);
+        StartCoroutine(RunWave(allWaves[currentWaveIndex]));
     }
 
-    private void ProgressSequence()
-    {        
-        baseWaveScript.OnWaveComplete -= ProgressSequence; // Unsubscribe from the event
-        
-        currentWaveIndex++;
-
-        StartCoroutine(NextWaveDelay());
-    }
-
-    private IEnumerator NextWaveDelay()
+    private void RefreshControlButton()
     {
-        yield return new WaitForSeconds(timeBetweenWaves);
-        StartNextWave();
+        if (waveControlIcon != null)
+        {
+            waveControlIcon.sprite = _isFastForward
+                ? fastForwardIcon
+                : playIcon;
+        }
+
+        if (waveControlBackground != null)
+        {
+            waveControlBackground.sprite = _isFastForward
+                ? fastForwardBackground
+                : playBackground;
+        }
+
+        if (waveControlBtn != null)
+        {
+            waveControlBtn.interactable =
+                _state == WaveState.Waiting ||
+                _state == WaveState.Running;
+        }
+    }
+#endregion
+
+#region Wave Sequence
+    private IEnumerator RunWave(WaveDefinition wave)
+    {
+        foreach (WaveSpawnBurst burst in wave.Bursts)
+        {
+            if (burst.WaitForEnemiesToClear)
+                yield return WaitForEnemiesToClear();
+
+            if (burst.DelayBeforeBurst > 0f)
+                yield return new WaitForSeconds(burst.DelayBeforeBurst);
+
+            bool started = enemySpawner.TryConfigureAndStartSpawner(
+                burst.EnemyPrefabIndex,
+                burst.EnemyHealth,
+                burst.EnemySpeed,
+                burst.Count,
+                burst.SpawnInterval,
+                burst.CoinReward,
+                overrideHealth: burst.OverrideHealth,
+                overrideSpeed: burst.OverrideSpeed,
+                overrideReward: burst.OverrideReward);
+
+            if (!started)
+            {
+                StopWaves();
+                yield break;
+            }
+
+            while (enemySpawner.IsSpawning)
+                yield return null;
+
+            if (enemySpawner.SpawnFailed ||
+                !enemySpawner.isActiveAndEnabled)
+            {
+                Debug.LogError("Wave stopped because spawning was interrupted.", this);
+                StopWaves();
+                yield break;
+            }
+        }
+
+        yield return WaitForEnemiesToClear();
+
+        int completedWaveNumber = currentWaveIndex + 1;
+
+        int completionReward = baseCompletionReward
+            + rewardIncreasePerWave * completedWaveNumber;
+
+        if (!currency.TryDeposit(completionReward))
+        {
+            Debug.LogError(
+                "Could not deposit the wave completion reward.", this);
+        }
+        else if (currentWaveIndex + 1 < allWaves.Length)
+        {
+            SoundManager.Instance?.PlaySFX(waveCompleteSFX);
+        }
+
+        currentWaveIndex++;
+        _isFastForward = false;
+        Time.timeScale = 1f;
+
+        if (currentWaveIndex >= allWaves.Length)
+        {
+            _state = WaveState.Finished;
+            RefreshControlButton();
+
+            Debug.Log("All waves completed!", this);
+            AllWavesCompleted?.Invoke();
+            yield break;
+        }
+
+        _state = WaveState.Cooldown;
+        RefreshControlButton();
+
+        if (timeBetweenWaves > 0f)
+            yield return new WaitForSeconds(timeBetweenWaves);
+
+        _state = WaveState.Waiting;
+        RefreshControlButton();
     }
 
+    private IEnumerator WaitForEnemiesToClear()
+    {
+        while (Time.timeScale == 0f || HasActiveEnemies())
+            yield return null;
+    }
+
+    private bool HasActiveEnemies()
+    {
+        foreach (EnemyTarget enemy in EnemyTarget.ActiveEnemies)
+        {
+            if (enemy != null && enemy.isActiveAndEnabled)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void StopWaves()
+    {
+        StopAllCoroutines();
+        _waveAnimation = null;
+
+        _state = WaveState.Stopped;
+        _isFastForward = false;
+
+        if (enemySpawner != null)
+            enemySpawner.StopSpawning();
+
+        if (Time.timeScale > 0f)
+            Time.timeScale = 1f;
+
+        RefreshControlButton();
+
+        if (_visualReady && waveNumberTMP != null)
+        {
+            waveNumberTMP.rectTransform.anchoredPosition = _wavePosition;
+            waveNumberTMP.rectTransform.localScale = _waveScale;
+            waveNumberTMP.alpha = _waveAlpha;
+        }
+    }
+#endregion
+
+#region Wave Number Animation
     private IEnumerator AnimateWaveNumber()
     {
         RectTransform textTransform = waveNumberTMP.rectTransform;
@@ -114,17 +375,5 @@ public class WaveManager : MonoBehaviour
 
         _waveAnimation = null;
     }
-
-    private void OnDisable()
-    {
-        if (_waveAnimation == null)
-            return;
-
-        StopCoroutine(_waveAnimation);
-        _waveAnimation = null;
-
-        waveNumberTMP.rectTransform.anchoredPosition = _wavePosition;
-        waveNumberTMP.rectTransform.localScale = _waveScale;
-        waveNumberTMP.alpha = _waveAlpha;
-    }
+#endregion
 }

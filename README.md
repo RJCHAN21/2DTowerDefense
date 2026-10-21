@@ -62,6 +62,41 @@ Cartoon FX Remaster Free is used in accordance with the Unity Asset Store End Us
 
 FREE Casual Game SFX Pack is used in accordance with the Unity Asset Store End User License Agreement. All rights to the original asset remain with its respective creator and publisher.
 
+### Olivier Girardot — Free Sound Effects Pack Starter - All categories
+
+- **Creator / Publisher:** Olivier Girardot
+- **Asset Pack:** Free Sound Effects Pack Starter - All categories
+- **Platform:** Unity Asset Store
+- **License:** Standard Unity Asset Store EULA
+- **License Type:** Extension Asset
+- **Source:** [Unity Asset Store — Free Sound Effects Pack Starter - All categories](https://assetstore.unity.com/packages/audio/sound-fx/free-sound-effects-pack-starter-all-categories-155776)
+
+Free Sound Effects Pack Starter - All categories is used in accordance with the Unity Asset Store End User License Agreement. All rights to the original asset remain with its respective creator and publisher.
+
+### Fantacode Studios — FS Shooter System 2
+
+- **Creator / Publisher:** Fantacode Studios
+- **Asset Pack:** FS Shooter System 2
+- **Assets Used:** SFX demo sounds
+- **Platform:** Unity Asset Store
+- **Listed License:** Standard Unity Asset Store EULA
+- **License Type:** Extension Asset
+- **Source:** [Unity Asset Store — FS Shooter System 2](https://assetstore.unity.com/packages/tools/game-toolkits/fs-shooter-system-2-388278)
+
+Only SFX demo sounds from this package are used in this project. All rights to the original assets remain with their respective creators and publisher.
+
+### raphavpires — Flamethrower (loop)
+
+- **Creator:** raphavpires
+- **Sound:** Flamethrower (loop)
+- **Usage:** Flamethrower firing sound effect
+- **Platform:** Freesound
+- **License:** Creative Commons CC0 1.0 Universal
+- **License Link:** [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
+- **Source:** [Freesound — Flamethrower (loop)](https://freesound.org/people/raphavpires/sounds/867029/)
+
+This sound is released under CC0. Credit is provided here in appreciation of the creator's work.
+
 ### Andrew Sitkov Music — FREE Battle Music Pack
 
 - **Creator / Publisher:** Andrew Sitkov Music

@@ -206,7 +206,7 @@ public class PauseMenuController : MonoBehaviour
         if (_isPaused)
         {
             _isPaused = false;
-            Time.timeScale = _previousTimeScale;
+            Time.timeScale = 1f;
         }
 
         if (_menuReady)

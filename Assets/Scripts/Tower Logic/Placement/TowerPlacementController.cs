@@ -9,13 +9,18 @@ public class TowerPlacementController : MonoBehaviour
     [SerializeField] private InputActionReference clickAction;
     [SerializeField] private InputAction cancelPlacementAction;
     
-
     [Header("Tower Placement Logic Dependencies")]
     [SerializeField] private Currency currency;
     [SerializeField] private TowerSelection towerSelection;
     [SerializeField] private TowerPlacementBlocker[] towerPlacementBlockers;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Gradient invalidRangeGradient;
+
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip placementSFX;
+    [SerializeField] private AudioClip rejectSFX;
+    [SerializeField] private AudioClip cancelSFX;
+    [SerializeField] private AudioClip selectSFX;
 #endregion
 
 #region Public Properties
@@ -48,7 +53,7 @@ public class TowerPlacementController : MonoBehaviour
     {
         if (Time.timeScale == 0f)
             return;
-            
+
         if (_previewTower == null) return;
         
         if (cancelPlacementAction.WasPressedThisFrame())
@@ -127,6 +132,7 @@ public class TowerPlacementController : MonoBehaviour
         _previewTower.SetPreview(true);
         _previewTower.gameObject.SetActive(false);
         _awaitingInitialRelease = true;
+        SoundManager.Instance?.PlaySFX(selectSFX);
     }
 
     private void CancelPlacement()
@@ -139,6 +145,7 @@ public class TowerPlacementController : MonoBehaviour
             _previewTower = null;
             _td = null;
             _normalRangeGradient = null;
+            SoundManager.Instance?.PlaySFX(cancelSFX);
         }
     }
 
@@ -150,11 +157,19 @@ public class TowerPlacementController : MonoBehaviour
         if (_pointerOverMenu)
             return false;
         
-        if (!IsValidPlacement(_previewTower.transform.position, _previewTower.BaseRadius))
+        if (!IsValidPlacement(
+                _previewTower.transform.position,
+                _previewTower.BaseRadius))
+        {
+            SoundManager.Instance?.PlaySFX(rejectSFX);
             return false;
-        
+        }
+
         if (!currency.TrySpend(_td.Cost))
+        {
+            SoundManager.Instance?.PlaySFX(rejectSFX);
             return false;
+        }
         
         TowerUnit placedTower = _previewTower;
         placedTower.Initialize(_td);
@@ -166,7 +181,8 @@ public class TowerPlacementController : MonoBehaviour
         _previewTower = null;
         _td = null;
         _normalRangeGradient = null;
-
+        SoundManager.Instance?.PlaySFX(placementSFX);
+        
         return true;
     }
 #endregion
