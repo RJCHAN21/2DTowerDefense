@@ -11,6 +11,7 @@ public class FXManager : MonoBehaviour
     [SerializeField] private GameObject deathBurstPrefab;
     [SerializeField] private GameObject explosionOnePrefab;
     [SerializeField] private GameObject explosionTwoPrefab;
+    [SerializeField] private GameObject muzzleFlashPrefab;
 
     [Header("Pool Capacities")]
     [SerializeField] private int defaultCapacity = 20;
@@ -21,6 +22,7 @@ public class FXManager : MonoBehaviour
     private IObjectPool<PooledParticleEffect> _deathBurstPool;
     private IObjectPool<PooledExplosionVFX> _explosionOnePool;
     private IObjectPool<PooledExplosionVFX> _explosionTwoPool;
+    private IObjectPool<PooledParticleEffect> _muzzleFlashPool;
 
     private void Awake()
     {
@@ -129,6 +131,19 @@ public class FXManager : MonoBehaviour
                 maxSize: 30
             );
         }
+
+        if (muzzleFlashPrefab != null)
+        {
+            _muzzleFlashPool = new ObjectPool<PooledParticleEffect>(
+                createFunc: () => CreatePooledEffect(muzzleFlashPrefab, _muzzleFlashPool),
+                actionOnGet: null,
+                actionOnRelease: effect => { if (effect != null) effect.gameObject.SetActive(false); },
+                actionOnDestroy: effect => { if (effect != null) Destroy(effect.gameObject); },
+                collectionCheck: false,
+                defaultCapacity: defaultCapacity,
+                maxSize: maxPoolSize
+            );
+        }
     }
 
     private PooledParticleEffect CreatePooledEffect(
@@ -187,5 +202,12 @@ public class FXManager : MonoBehaviour
         PooledExplosionVFX explosion = _explosionTwoPool.Get();
         explosion.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
         explosion.gameObject.SetActive(true);
+    }
+
+    public void PlayMuzzleFlash(Vector3 position, Quaternion rotation = default)
+    {
+        if (_muzzleFlashPool == null) return;
+        PooledParticleEffect effect = _muzzleFlashPool.Get();
+        effect.PlayAt(position, rotation == default ? Quaternion.identity : rotation);
     }
 }
