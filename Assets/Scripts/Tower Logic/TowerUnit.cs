@@ -27,6 +27,13 @@ public class TowerUnit : TowerTarget, IHittable
     // [Tooltip("The angle (in degrees) that this turret can see in a field-of-view arc.")]
     // [SerializeField] private float detectionAngle = 60f;
 
+    [Header("Health Regeneration")]
+    [Tooltip("Seconds without taking damage before the first health recovery.")]
+    [SerializeField, Min(0f)] private float regenerationDelay = 5f;
+
+    [Tooltip("Seconds between each subsequent recovery of 1 HP.")]
+    [SerializeField, Min(0.01f)] private float regenerationInterval = 2f;
+
     [Header("Pooling")]
     [SerializeField] private PooledGun pooledGun;
 
@@ -103,6 +110,7 @@ public class TowerUnit : TowerTarget, IHittable
     private static TowerUnit selectedTower = null;
     private bool _isInvincible = false;
     private bool _isHit = false;
+    private float _nextRegenerationTime;
     private bool _isPreview = false;
     private static List<TowerUnit> towers = new List<TowerUnit>();
     private TowerDefinition _definition;
@@ -162,6 +170,8 @@ public class TowerUnit : TowerTarget, IHittable
 
     private void OnDamaged(int damage, Vector3 position)
     {
+        _nextRegenerationTime = Time.time + regenerationDelay;
+
         if (DamageNumberManager.Instance != null)
         {
             DamageNumberManager.Instance.SpawnDamageNumber(damage, position, isTower: true);
@@ -196,6 +206,8 @@ public class TowerUnit : TowerTarget, IHittable
             MapVisualToRange();
             return;
         }
+
+        RegenerateHealth();
 
         if (!_canFire) return;
 
@@ -370,6 +382,24 @@ public class TowerUnit : TowerTarget, IHittable
         {
             LineRendShape.DrawCircle(lineRenderer, baseRange);
         }
+    }
+#endregion
+
+#region Health Regeneration
+    private void RegenerateHealth()
+    {
+        if (_isHit ||
+            health == null ||
+            !health.isActiveAndEnabled ||
+            health.HP <= 0 ||
+            health.HP >= health.MaxHP)
+            return;
+
+        if (Time.time < _nextRegenerationTime)
+            return;
+
+        health.Heal(1);
+        _nextRegenerationTime = Time.time + regenerationInterval;
     }
 #endregion
 

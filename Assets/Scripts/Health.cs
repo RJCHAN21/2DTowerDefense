@@ -23,6 +23,7 @@ public class Health : MonoBehaviour
 
 #region Public Properties
     public int HP => _hp;
+    public int MaxHP => _spawnMaxHP;
     public event Action Died;
     public event Action<int, Vector3> Damaged;
 #endregion
@@ -91,6 +92,25 @@ public class Health : MonoBehaviour
 
         if (_hp <= 0f)
             Died?.Invoke();
+    }
+
+    public void Heal(int amount)
+    {
+        if (!isActiveAndEnabled ||
+            amount <= 0 ||
+            _hp <= 0 ||
+            _hp >= _spawnMaxHP)
+            return;
+
+        _hp += Mathf.Min(amount, _spawnMaxHP - _hp);
+
+        _ghostAnimating = false;
+        _ghostElapsed = 0f;
+
+        UpdateHUDVisual();
+
+        if (ghostHPBarFill != null)
+            ghostHPBarFill.fillAmount = (float)_hp / _spawnMaxHP;
     }
 
     public void ResetHealth() => ResetHealth(maxHP);

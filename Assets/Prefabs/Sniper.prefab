@@ -1149,6 +1149,8 @@ MonoBehaviour:
   baseRadius: 0.35
   gunTurningSpeed: 180
   towerTypeBehavior: {fileID: 11400000, guid: 0ef02256f48e21241bcfff702646f884, type: 2}
+  regenerationDelay: 5
+  regenerationInterval: 2
   pooledGun: {fileID: 5128889847654653370}
   lineRenderer: {fileID: 4779502262995714951}
 --- !u!114 &5128889847654653370
@@ -1221,7 +1223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   HPBarFill: {fileID: 0}
   HPTxt: {fileID: 0}
-  maxHP: 1
+  maxHP: 30
   ghostHPBarFill: {fileID: 0}
   ghostDelay: 0.3
   ghostDuration: 0.6
