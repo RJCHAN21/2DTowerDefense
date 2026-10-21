@@ -70,33 +70,30 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
         _isFiringOrReloading = false;
     }
 
-    private void FireSingleMissile(PooledGun gun, Transform slotTransform)
+    private void FireSingleMissile(
+        PooledGun gun,
+        Transform slotTransform)
     {
-        Vector3 originalPos = gun.transform.position;
-        gun.transform.position = slotTransform.position;
+        Vector3 launchPosition = slotTransform.position;
+        Quaternion launchRotation = slotTransform.rotation;
 
         gun.FirePattern(0f, damage, proj =>
         {
+            proj.transform.SetPositionAndRotation(
+                launchPosition,
+                launchRotation);
+
             if (proj.TryGetComponent(out MissileProjectile missile))
             {
                 missile.Setup(damage, blastRadius, isHoming);
-                
-                // ConfigureShot triggers the last lambda when the missile hits or expires
-                proj.ConfigureShot(proj.BaseSpeed, proj.BaseLifetime, null, missile.Explode);
             }
             else
             {
-                proj.ConfigureShot(proj.BaseSpeed, proj.BaseLifetime, null, () =>
-                {
-                    if (FXManager.Instance != null)
-                    {
-                        FXManager.Instance.PlayExplosionOne(proj.transform.position);
-                    }
-                });
+                Debug.LogError(
+                    "The missile prefab needs a MissileProjectile component.",
+                    proj);
             }
         }, 0f);
-
-        gun.transform.position = originalPos;
     }
 
     public void ResetFiring()

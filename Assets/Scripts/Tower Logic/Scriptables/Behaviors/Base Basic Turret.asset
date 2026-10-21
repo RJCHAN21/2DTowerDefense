@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abed6c14b63e43f4c88158342a64148b, type: 3}
   m_Name: Base Basic Turret
   m_EditorClassIdentifier: Assembly-CSharp::Basic_Turret
+  shotInterval: 0.8
   damage: 1
-  range: 1.5
+  range: 2

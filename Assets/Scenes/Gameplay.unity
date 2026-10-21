@@ -933,6 +933,7 @@ RectTransform:
   - {fileID: 1290374368}
   - {fileID: 527228277}
   - {fileID: 1697390718}
+  - {fileID: 1808255970}
   - {fileID: 1134353336}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4309,10 +4310,10 @@ MonoBehaviour:
     m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  placementSFX: {fileID: 0}
-  rejectSFX: {fileID: 0}
-  cancelSFX: {fileID: 0}
-  selectSFX: {fileID: 0}
+  placementSFX: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
+  rejectSFX: {fileID: 8300000, guid: dc6614beca09347ec9b258f12d154bdd, type: 3}
+  cancelSFX: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+  selectSFX: {fileID: 8300000, guid: 6aab63312d871b04683c4331c73dd789, type: 3}
 --- !u!4 &564085835
 Transform:
   m_ObjectHideFlags: 0
@@ -5781,7 +5782,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 939517202}
   m_HandleRect: {fileID: 939517201}
   m_Direction: 2
-  m_Value: 0.99994254
+  m_Value: 0.9999443
   m_Size: 0.9433333
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6257,7 +6258,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 43446205}
   m_HandleRect: {fileID: 43446204}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.000001
   m_Size: 0.932
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6793,6 +6794,7 @@ MonoBehaviour:
   towerDefinitions:
   - {fileID: 11400000, guid: b6fcd2eda124adf48b05fe9e0eddfbd8, type: 2}
   - {fileID: 11400000, guid: 579580b113569664fa365d3f50da92ba, type: 2}
+  - {fileID: 11400000, guid: d047ea6c8ac45a145b7b589a90db10b8, type: 2}
   towerPlacementController: {fileID: 564085834}
   towerMenuContent: {fileID: 1516446119}
   towerMenuItemPrefab: {fileID: 85240863477058598, guid: fc14b9cf281c8244da2a828f91f0b182, type: 3}
@@ -9101,7 +9103,8 @@ MonoBehaviour:
   enemyHitFeedbackPrefab: {fileID: 6823200998282874702, guid: 8f8fe12323625f5499b2853dd2ad3e58, type: 3}
   towerHitFeedbackPrefab: {fileID: 2504214343621411470, guid: 3ed0d324122d7b24eaec75c55c74aafc, type: 3}
   deathBurstPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
-  explosionPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  explosionOnePrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  explosionTwoPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   defaultCapacity: 20
   maxPoolSize: 60
 --- !u!4 &1142202691
@@ -10164,7 +10167,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 403849122}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10241,7 +10244,7 @@ MonoBehaviour:
   coinTarget: {fileID: 1700645670}
   bankVisual: {fileID: 1952459469}
   balanceText: {fileID: 1051350639}
-  startingBalance: 50
+  startingBalance: 999
   moneyCap: 999999
   flightDuration: 0.6
   arcHeight: 1
@@ -15765,6 +15768,98 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796824780}
+  m_CullTransparentMesh: 1
+--- !u!1 &1808255969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808255970}
+  - component: {fileID: 1808255973}
+  - component: {fileID: 1808255972}
+  - component: {fileID: 1808255971}
+  m_Layer: 5
+  m_Name: DamageFlashPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1808255970
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808255969}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 98489854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -3840, y: 2160}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1808255971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808255969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fbd9171c9614ea47835e3ab5f2874c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlashUI
+  flashImage: {fileID: 1808255972}
+  playerHealth: {fileID: 1198593315}
+  flashColor: {r: 1, g: 0, b: 0, a: 0.45}
+  fadeDuration: 0.35
+--- !u!114 &1808255972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808255969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.19607843}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1808255973
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808255969}
   m_CullTransparentMesh: 1
 --- !u!1 &1815567904
 GameObject:

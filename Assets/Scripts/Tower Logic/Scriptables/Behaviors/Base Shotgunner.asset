@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a287ea24460bd4c9792e4e7d4ffeff, type: 3}
   m_Name: Base Shotgunner
   m_EditorClassIdentifier: Assembly-CSharp::Shotgun
-  range: 1.3
-  detectionAngle: 60
+  shotInterval: 1.5
+  damage: 1
+  range: 1.5

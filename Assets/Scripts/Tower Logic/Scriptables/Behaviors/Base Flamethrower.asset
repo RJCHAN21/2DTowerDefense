@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2759581125bf345a5fe01a5da4217b, type: 3}
   m_Name: Base Flamethrower
   m_EditorClassIdentifier: Assembly-CSharp::Flamethrower
+  damage: 1
   flameStopDelay: 0.2
-  range: 1
-  detectionAngle: 60
+  maxFiringDuration: 10
+  rechargeDuration: 3
+  range: 1.5
+  flameSpread: 60
   shotInterval: 0.1
   projectilesPerBurst: 5
   tailControl: 0.5

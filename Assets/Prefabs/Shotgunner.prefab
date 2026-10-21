@@ -388,7 +388,7 @@ MonoBehaviour:
   health: {fileID: 8114569891491074361}
   baseRange: 3
   baseRadius: 0.35
-  gunTurningSpeed: 180
+  gunTurningSpeed: 360
   towerTypeBehavior: {fileID: 11400000, guid: e97bcdfa01b254241b0176e62031a598, type: 2}
   regenerationDelay: 5
   regenerationInterval: 2

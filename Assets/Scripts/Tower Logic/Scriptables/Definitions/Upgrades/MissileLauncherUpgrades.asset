@@ -15,10 +15,12 @@ MonoBehaviour:
   stages:
   - stageLabel: Level One
     options:
-    - upgradeName: Increase Radius Range
-      description: Increases attack range of the missile launcher.
-      icon: {fileID: 0}
-      cost: 0
+    - upgradeName: Increased Range
+      description: 'Increases attack range of the missile launcher.
+
+        Range: '
+      icon: {fileID: 21300000, guid: c8b9f1e39238c684a92512e2f96479b0, type: 3}
+      cost: 80
       replacementPrefab: {fileID: 0}
       nextStageIndex: 1
       towerUpgradeEffects:
@@ -27,7 +29,7 @@ MonoBehaviour:
         overrideShotInterval: 0
         shotInterval: 0
         overrideRange: 1
-        range: 6.5
+        range: 3
         overrideRechargeDuration: 0
         rechargeDuration: 0
         overrideFlameWidth: 0
@@ -41,8 +43,8 @@ MonoBehaviour:
     options:
     - upgradeName: Bigger Explosion
       description: Expands the area-of-effect blast radius of each missile.
-      icon: {fileID: 0}
-      cost: 0
+      icon: {fileID: 21300000, guid: de3ce596f4588bf4c8f9ca7a77ac8a5e, type: 3}
+      cost: 120
       replacementPrefab: {fileID: 0}
       nextStageIndex: 2
       towerUpgradeEffects:
@@ -65,8 +67,8 @@ MonoBehaviour:
     options:
     - upgradeName: Homing Missiles
       description: Missiles actively curve and steer toward targets.
-      icon: {fileID: 0}
-      cost: 0
+      icon: {fileID: 21300000, guid: 4752ad6ff4f52444e9ce012cb08270d2, type: 3}
+      cost: 200
       replacementPrefab: {fileID: 0}
       nextStageIndex: -1
       towerUpgradeEffects:
