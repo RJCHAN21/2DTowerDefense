@@ -18,6 +18,8 @@ public class EnemyTankBoss : MonoBehaviour
     {
         if (gun == null)
             gun = GetComponentInChildren<PooledGun>();
+        
+
     }
 
     private void Update()
@@ -41,7 +43,7 @@ public class EnemyTankBoss : MonoBehaviour
 
         if (gun != null)
         {
-            gun.FirePattern(fireRate, damagePerShot, 0f);
+            gun.FirePattern(fireRate, damagePerShot, -90f);
         }
     }
 
@@ -54,7 +56,7 @@ public class EnemyTankBoss : MonoBehaviour
     {
         Transform aimTransform = turretPivot != null ? turretPivot : transform;
         Vector2 dir = target.position - aimTransform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion desiredRotation = Quaternion.Euler(0f, 0f, angle);
 
         aimTransform.rotation = Quaternion.RotateTowards(
