@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6fa9f0654cccb4b94b7e29cb730244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledProjectile
-  timeoutDelay: 5
+  timeoutDelay: 0.75
   speed: 15
   projectileSpawned:
     m_PersistentCalls:

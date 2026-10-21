@@ -63,7 +63,7 @@ MonoBehaviour:
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
         overrideBlastRadius: 1
-        blastRadius: 3.5
+        blastRadius: 2
         isHoming: 0
       upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
       upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}

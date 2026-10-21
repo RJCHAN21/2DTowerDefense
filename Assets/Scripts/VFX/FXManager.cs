@@ -12,7 +12,12 @@ public class FXManager : MonoBehaviour
     [SerializeField] private GameObject towerHitFeedbackPrefab;
     [SerializeField] private GameObject deathBurstPrefab;
     [SerializeField] private GameObject explosionOnePrefab;
+
     [SerializeField] private GameObject explosionTwoPrefab;
+
+    [Tooltip("Visual radius of Explosion Two at its original prefab scale.")]
+    [SerializeField, Min(0.01f)] private float explosionTwoVisualRadius = 1f;
+
     [SerializeField] private GameObject muzzleFlashPrefab;
 
     [Header("Pool Capacities")]
@@ -26,6 +31,9 @@ public class FXManager : MonoBehaviour
     private IObjectPool<PooledParticleEffect> _deathBurstPool;
     private IObjectPool<PooledExplosionVFX> _explosionOnePool;
     private IObjectPool<PooledExplosionVFX> _explosionTwoPool;
+    private readonly Dictionary<GameObject, IObjectPool<PooledParticleEffect>> _upgradeEffectPools = new();
+#endregion
+    private IObjectPool<PooledParticleEffect> _muzzleFlashPool;
 
 #region Unity Life Cycle
     private void Awake()
@@ -202,11 +210,71 @@ public class FXManager : MonoBehaviour
         explosion.gameObject.SetActive(true);
     }
 
-    public void PlayExplosionTwo(Vector3 position, Quaternion rotation = default)
+    public void PlayExplosionTwo(
+        Vector3 position,
+        Quaternion rotation = default,
+        float blastRadius = -1f)
     {
         if (_explosionTwoPool == null) return;
+
         PooledExplosionVFX explosion = _explosionTwoPool.Get();
-        explosion.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
+
+        float scaleMultiplier = blastRadius >= 0f
+            ? blastRadius / explosionTwoVisualRadius
+            : 1f;
+
+        explosion.transform.localScale =
+            explosionTwoPrefab.transform.localScale * scaleMultiplier;
+
+        explosion.transform.SetPositionAndRotation(
+            position,
+            rotation == default ? Quaternion.identity : rotation);
+
         explosion.gameObject.SetActive(true);
+    }
+    
+    public void PlayUpgradeEffect(GameObject prefab, Vector3 position)
+    {
+        if (prefab == null)
+            return;
+
+        if (!_upgradeEffectPools.TryGetValue(
+                prefab,
+                out IObjectPool<PooledParticleEffect> pool))
+        {
+            pool = new ObjectPool<PooledParticleEffect>(
+                createFunc: () => CreatePooledEffect(
+                    prefab, _upgradeEffectPools[prefab]),
+
+                actionOnGet: null,
+
+                actionOnRelease: effect =>
+                {
+                    if (effect != null)
+                        effect.gameObject.SetActive(false);
+                },
+
+                actionOnDestroy: effect =>
+                {
+                    if (effect != null)
+                        Destroy(effect.gameObject);
+                },
+
+                collectionCheck: false,
+                defaultCapacity: defaultCapacity,
+                maxSize: maxPoolSize
+            );
+
+            _upgradeEffectPools.Add(prefab, pool);
+        }
+
+        pool.Get().PlayAt(position, Quaternion.identity);
+    }
+#endregion
+    public void PlayMuzzleFlash(Vector3 position, Quaternion rotation = default)
+    {
+        if (_muzzleFlashPool == null) return;
+        PooledParticleEffect effect = _muzzleFlashPool.Get();
+        effect.PlayAt(position, rotation == default ? Quaternion.identity : rotation);
     }
 }

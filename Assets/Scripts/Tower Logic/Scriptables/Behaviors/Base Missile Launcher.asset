@@ -17,5 +17,5 @@ MonoBehaviour:
   waitFireAfterReload: 1
   damage: 25
   range: 2
-  blastRadius: 2
+  blastRadius: 1
   isHoming: 0

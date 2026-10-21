@@ -27,9 +27,8 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
 #endregion
 
 #region Runtime State
-
+    private bool _firstMissileUsed;
     private bool _isFiringOrReloading;
-
 #endregion
 
 #region Firing Behavior
@@ -52,10 +51,18 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
         SpriteRenderer rend1 = slot1 != null ? slot1.GetComponent<SpriteRenderer>() : null;
         SpriteRenderer rend2 = slot2 != null ? slot2.GetComponent<SpriteRenderer>() : null;
 
-        if (rend1 != null) rend1.enabled = false;
-        FireSingleMissile(gun, slot1 != null ? slot1 : gun.transform);
+        if (!_firstMissileUsed)
+        {
+            if (rend1 != null) rend1.enabled = false;
+            FireSingleMissile(gun, slot1 != null ? slot1 : gun.transform);
 
-        yield return new WaitForSeconds(burstInterval);
+            _firstMissileUsed = true;
+
+            yield return new WaitForSeconds(burstInterval);
+
+            _isFiringOrReloading = false;
+            yield break;
+        }
 
         if (rend2 != null) rend2.enabled = false;
         FireSingleMissile(gun, slot2 != null ? slot2 : gun.transform);
@@ -64,6 +71,8 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
 
         if (rend1 != null) rend1.enabled = true;
         if (rend2 != null) rend2.enabled = true;
+
+        _firstMissileUsed = false;
 
         yield return new WaitForSeconds(waitFireAfterReload);
 

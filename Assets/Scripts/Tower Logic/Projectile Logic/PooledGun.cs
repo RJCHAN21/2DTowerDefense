@@ -20,6 +20,10 @@ public class PooledGun : MonoBehaviour
     [SerializeField] private AudioSource firingLoopSource;
 #endregion
 
+#region Public Properties
+    public IHittable HitTarget => _hitTarget;
+#endregion
+
 #region Private Properties
     private IObjectPool<PooledProjectile> _objPool;
     private float _nextTimeToShoot;

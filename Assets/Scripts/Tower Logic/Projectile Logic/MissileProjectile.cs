@@ -223,7 +223,9 @@ public class MissileProjectile : MonoBehaviour
         SoundManager.Instance?.PlaySFX(explosionSFX, explosionVolume);
 
         if (FXManager.Instance != null)
-            FXManager.Instance.PlayExplosionTwo(transform.position);
+            FXManager.Instance.PlayExplosionTwo(
+                transform.position,
+                blastRadius: _blastRadius);
 
         var snapshot =
             new List<EnemyTarget>(EnemyTarget.ActiveEnemies);
@@ -271,6 +273,21 @@ public class MissileProjectile : MonoBehaviour
         }
 
         return best;
+    }
+#endregion
+
+#region Gizmos
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying || _blastRadius <= 0f)
+            return;
+
+        Color previousColor = Gizmos.color;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _blastRadius);
+
+        Gizmos.color = previousColor;
     }
 #endregion
 }

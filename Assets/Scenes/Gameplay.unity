@@ -2032,6 +2032,7 @@ MonoBehaviour:
   fastForwardBackground: {fileID: 6617327198931238950, guid: 1f345a11f13d7984c91ee2ce0e28b6e9, type: 3}
   fastForwardIcon: {fileID: 7688491598028605165, guid: 0d41221fb0a04ed45b634bf4e19c457a, type: 3}
   fastForwardSpeed: 2
+  gameControlTMP: {fileID: 2044994471}
   currency: {fileID: 1323631459}
   baseCompletionReward: 20
   rewardIncreasePerWave: 5
@@ -9503,6 +9504,8 @@ MonoBehaviour:
   deathBurstPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   explosionOnePrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   explosionTwoPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  explosionTwoVisualRadius: 1
+  muzzleFlashPrefab: {fileID: 0}
   defaultCapacity: 20
   maxPoolSize: 60
 --- !u!4 &1142202691
@@ -10660,7 +10663,7 @@ MonoBehaviour:
   coinTarget: {fileID: 1700645670}
   bankVisual: {fileID: 1952459469}
   balanceText: {fileID: 1051350639}
-  startingBalance: 999
+  startingBalance: 50
   moneyCap: 999999
   flightDuration: 0.6
   arcHeight: 1
