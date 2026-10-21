@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4087204067345628744}
   - component: {fileID: 4050699589295885149}
   - component: {fileID: 7123447727998532442}
+  - component: {fileID: 3133879460584313847}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2763316765635793350, guid: 5bdc74b534d261d4db600ad1035c0893, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -105,8 +106,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6fa9f0654cccb4b94b7e29cb730244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledProjectile
-  timeoutDelay: 1
-  speed: 20
+  timeoutDelay: 5
+  speed: 1
   projectileSpawned:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3133879460584313847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154425054462212450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61178c8b45f61d3478b02805e4dc9797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissileProjectile
+  turnSpeed: 260
+  impactProximity: 0.5
+  spriteAngleOffset: 0

@@ -14,6 +14,7 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
     [SerializeField, Min(0.1f)] private float reloadDuration = 1f;
     [SerializeField, Min(0.01f)] private float waitFireAfterReload = 3f;
 
+    [Header("Stats & Upgrades")]
     [Header("Damage")]
     [Tooltip("The amount of damage each missile will deal to the target.")]
     [SerializeField, Min(0f)] private int damage = 25;
@@ -21,7 +22,8 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
     [Header("Sight")]
     [Tooltip("Maximum detection distance of the missile launcher.")]
     [SerializeField, Min(0f)] private float range = 5f;
-
+    [SerializeField, Min(0.1f)] private float blastRadius = 2.0f;
+    [SerializeField] private bool isHoming = false;
 #endregion
 
 #region Runtime State
@@ -72,7 +74,28 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
     {
         Vector3 originalPos = gun.transform.position;
         gun.transform.position = slotTransform.position;
-        gun.FirePattern(0f, damage, 0f);
+
+        gun.FirePattern(0f, damage, proj =>
+        {
+            if (proj.TryGetComponent(out MissileProjectile missile))
+            {
+                missile.Setup(damage, blastRadius, isHoming);
+                
+                // ConfigureShot triggers the last lambda when the missile hits or expires
+                proj.ConfigureShot(proj.BaseSpeed, proj.BaseLifetime, null, missile.Explode);
+            }
+            else
+            {
+                proj.ConfigureShot(proj.BaseSpeed, proj.BaseLifetime, null, () =>
+                {
+                    if (FXManager.Instance != null)
+                    {
+                        FXManager.Instance.PlayExplosionOne(proj.transform.position);
+                    }
+                });
+            }
+        }, 0f);
+
         gun.transform.position = originalPos;
     }
 
@@ -114,6 +137,16 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
         if (effects.OverrideRange)
         {
             range = effects.Range;
+        }
+
+        if (effects.OverrideBlastRadius)
+        {
+            blastRadius = effects.BlastRadius;
+        }
+
+        if (effects.IsHoming)
+        {
+            isHoming = true;
         }
     }
 

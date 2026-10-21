@@ -82,6 +82,11 @@ public struct TowerUpgradeEffects
 
     [SerializeField] private bool overrideProjectilesPerBurst;
     [SerializeField, Min(1)] private int projectilesPerBurst;
+
+    [Header("Missile Launcher Upgrade Config")]
+    [SerializeField] private bool overrideBlastRadius;
+    [SerializeField, Min(0f)] private float blastRadius;
+    [SerializeField] private bool isHoming;
 #endregion
 
 #region Public Properties
@@ -102,5 +107,9 @@ public struct TowerUpgradeEffects
 
     public bool OverrideProjectilesPerBurst => overrideProjectilesPerBurst;
     public int ProjectilesPerBurst => projectilesPerBurst;
+
+    public bool OverrideBlastRadius => overrideBlastRadius;
+    public float BlastRadius => blastRadius;
+    public bool IsHoming => isHoming;
 #endregion
 }

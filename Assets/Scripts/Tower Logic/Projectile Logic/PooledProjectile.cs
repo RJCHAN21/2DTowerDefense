@@ -32,6 +32,7 @@ public class PooledProjectile : MonoBehaviour
     private float _shotStartedAt;
 
     private Action<float> _updateShot;
+    private Action _onImpact;
     private Action _resetShot;
 
     // OBJECT POOLING \\
@@ -102,6 +103,10 @@ public class PooledProjectile : MonoBehaviour
 #endregion
 
 #region Public Methods
+    public void SetImpactCallback(Action onImpact)
+    {
+        _onImpact = onImpact;
+    }
     public void SetHitContext(IHittable target, PooledGun gun)
     {
         _hitTarget = target;
