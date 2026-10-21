@@ -6,7 +6,8 @@ public class FXManager : MonoBehaviour
     public static FXManager Instance { get; private set; }
 
     [Header("Particle Prefabs (GameObjects)")]
-    [SerializeField] private GameObject hitSparkPrefab;
+    [SerializeField] private GameObject enemyHitFeedbackPrefab;
+    [SerializeField] private GameObject towerHitFeedbackPrefab;
     [SerializeField] private GameObject deathBurstPrefab;
     [SerializeField] private GameObject explosionPrefab;
 
@@ -14,7 +15,8 @@ public class FXManager : MonoBehaviour
     [SerializeField] private int defaultCapacity = 20;
     [SerializeField] private int maxPoolSize = 60;
 
-    private IObjectPool<PooledParticleEffect> _hitSparkPool;
+    private IObjectPool<PooledParticleEffect> _enemyHitFeedbackPool;
+    private IObjectPool<PooledParticleEffect> _towerHitFeedbackPool;
     private IObjectPool<PooledParticleEffect> _deathBurstPool;
     private IObjectPool<PooledExplosionVFX> _explosionPool;
 
@@ -27,10 +29,23 @@ public class FXManager : MonoBehaviour
         }
         Instance = this;
 
-        if (hitSparkPrefab != null)
+        if (enemyHitFeedbackPrefab != null)
         {
-            _hitSparkPool = new ObjectPool<PooledParticleEffect>(
-                createFunc: () => CreatePooledEffect(hitSparkPrefab, _hitSparkPool),
+            _enemyHitFeedbackPool = new ObjectPool<PooledParticleEffect>(
+                createFunc: () => CreatePooledEffect(enemyHitFeedbackPrefab, _enemyHitFeedbackPool),
+                actionOnGet: null,
+                actionOnRelease: effect => { if (effect != null) effect.gameObject.SetActive(false); },
+                actionOnDestroy: effect => { if (effect != null) Destroy(effect.gameObject); },
+                collectionCheck: false,
+                defaultCapacity: defaultCapacity,
+                maxSize: maxPoolSize
+            );
+        }
+
+        if (towerHitFeedbackPrefab != null)
+        {
+            _towerHitFeedbackPool = new ObjectPool<PooledParticleEffect>(
+                createFunc: () => CreatePooledEffect(towerHitFeedbackPrefab, _towerHitFeedbackPool),
                 actionOnGet: null,
                 actionOnRelease: effect => { if (effect != null) effect.gameObject.SetActive(false); },
                 actionOnDestroy: effect => { if (effect != null) Destroy(effect.gameObject); },
@@ -105,10 +120,17 @@ public class FXManager : MonoBehaviour
         return effectComponent;
     }
 
-    public void PlayHitSpark(Vector3 position, Quaternion rotation = default)
+    public void PlayEnemyHitFeedback(Vector3 position, Quaternion rotation = default)
     {
-        if (_hitSparkPool == null) return;
-        PooledParticleEffect effect = _hitSparkPool.Get();
+        if (_enemyHitFeedbackPool == null) return;
+        PooledParticleEffect effect = _enemyHitFeedbackPool.Get();
+        effect.PlayAt(position, rotation == default ? Quaternion.identity : rotation);
+    }
+
+    public void PlayTowerHitFeedback(Vector3 position, Quaternion rotation = default)
+    {
+        if (_towerHitFeedbackPool == null) return;
+        PooledParticleEffect effect = _towerHitFeedbackPool.Get();
         effect.PlayAt(position, rotation == default ? Quaternion.identity : rotation);
     }
 

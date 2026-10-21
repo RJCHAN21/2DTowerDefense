@@ -303,6 +303,11 @@ public class TowerUnit : TowerTarget, IHittable
         if(health != null)
         {
             health.TakeDamage(damage);
+
+            if (FXManager.Instance != null)
+            {
+                FXManager.Instance.PlayTowerHitFeedback(transform.position);
+            }
         }
 
         else
@@ -323,7 +328,7 @@ public class TowerUnit : TowerTarget, IHittable
 
         if (FXManager.Instance != null)
         {
-            FXManager.Instance.PlayDeathBurst(transform.position);
+            FXManager.Instance.PlayExplosion(transform.position);
         }
         
         Destroy(gameObject);

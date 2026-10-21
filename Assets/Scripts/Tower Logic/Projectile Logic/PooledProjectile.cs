@@ -84,8 +84,9 @@ public class PooledProjectile : MonoBehaviour
             {
                 if (FXManager.Instance != null)
                 {
-                    FXManager.Instance.PlayHitSpark(closestPt);
+                    FXManager.Instance.PlayEnemyHitFeedback(closestPt);
                 }
+
                 _hitTarget.Hit(_sourceGun, _shotDamage);
                 ReturnToPool();
                 return;
