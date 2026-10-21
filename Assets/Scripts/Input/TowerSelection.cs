@@ -47,6 +47,9 @@ public class TowerSelection : MonoBehaviour
     // This needs to happen AFTER TowerPlacementController processes placement or cancellation.
     private void LateUpdate()
     {
+        if (Time.timeScale == 0f)
+            return;
+            
         if (!ReferenceEquals(selectedTower, null) &&
             (selectedTower == null || !selectedTower.isActiveAndEnabled))
         {

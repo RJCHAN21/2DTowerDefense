@@ -114,6 +114,7 @@ public class Enemy : EnemyTarget, IHittable
         BaseWave.ActiveEnemiesInScene--; //this will be called when the enemy is returned to the pool or destroyed
         health.Died -= OnDied;
         health.Damaged -= OnDamaged;
+        base.OnDisable();
     }
 
     private void OnDamaged(int damage, Vector3 position)

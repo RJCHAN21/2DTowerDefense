@@ -31,6 +31,15 @@ The assets in this pack are released under CC0 and may be used, modified, and di
 
 The assets in this pack are released under CC0 and may be used, modified, and distributed without attribution. Credit is provided here in appreciation of Kenney's work.
 
+### Kenney — Game Icons
+
+- **Creator:** Kenney
+- **Asset Pack:** Game Icons
+- **License:** Creative Commons CC0 1.0 Universal
+- **Source:** [Kenney — Game Icons](https://kenney.nl/assets/game-icons)
+
+The assets in this pack are released under CC0 and may be used, modified, and distributed without attribution. Credit is provided here in appreciation of Kenney's work.
+
 ### Jean Moreno — Cartoon FX Remaster Free
 
 - **Creator / Publisher:** Jean Moreno
@@ -41,6 +50,28 @@ The assets in this pack are released under CC0 and may be used, modified, and di
 - **Source:** [Unity Asset Store — Cartoon FX Remaster Free](https://assetstore.unity.com/packages/package/109565)
 
 Cartoon FX Remaster Free is used in accordance with the Unity Asset Store End User License Agreement. All rights to the original asset remain with its respective creator and publisher.
+
+### Dustyroom — FREE Casual Game SFX Pack
+
+- **Creator / Publisher:** Dustyroom
+- **Asset Pack:** FREE Casual Game SFX Pack
+- **Platform:** Unity Asset Store
+- **License:** Standard Unity Asset Store EULA
+- **License Type:** Extension Asset
+- **Source:** [Unity Asset Store — FREE Casual Game SFX Pack](https://assetstore.unity.com/packages/audio/sound-fx/free-casual-game-sfx-pack-54116)
+
+FREE Casual Game SFX Pack is used in accordance with the Unity Asset Store End User License Agreement. All rights to the original asset remain with its respective creator and publisher.
+
+### Andrew Sitkov Music — FREE Battle Music Pack
+
+- **Creator / Publisher:** Andrew Sitkov Music
+- **Asset Pack:** FREE Battle Music Pack
+- **Platform:** Unity Asset Store
+- **License:** Standard Unity Asset Store EULA
+- **License Type:** Extension Asset
+- **Source:** [Unity Asset Store — FREE Battle Music Pack](https://assetstore.unity.com/packages/audio/music/orchestral/free-battle-music-pack-54023)
+
+FREE Battle Music Pack is used in accordance with the Unity Asset Store End User License Agreement. All rights to the original asset remain with its respective creator and publisher.
 
 ## Third-Party Licenses
 
