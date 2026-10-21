@@ -101,6 +101,11 @@ public class PooledGun : MonoBehaviour
 
         _nextTimeToShoot = Time.time + shotInterval;
 
+        if (FXManager.Instance != null && muzzle != null)
+        {
+            FXManager.Instance.PlayMuzzleFlash(muzzle.position, muzzle.rotation);
+        }
+
         if (Time.timeScale > 0f)
         {
             if (firingLoopSource != null)
