@@ -15,7 +15,7 @@ MonoBehaviour:
   bursts:
   - enemyPrefabIndex: 0
     count: 18
-    spawnInterval: 0.65
+    spawnInterval: 0.52
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
     delayBeforeBurst: 0
   - enemyPrefabIndex: 2
     count: 8
-    spawnInterval: 0.95
+    spawnInterval: 0.76
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -34,10 +34,10 @@ MonoBehaviour:
     overrideReward: 0
     coinReward: 0
     waitForEnemiesToClear: 0
-    delayBeforeBurst: 1.5
+    delayBeforeBurst: 0.75
   - enemyPrefabIndex: 1
     count: 2
-    spawnInterval: 2.4
+    spawnInterval: 1.92
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -45,10 +45,10 @@ MonoBehaviour:
     overrideReward: 0
     coinReward: 0
     waitForEnemiesToClear: 0
-    delayBeforeBurst: 2
+    delayBeforeBurst: 1
   - enemyPrefabIndex: 0
     count: 16
-    spawnInterval: 0.6
+    spawnInterval: 0.48
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -56,10 +56,10 @@ MonoBehaviour:
     overrideReward: 0
     coinReward: 0
     waitForEnemiesToClear: 0
-    delayBeforeBurst: 2
+    delayBeforeBurst: 1
   - enemyPrefabIndex: 2
     count: 9
-    spawnInterval: 0.9
+    spawnInterval: 0.72
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -67,10 +67,10 @@ MonoBehaviour:
     overrideReward: 0
     coinReward: 0
     waitForEnemiesToClear: 0
-    delayBeforeBurst: 1.5
+    delayBeforeBurst: 0.75
   - enemyPrefabIndex: 1
     count: 2
-    spawnInterval: 2.3
+    spawnInterval: 1.84
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -78,10 +78,10 @@ MonoBehaviour:
     overrideReward: 0
     coinReward: 0
     waitForEnemiesToClear: 0
-    delayBeforeBurst: 2
+    delayBeforeBurst: 1
   - enemyPrefabIndex: 0
     count: 16
-    spawnInterval: 0.55
+    spawnInterval: 0.44
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -89,10 +89,10 @@ MonoBehaviour:
     overrideReward: 0
     coinReward: 0
     waitForEnemiesToClear: 0
-    delayBeforeBurst: 2
+    delayBeforeBurst: 1
   - enemyPrefabIndex: 2
     count: 8
-    spawnInterval: 0.85
+    spawnInterval: 0.68
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -100,10 +100,10 @@ MonoBehaviour:
     overrideReward: 0
     coinReward: 0
     waitForEnemiesToClear: 0
-    delayBeforeBurst: 1.5
+    delayBeforeBurst: 0.75
   - enemyPrefabIndex: 1
     count: 2
-    spawnInterval: 2.2
+    spawnInterval: 1.76
     overrideHealth: 0
     enemyHealth: 0
     overrideSpeed: 0
@@ -111,4 +111,4 @@ MonoBehaviour:
     overrideReward: 0
     coinReward: 0
     waitForEnemiesToClear: 0
-    delayBeforeBurst: 2
+    delayBeforeBurst: 1

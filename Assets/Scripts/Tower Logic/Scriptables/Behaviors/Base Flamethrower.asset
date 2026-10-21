@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Flamethrower
   damage: 1
   flameStopDelay: 0.2
-  maxFiringDuration: 10
+  maxFiringDuration: 3
   rechargeDuration: 3
   range: 1.5
   flameSpread: 60
-  shotInterval: 0.1
-  projectilesPerBurst: 5
+  shotInterval: 0.2
+  projectilesPerBurst: 4
   tailControl: 0.5
   speedMultiplier: 1
   speedVariation: 0.15

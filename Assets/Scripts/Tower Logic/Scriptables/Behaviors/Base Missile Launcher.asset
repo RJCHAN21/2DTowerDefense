@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Base Missile Launcher
   m_EditorClassIdentifier: Assembly-CSharp::MissileLauncher
   burstInterval: 0.3
-  reloadDuration: 1.5
+  reloadDuration: 2
   waitFireAfterReload: 1
-  damage: 25
+  damage: 10
   range: 2
   blastRadius: 1
   isHoming: 0

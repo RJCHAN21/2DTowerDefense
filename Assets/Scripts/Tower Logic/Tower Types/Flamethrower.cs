@@ -19,7 +19,7 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     [Tooltip("Seconds the flame stream takes to stop after normal firing ends.")]
     [SerializeField, Min(0f)] private float flameStopDelay = 0.2f;
 
-    [Tooltip("Maximum continuous firing time before overheating.")]
+    [Tooltip("Accumulated firing time before overheating. Target changes do not reset it.")]
     [SerializeField, Min(0.01f)] private float maxFiringDuration = 10f;
 
     [Tooltip("Seconds needed to recharge after overheating.")]
@@ -85,9 +85,8 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 #region Runtime State
 
     private float _flameFireUntil = float.NegativeInfinity;
-    private float _firingStartedAt = float.NegativeInfinity;
+    private float _firingElapsed;
     private float _rechargeUntil = float.NegativeInfinity;
-    private bool _wasFiring;
     private float _flameWidthMultiplier = 1f;
 
 #endregion
@@ -95,6 +94,9 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 #region Firing Behavior
     public void UpdateFiring(PooledGun gun, bool shouldFire)
     {
+        if (gun == null || Time.deltaTime <= 0f)
+            return;
+
         if (Time.time < _rechargeUntil)
             return;
         
@@ -102,16 +104,14 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 
         if (!shouldFire && !hasFiringTail)
         {
-            ResetFiring();
+            // Losing a target stops the stream without clearing accumulated heat.
+            _flameFireUntil = float.NegativeInfinity;
             return;
         }
 
-        if (shouldFire && !_wasFiring)
-            _firingStartedAt = Time.time;
+        _firingElapsed += Time.deltaTime;
 
-        _wasFiring = shouldFire;
-
-        if (Time.time - _firingStartedAt >= maxFiringDuration)
+        if (_firingElapsed >= maxFiringDuration)
         {
             _rechargeUntil = Time.time + rechargeDuration;
             ResetFiring();
@@ -144,8 +144,7 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     public void ResetFiring()
     {
         _flameFireUntil = float.NegativeInfinity;
-        _firingStartedAt = float.NegativeInfinity;
-        _wasFiring = false;
+        _firingElapsed = 0f;
     }
 
     public void Fire(PooledGun gun)
