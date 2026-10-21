@@ -77,7 +77,14 @@ public class Enemy : EnemyTarget, IHittable
 
         if (FXManager.Instance != null)
         {
-            FXManager.Instance.PlayDeathBurst(transform.position);
+            if (TryGetComponent(out EnemyTankBoss tankBoss))
+            {
+                FXManager.Instance.PlayExplosionTwo(transform.position);
+            }
+            else
+            {
+                FXManager.Instance.PlayDeathBurst(transform.position);
+            }
         }
 
         if (_currency != null)

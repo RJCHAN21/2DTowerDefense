@@ -9,7 +9,8 @@ public class FXManager : MonoBehaviour
     [SerializeField] private GameObject enemyHitFeedbackPrefab;
     [SerializeField] private GameObject towerHitFeedbackPrefab;
     [SerializeField] private GameObject deathBurstPrefab;
-    [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private GameObject explosionOnePrefab;
+    [SerializeField] private GameObject explosionTwoPrefab;
 
     [Header("Pool Capacities")]
     [SerializeField] private int defaultCapacity = 20;
@@ -18,7 +19,8 @@ public class FXManager : MonoBehaviour
     private IObjectPool<PooledParticleEffect> _enemyHitFeedbackPool;
     private IObjectPool<PooledParticleEffect> _towerHitFeedbackPool;
     private IObjectPool<PooledParticleEffect> _deathBurstPool;
-    private IObjectPool<PooledExplosionVFX> _explosionPool;
+    private IObjectPool<PooledExplosionVFX> _explosionOnePool;
+    private IObjectPool<PooledExplosionVFX> _explosionTwoPool;
 
     private void Awake()
     {
@@ -68,12 +70,12 @@ public class FXManager : MonoBehaviour
             );
         }
 
-        if (explosionPrefab != null)
+        if (explosionOnePrefab != null)
         {
-            _explosionPool = new ObjectPool<PooledExplosionVFX>(
+            _explosionOnePool = new ObjectPool<PooledExplosionVFX>(
                 createFunc: () =>
                 {
-                    GameObject instance = Instantiate(explosionPrefab, transform);
+                    GameObject instance = Instantiate(explosionOnePrefab, transform);
                     
                     if (!instance.TryGetComponent(out PooledExplosionVFX explosionComp))
                     {
@@ -85,7 +87,37 @@ public class FXManager : MonoBehaviour
                         explosionComp = instance.AddComponent<PooledExplosionVFX>();
                     }
 
-                    explosionComp.InitializeVFXContext(_explosionPool);
+                    explosionComp.InitializeVFXContext(_explosionOnePool);
+                    instance.SetActive(false);
+                    return explosionComp;
+                },
+                actionOnGet: null,
+                actionOnRelease: explosion => { if (explosion != null) explosion.gameObject.SetActive(false); },
+                actionOnDestroy: explosion => { if (explosion != null) Destroy(explosion.gameObject); },
+                collectionCheck: false,
+                defaultCapacity: 10,
+                maxSize: 30
+            );
+        }
+
+        if (explosionTwoPrefab != null)
+        {
+            _explosionTwoPool = new ObjectPool<PooledExplosionVFX>(
+                createFunc: () =>
+                {
+                    GameObject instance = Instantiate(explosionTwoPrefab, transform);
+                    
+                    if (!instance.TryGetComponent(out PooledExplosionVFX explosionComp))
+                    {
+                        explosionComp = instance.GetComponentInChildren<PooledExplosionVFX>();
+                    }
+
+                    if (explosionComp == null)
+                    {
+                        explosionComp = instance.AddComponent<PooledExplosionVFX>();
+                    }
+
+                    explosionComp.InitializeVFXContext(_explosionTwoPool);
                     instance.SetActive(false);
                     return explosionComp;
                 },
@@ -141,10 +173,18 @@ public class FXManager : MonoBehaviour
         effect.PlayAt(position, rotation == default ? Quaternion.identity : rotation);
     }
 
-    public void PlayExplosion(Vector3 position, Quaternion rotation = default)
+    public void PlayExplosionOne(Vector3 position, Quaternion rotation = default)
     {
-        if (_explosionPool == null) return;
-        PooledExplosionVFX explosion = _explosionPool.Get();
+        if (_explosionOnePool == null) return;
+        PooledExplosionVFX explosion = _explosionOnePool.Get();
+        explosion.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
+        explosion.gameObject.SetActive(true);
+    }
+
+    public void PlayExplosionTwo(Vector3 position, Quaternion rotation = default)
+    {
+        if (_explosionTwoPool == null) return;
+        PooledExplosionVFX explosion = _explosionTwoPool.Get();
         explosion.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
         explosion.gameObject.SetActive(true);
     }

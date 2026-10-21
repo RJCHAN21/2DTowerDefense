@@ -84,9 +84,15 @@ public class PooledProjectile : MonoBehaviour
             {
                 if (FXManager.Instance != null)
                 {
-                    FXManager.Instance.PlayEnemyHitFeedback(closestPt);
+                    if (_hitTarget is Component comp && comp.TryGetComponent(out EnemyTankBoss tankBoss))
+                    {
+                        FXManager.Instance.PlayExplosionOne(closestPt);
+                    }
+                    else
+                    {
+                        FXManager.Instance.PlayEnemyHitFeedback(closestPt);
+                    }
                 }
-
                 _hitTarget.Hit(_sourceGun, _shotDamage);
                 ReturnToPool();
                 return;
