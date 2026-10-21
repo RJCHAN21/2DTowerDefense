@@ -46,6 +46,19 @@ public class TowerPlacementController : MonoBehaviour
 #region Unity Life Cycle
     private void OnEnable()
     {
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        cancelPlacementAction.Disable();
+
+        for (int i = 0; i < cancelPlacementAction.bindings.Count; i++)
+        {
+            if (cancelPlacementAction.bindings[i].path == "<Keyboard>/escape")
+            {
+                cancelPlacementAction.ApplyBindingOverride(
+                    i, "<Keyboard>/backquote");
+            }
+        }
+    #endif
+
         cancelPlacementAction.Enable();
     }
 
@@ -63,6 +76,10 @@ public class TowerPlacementController : MonoBehaviour
         {
             cancelPlacementHint.alpha = 0f;
             cancelPlacementHint.raycastTarget = false;
+#if UNITY_WEBGL && !UNITY_EDITOR
+            cancelPlacementHint.text =
+                "[RMB] / [BACKTICK `] to cancel placement";
+#endif
         }
     }
 
