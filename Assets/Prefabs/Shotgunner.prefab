@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 3705881053537686608}
   - component: {fileID: 1138361721366105109}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Muzzle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,7 +389,7 @@ MonoBehaviour:
   baseRange: 3
   baseRadius: 0.35
   gunTurningSpeed: 180
-  towerType: {fileID: 11400000, guid: e97bcdfa01b254241b0176e62031a598, type: 2}
+  towerTypeBehavior: {fileID: 11400000, guid: e97bcdfa01b254241b0176e62031a598, type: 2}
   pooledGun: {fileID: 2861593003177735450}
   lineRenderer: {fileID: 6705458162562580053}
 --- !u!114 &2861593003177735450
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 1633497312349320752}
   - component: {fileID: 2186333486531781241}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Muzzle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

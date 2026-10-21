@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Tower Defense/Tower Types/Sniper")]
 public sealed class Sniper : ScriptableObject, ITowerType
 {
+    [Header("Fire Rate")]
+    [Tooltip("The fire interval of the sniper.")]
+    [SerializeField, Min(0.01f)] private float shotInterval = 1.5f;
+
     [Header("Damage")]
     [Tooltip("The amount of damage this tower will deal to the target.")]
     [SerializeField, Min(0f)] private int damage = 2;
@@ -13,7 +17,7 @@ public sealed class Sniper : ScriptableObject, ITowerType
 
     public void Fire(PooledGun gun)
     {
-        gun.FirePattern(1.5f, damage, 0f);
+        gun.FirePattern(shotInterval, damage, 0f);
     }
 
     public void UpdateFiring(PooledGun gun, bool shouldFire)
@@ -31,5 +35,23 @@ public sealed class Sniper : ScriptableObject, ITowerType
     {
         return SightDetector.IsInRadius(
             origin, target, range);
+    }
+
+    public void ApplyUpgrade(TowerUpgradeEffects effects)
+    {
+        if (effects.OverrideDamage)
+        {
+            damage = effects.Damage;
+        }
+
+        if (effects.OverrideShotInterval)
+        {
+            shotInterval = effects.ShotInterval;
+        }
+
+        if (effects.OverrideRange)
+        {
+            range = effects.Range;
+        }
     }
 }

@@ -2,5 +2,6 @@ public enum TowerType
 {
     Flamethrower,
     Sniper,
-    Shotgunner
+    Shotgunner,
+    Basic
 }

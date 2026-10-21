@@ -59,6 +59,8 @@ public class Enemy : EnemyTarget, IHittable
     {
         set => _currency = value;
     }
+
+    public float PathProgress { get; set; }
 #endregion
 
 #region Hit Logic
@@ -140,6 +142,7 @@ public class Enemy : EnemyTarget, IHittable
         _isReturned = false;
         IsPathPaused = false;
         health.ResetHealth();
+        PathProgress = 0f;
     }
 
     public void ReturnToPool()

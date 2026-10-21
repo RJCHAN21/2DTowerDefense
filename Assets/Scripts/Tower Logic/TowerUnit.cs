@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class TowerUnit : TowerTarget, IHittable
     [SerializeField] private float gunTurningSpeed = 90f;
 
     [Tooltip("Defines how the tower will behave.")]
-    [SerializeField] private ScriptableObject towerType;
+    [SerializeField] private ScriptableObject towerTypeBehavior;
 
     // No longer needed: but if in case I ever make a new tower type with a cone range in the future, you do need this.
     // [Tooltip("The angle (in degrees) that this turret can see in a field-of-view arc.")]
@@ -53,8 +54,42 @@ public class TowerUnit : TowerTarget, IHittable
     public float BaseRadius => baseRadius;
     public static IReadOnlyList<TowerUnit> Towers => towers;
     public Vector2 HitPosition => transform.position;
-    public float HitRadius => 0.6f; // or serialize this in the Inspector
-    
+    public float HitRadius => 0.6f;
+    public TowerDefinition Definition => _definition;
+    public int CurrentStageIndex => _currentStageIndex;
+    public int TotalInvestment => _totalInvestment;
+    public IReadOnlyList<TowerUpgradeOption> AvailableUpgrades
+    {
+        get
+        {
+            if (_definition == null)
+                return Array.Empty<TowerUpgradeOption>();
+
+            TowerUpgradeDefinition upgrades = _definition.UpgradeDefinition;
+
+            if (upgrades == null)
+                return Array.Empty<TowerUpgradeOption>();
+
+            TowerUpgradeStage[] stages = upgrades.Stages;
+
+            if (stages == null ||
+                _currentStageIndex < 0 ||
+                _currentStageIndex >= stages.Length)
+                return Array.Empty<TowerUpgradeOption>();
+            
+            TowerUpgradeOption[] options = stages[_currentStageIndex].Options;
+
+            if (options == null)
+                return Array.Empty<TowerUpgradeOption>();
+            
+            return options;
+        }   
+    }
+    public string DisplayName => _displayName;
+    public Sprite DisplayIcon => _displayIcon;
+    public TowerFocus Focus => _focus;
+    public int SellValue =>
+        (int)((long)_totalInvestment * 75 / 100);
 #endregion
 
 #region Private Properties
@@ -63,13 +98,19 @@ public class TowerUnit : TowerTarget, IHittable
     private ITowerType AssignedTowerType =>
         (Application.IsPlaying(gameObject)
             ? _runtimeTowerType
-            : towerType) as ITowerType;
+            : towerTypeBehavior) as ITowerType;
     private bool _canFire = true;
     private static TowerUnit selectedTower = null;
     private bool _isInvincible = false;
     private bool _isHit = false;
     private bool _isPreview = false;
     private static List<TowerUnit> towers = new List<TowerUnit>();
+    private TowerDefinition _definition;
+    private int _currentStageIndex;
+    private int _totalInvestment;
+    private string _displayName;
+    private Sprite _displayIcon;
+    private TowerFocus _focus = TowerFocus.First;
 #endregion
 
 #region Unity Life Cycle
@@ -93,8 +134,8 @@ public class TowerUnit : TowerTarget, IHittable
         if (lineRenderer != null)
             lineRenderer.enabled = false;
 
-        if (_runtimeTowerType == null && towerType is ITowerType)
-            _runtimeTowerType = Instantiate(towerType);
+        if (_runtimeTowerType == null && towerTypeBehavior is ITowerType)
+            _runtimeTowerType = Instantiate(towerTypeBehavior);
 
         if (AssignedTowerType is Flamethrower flamethrower)
             flamethrower.ResetFiring();
@@ -158,10 +199,10 @@ public class TowerUnit : TowerTarget, IHittable
 
         if (!_canFire) return;
 
-        ITowerType towerType = AssignedTowerType;
-        if (towerType == null) return;
+        ITowerType towerTypeBehavior = AssignedTowerType;
+        if (towerTypeBehavior == null) return;
 
-        pooledGun.SetTowerType(towerType);
+        pooledGun.SetTowerType(towerTypeBehavior);
 
         MapVisualToRange();
 
@@ -183,7 +224,7 @@ public class TowerUnit : TowerTarget, IHittable
             shouldFire = IsFacingTarget(_target);
         }
 
-        if (towerType is Flamethrower flamethrower)
+        if (towerTypeBehavior is Flamethrower flamethrower)
         {
             flamethrower.UpdateFiring(pooledGun, shouldFire);
         }
@@ -208,38 +249,80 @@ public class TowerUnit : TowerTarget, IHittable
         if (AssignedTowerType is Flamethrower flamethrower)
             flamethrower.ResetFiring();
     }
+
+    public void CycleFocus(int direction)
+    {
+        int nextFocus = ((int)_focus + direction) % 3;
+
+        if (nextFocus < 0)
+            nextFocus += 3;
+
+        _focus = (TowerFocus)nextFocus;
+    }
+
+    public bool TrySell(Currency currency)
+    {
+        if (!Application.IsPlaying(gameObject) ||
+            !isActiveAndEnabled ||
+            _isPreview ||
+            _isHit ||
+            health == null ||
+            health.HP <= 0)
+            return false;
+
+        if (currency == null || !currency.TryDeposit(SellValue))
+            return false;
+
+        _isHit = true;
+        gameObject.SetActive(false);
+        Destroy(gameObject);
+
+        return true;
+    }
 #endregion
 
 #region Enemy Detection
     private Transform FindVisibleEnemy()
     {
-        foreach (EnemyTarget enemy in EnemyTarget.ActiveEnemies)
+        Enemy bestEnemy = null;
+        float bestScore = float.NegativeInfinity;
+
+        foreach (EnemyTarget target in EnemyTarget.ActiveEnemies)
         {
-            if (enemy == null || !enemy.isActiveAndEnabled) continue;
+            if (target == null || !target.isActiveAndEnabled)
+                continue;
 
-            if (enemy.transform == _target && IsInSight(enemy.transform))
-                return _target;
-        }
+            if (!(target is Enemy enemy))
+                continue;
 
-        Transform nearestEnemy = null;
-        float nearestDistSquared = float.PositiveInfinity;
+            if (enemy.CurrentHealth <= 0 || !IsInSight(enemy.transform))
+                continue;
 
-        foreach (EnemyTarget enemy in EnemyTarget.ActiveEnemies)
-        {
-            if (enemy == null || !enemy.isActiveAndEnabled) continue;
-            if (!IsInSight(enemy.transform)) continue;
+            float score;
 
-            Vector2 dist = enemy.transform.position - transform.position;
-            float distSquared = dist.sqrMagnitude;
-            
-            if (distSquared < nearestDistSquared)
+            switch (_focus)
             {
-                nearestDistSquared = distSquared;
-                nearestEnemy = enemy.transform;
+                case TowerFocus.Last:
+                    score = -enemy.PathProgress;
+                    break;
+
+                case TowerFocus.Strongest:
+                    score = enemy.CurrentHealth;
+                    break;
+
+                default:
+                    score = enemy.PathProgress;
+                    break;
+            }
+
+            if (bestEnemy == null || score > bestScore)
+            {
+                bestScore = score;
+                bestEnemy = enemy;
             }
         }
 
-        return nearestEnemy;
+        return bestEnemy != null ? bestEnemy.transform : null;
     }
 
     private bool IsInSight(Transform target)
@@ -324,4 +407,142 @@ public class TowerUnit : TowerTarget, IHittable
     }
 #endregion
 
+#region Initialization
+    public void Initialize(TowerDefinition definition)
+    {
+        _definition = definition;
+        _currentStageIndex = 0;
+        _totalInvestment = definition.Cost;
+        _displayName = definition.name;
+        _displayIcon = definition.TowerSprite;
+    }
+#endregion
+
+#region Upgrade Logic
+    
+    public void ApplyUpgrade(TowerUpgradeEffects effects)
+    {
+        if (_runtimeTowerType is ITowerType behavior)
+        {
+            behavior.ApplyUpgrade(effects);
+        }
+    }
+
+    public bool TryPurchaseUpgrade(
+        int optionIndex,
+        Currency currency,
+        out TowerUnit resultingTower)
+    {
+        resultingTower = this;
+
+        if (!Application.IsPlaying(gameObject) ||
+            !isActiveAndEnabled ||
+            _isPreview ||
+            _isHit ||
+            health == null ||
+            health.HP <= 0)
+            return false;
+        
+        if (optionIndex < 0 || optionIndex >= AvailableUpgrades.Count)
+            return false;
+        
+        if (currency == null || !currency.isActiveAndEnabled)
+            return false;
+        
+        if (!(_runtimeTowerType is ITowerType))
+            return false;
+
+        TowerUpgradeOption option = AvailableUpgrades[optionIndex];
+        int nextStageIndex = option.NextStageIndex;
+        TowerUpgradeStage[] stages = _definition.UpgradeDefinition.Stages;
+
+        if (nextStageIndex != -1 &&
+            (nextStageIndex <= _currentStageIndex ||
+            nextStageIndex >= stages.Length))
+            return false;
+        
+        if (option.Cost < 0 || currency.Balance < option.Cost)
+            return false;
+
+        TowerUnit upgradedTower = this;
+
+        if (option.ReplacementPrefab != null)
+        {
+            upgradedTower = Instantiate(
+                option.ReplacementPrefab,
+                transform.position,
+                transform.rotation,
+                transform.parent
+            );
+
+            upgradedTower.SetPreview(true);
+            upgradedTower.gameObject.SetActive(true);
+
+            if (!(upgradedTower._runtimeTowerType is ITowerType))
+            {
+                upgradedTower.gameObject.SetActive(false);
+                Destroy(upgradedTower.gameObject);
+                return false;
+            }
+
+            if (upgradedTower.health == null ||
+                !upgradedTower.health.isActiveAndEnabled ||
+                upgradedTower.health.HP <= 0 ||
+                upgradedTower.pooledGun == null ||
+                upgradedTower.lineRenderer == null)
+            {
+                upgradedTower.gameObject.SetActive(false);
+                Destroy(upgradedTower.gameObject);
+                return false;
+            }
+        }
+
+        if (!currency.TrySpend(option.Cost))
+        {
+            if (upgradedTower != this)
+            {
+                upgradedTower.gameObject.SetActive(false);
+                Destroy(upgradedTower.gameObject);
+            }
+
+            return false;
+        }
+
+        upgradedTower._definition = _definition;
+        upgradedTower._currentStageIndex = nextStageIndex;
+        upgradedTower._totalInvestment = _totalInvestment + option.Cost;
+        upgradedTower._focus = _focus;
+        upgradedTower._displayName = _displayName;
+        upgradedTower._displayIcon = _displayIcon;
+
+        if (option.ReplacementPrefab != null)
+        {
+            upgradedTower._displayName = option.ReplacementPrefab.name;
+
+            SpriteRenderer sprite = upgradedTower.GetComponent<SpriteRenderer>();
+            upgradedTower._displayIcon = sprite != null ? sprite.sprite : option.Icon;
+        }
+
+        upgradedTower.ApplyUpgrade(option.TowerUpgradeEffects);
+        upgradedTower.Health.ResetHealth();
+        upgradedTower.MapVisualToRange();
+     
+        if (upgradedTower != this)
+        {
+            gameObject.SetActive(false);
+            upgradedTower.SetPreview(false);
+            Destroy(gameObject);
+        }
+
+        resultingTower = upgradedTower;
+        return true;
+    }
+#endregion
+}
+
+public enum TowerFocus
+{
+    First,
+    Last,
+    Strongest
 }

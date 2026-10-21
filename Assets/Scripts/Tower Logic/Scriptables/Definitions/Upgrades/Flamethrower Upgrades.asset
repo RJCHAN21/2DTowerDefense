@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a86f5e1ed64c4348a66f67f2d9c5230, type: 3}
+  m_Name: Flamethrower Upgrades
+  m_EditorClassIdentifier: Assembly-CSharp::TowerUpgradeDefinition
+  stages:
+  - stageLabel: Level One
+    options:
+    - upgradeName: Faster Recharge
+      description: Reduces recharge from 3s to 1.5s.
+      icon: {fileID: 0}
+      cost: 60
+      replacementPrefab: {fileID: 0}
+      nextStageIndex: 1
+      towerUpgradeEffects:
+        overrideDamage: 0
+        damage: 0
+        overrideShotInterval: 0
+        shotInterval: 0
+        overrideRange: 0
+        range: 0
+        overrideRechargeDuration: 1
+        rechargeDuration: 1.5
+        overrideFlameWidth: 0
+        flameWidthMultiplier: 0
+        overrideProjectilesPerBurst: 0
+        projectilesPerBurst: 0
+  - stageLabel: Level Two
+    options:
+    - upgradeName: Improved Range
+      description: Increases flame range by 25%.
+      icon: {fileID: 0}
+      cost: 100
+      replacementPrefab: {fileID: 0}
+      nextStageIndex: 2
+      towerUpgradeEffects:
+        overrideDamage: 0
+        damage: 0
+        overrideShotInterval: 0
+        shotInterval: 0
+        overrideRange: 1
+        range: 1.25
+        overrideRechargeDuration: 0
+        rechargeDuration: 0
+        overrideFlameWidth: 0
+        flameWidthMultiplier: 0
+        overrideProjectilesPerBurst: 0
+        projectilesPerBurst: 0
+  - stageLabel: Level Three
+    options:
+    - upgradeName: Larger Flames
+      description: Widens the flame spread by 30% and increases projectiles per burst from 5 to 7, improving coverage against groups of enemies.
+      icon: {fileID: 0}
+      cost: 120
+      replacementPrefab: {fileID: 0}
+      nextStageIndex: -1
+      towerUpgradeEffects:
+        overrideDamage: 0
+        damage: 0
+        overrideShotInterval: 0
+        shotInterval: 0
+        overrideRange: 0
+        range: 0
+        overrideRechargeDuration: 0
+        rechargeDuration: 0
+        overrideFlameWidth: 1
+        flameWidthMultiplier: 1.3
+        overrideProjectilesPerBurst: 1
+        projectilesPerBurst: 7

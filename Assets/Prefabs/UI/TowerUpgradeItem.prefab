@@ -87,8 +87,9 @@ GameObject:
   - component: {fileID: 2942002447601274725}
   - component: {fileID: 6808234914724221626}
   - component: {fileID: 6876432476485034952}
+  - component: {fileID: 3646954842119039952}
   m_Layer: 5
-  m_Name: TowerUpgrade
+  m_Name: TowerUpgradeItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,3 +197,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3646954842119039952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3422317727290903206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73608845cf019c84d8b99ab72236a65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerUpgradeItem
+  optionButton: {fileID: 6876432476485034952}
+  towerUpgradeIcon: {fileID: 5562431764107721960}

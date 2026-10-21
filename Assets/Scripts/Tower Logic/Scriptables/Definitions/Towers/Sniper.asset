@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec765766d9f5c034e8773fd7391cadfd, type: 3}
-  m_Name: Flamethrower
+  m_Name: Sniper
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefinition
-  towerPrefab: {fileID: 4351162694620492946, guid: c087fc961d22f4b4db29f2dcf93751a9, type: 3}
-  towerSprite: {fileID: 6991795282918457499, guid: 2f8667994d042fd41b012206ddcdd7e6, type: 3}
-  cost: 10
+  towerPrefab: {fileID: 216480049714251040, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
+  towerSprite: {fileID: -3406780426092485941, guid: 615e9367febfaad43805818f85f29bce, type: 3}
+  cost: 0
+  upgradeDefinition: {fileID: 0}

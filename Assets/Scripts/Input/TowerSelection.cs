@@ -21,6 +21,11 @@ public class TowerSelection : MonoBehaviour
     
 #endregion
 
+#region Public Properties
+    public TowerUnit SelectedTower => selectedTower;
+    public event System.Action<TowerUnit> SelectionChanged;
+#endregion
+
 #region Runtime Properties
     private PointerEventData pointerData;
     private List<RaycastResult> results = new List<RaycastResult>();
@@ -42,6 +47,12 @@ public class TowerSelection : MonoBehaviour
     // This needs to happen AFTER TowerPlacementController processes placement or cancellation.
     private void LateUpdate()
     {
+        if (!ReferenceEquals(selectedTower, null) &&
+            (selectedTower == null || !selectedTower.isActiveAndEnabled))
+        {
+            SelectTower(null);
+        }
+        
         if (towerPlacementController.BlocksTowerSelection)
             return;
 
@@ -88,6 +99,8 @@ public class TowerSelection : MonoBehaviour
 
         if (selectedTower != null)
             selectedTower.LineRenderer.enabled = true;
+        
+        SelectionChanged?.Invoke(selectedTower);
     }
 #endregion
 }

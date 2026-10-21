@@ -19,6 +19,12 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     [Tooltip("Seconds the flame stream takes to stop after normal firing ends.")]
     [SerializeField, Min(0f)] private float flameStopDelay = 0.2f;
 
+    [Tooltip("Maximum continuous firing time before overheating.")]
+    [SerializeField, Min(0.01f)] private float maxFiringDuration = 10f;
+
+    [Tooltip("Seconds needed to recharge after overheating.")]
+    [SerializeField, Min(0.01f)] private float rechargeDuration = 3f;
+
     #endregion
 
     #region Sight
@@ -79,18 +85,45 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 #region Runtime State
 
     private float _flameFireUntil = float.NegativeInfinity;
+    private float _firingStartedAt = float.NegativeInfinity;
+    private float _rechargeUntil = float.NegativeInfinity;
+    private bool _wasFiring;
+    private float _flameWidthMultiplier = 1f;
 
 #endregion
 
 #region Firing Behavior
     public void UpdateFiring(PooledGun gun, bool shouldFire)
     {
+        if (Time.time < _rechargeUntil)
+            return;
+        
+        bool hasFiringTail = flameStopDelay > 0f && Time.time < _flameFireUntil;
+
+        if (!shouldFire && !hasFiringTail)
+        {
+            ResetFiring();
+            return;
+        }
+
+        if (shouldFire && !_wasFiring)
+            _firingStartedAt = Time.time;
+
+        _wasFiring = shouldFire;
+
+        if (Time.time - _firingStartedAt >= maxFiringDuration)
+        {
+            _rechargeUntil = Time.time + rechargeDuration;
+            ResetFiring();
+            return;
+        }
+
         if (shouldFire)
         {
             _flameFireUntil = Time.time + flameStopDelay;
             Fire(gun);
         }
-        else if (flameStopDelay > 0f && Time.time < _flameFireUntil)
+        else if (hasFiringTail)
         {
             float elapsed = flameStopDelay -
                 (_flameFireUntil - Time.time);
@@ -111,6 +144,8 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     public void ResetFiring()
     {
         _flameFireUntil = float.NegativeInfinity;
+        _firingStartedAt = float.NegativeInfinity;
+        _wasFiring = false;
     }
 
     public void Fire(PooledGun gun)
@@ -124,7 +159,11 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
         if (intensity <= 0f || range <= 0f) return;
 
         int count = Mathf.CeilToInt(projectilesPerBurst * intensity);
-        float halfSpread = flameSpread * 0.5f;
+        float baseHalfSpreadRad = flameSpread * 0.5f * Mathf.Deg2Rad;
+        float halfSpread = Mathf.Atan(
+            Mathf.Tan(baseHalfSpreadRad) * _flameWidthMultiplier)
+            * Mathf.Rad2Deg;
+
         float[] angles = new float[count];
 
         for (int i = 0; i < count; i++)
@@ -218,6 +257,41 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     {
         return SightDetector.IsInRadius(
             origin, target, range);
+    }
+#endregion
+
+#region Upgrade Logic
+    public void ApplyUpgrade(TowerUpgradeEffects effects)
+    {
+        if (effects.OverrideDamage)
+        {
+            damage = effects.Damage;
+        }
+
+        if (effects.OverrideShotInterval)
+        {
+            shotInterval = effects.ShotInterval;
+        }
+
+        if (effects.OverrideRange)
+        {
+            range = effects.Range;
+        }
+
+        if (effects.OverrideRechargeDuration)
+        {
+            rechargeDuration = effects.RechargeDuration;
+        }
+
+        if (effects.OverrideFlameWidth)
+        {
+            _flameWidthMultiplier = effects.FlameWidthMultiplier;
+        }
+
+        if (effects.OverrideProjectilesPerBurst)
+        {
+            projectilesPerBurst = effects.ProjectilesPerBurst;
+        }
     }
 #endregion
 }

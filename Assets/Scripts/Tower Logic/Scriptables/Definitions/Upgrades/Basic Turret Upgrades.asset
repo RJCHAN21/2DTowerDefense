@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a86f5e1ed64c4348a66f67f2d9c5230, type: 3}
+  m_Name: Basic Turret Upgrades
+  m_EditorClassIdentifier: Assembly-CSharp::TowerUpgradeDefinition
+  stages:
+  - stageLabel: Level One
+    options:
+    - upgradeName: Faster Firing
+      description: 'Shoots 50% faster than normal.
+
+
+        Fire Rate: 0.8s -> 0.4s '
+      icon: {fileID: -3406780426092485941, guid: 615e9367febfaad43805818f85f29bce, type: 3}
+      cost: 40
+      replacementPrefab: {fileID: 0}
+      nextStageIndex: 1
+      towerUpgradeEffects:
+        overrideDamage: 0
+        damage: 0
+        overrideShotInterval: 1
+        shotInterval: 0.4
+        overrideRange: 0
+        range: 0
+        overrideRechargeDuration: 0
+        rechargeDuration: 0
+        overrideFlameWidth: 0
+        flameWidthMultiplier: 0
+  - stageLabel: Level Two
+    options:
+    - upgradeName: Become a Shotgunner
+      description: 'Turns the basic turret into a Shotgunner that fires five bullets at once.
+
+        Range: 1.5 -> 1.3
+
+        FIre Rate: 0.4s -> 1s '
+      icon: {fileID: -3406780426092485941, guid: 615e9367febfaad43805818f85f29bce, type: 3}
+      cost: 120
+      replacementPrefab: {fileID: 8016026224026870412, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
+      nextStageIndex: 2
+      towerUpgradeEffects:
+        overrideDamage: 0
+        damage: 0
+        overrideShotInterval: 0
+        shotInterval: 0
+        overrideRange: 0
+        range: 0
+        overrideRechargeDuration: 0
+        rechargeDuration: 0
+        overrideFlameWidth: 0
+        flameWidthMultiplier: 0
+    - upgradeName: Become a Sniper
+      description: 'Turns the basic turret into a Sniper.
+
+        Damage: 1 -> 2
+
+        Range: 1.5 -> 4
+
+        Fire Rate: 0.4s -> 1.5s '
+      icon: {fileID: -3406780426092485941, guid: 615e9367febfaad43805818f85f29bce, type: 3}
+      cost: 140
+      replacementPrefab: {fileID: 216480049714251040, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
+      nextStageIndex: 3
+      towerUpgradeEffects:
+        overrideDamage: 0
+        damage: 0
+        overrideShotInterval: 0
+        shotInterval: 0
+        overrideRange: 0
+        range: 0
+        overrideRechargeDuration: 0
+        rechargeDuration: 0
+        overrideFlameWidth: 0
+        flameWidthMultiplier: 0
+  - stageLabel: Level Three (Shotgunner)
+    options:
+    - upgradeName: Increased Damage
+      description: 'Deal triple the damage.
+
+        Damage: 1 -> 3 '
+      icon: {fileID: 0}
+      cost: 100
+      replacementPrefab: {fileID: 0}
+      nextStageIndex: -1
+      towerUpgradeEffects:
+        overrideDamage: 1
+        damage: 3
+        overrideShotInterval: 0
+        shotInterval: 0
+        overrideRange: 0
+        range: 0
+        overrideRechargeDuration: 0
+        rechargeDuration: 0
+        overrideFlameWidth: 0
+        flameWidthMultiplier: 0
+  - stageLabel: Level Three (Sniper)
+    options:
+    - upgradeName: Pro Sniper
+      description: 'Fire significantly faster and deal significantly more damage.
+
+        Fire Rate: 1.5s -> 0.4s
+
+        Damage: 3 -> 8 '
+      icon: {fileID: 0}
+      cost: 120
+      replacementPrefab: {fileID: 0}
+      nextStageIndex: -1
+      towerUpgradeEffects:
+        overrideDamage: 1
+        damage: 8
+        overrideShotInterval: 1
+        shotInterval: 0.4
+        overrideRange: 0
+        range: 0
+        overrideRechargeDuration: 0
+        rechargeDuration: 0
+        overrideFlameWidth: 0
+        flameWidthMultiplier: 0

@@ -162,6 +162,15 @@ public class Currency : MonoBehaviour
 
         return true;
     }
+
+    public bool TryDeposit(int amount)
+    {
+        if (!isActiveAndEnabled || !_initialized || amount < 0)
+            return false;
+
+        Deposit(amount);
+        return true;
+    }
 #endregion
 
 #region Pooling

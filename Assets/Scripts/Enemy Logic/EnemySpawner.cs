@@ -157,7 +157,11 @@ public class EnemySpawner : MonoBehaviour
             enemy.StartCoroutine(PathFind.FollowPath(
                 enemy.transform,
                 cubic.Duration / enemy.EnemySpeed,
-                cubic.GetPath,
+                progress =>
+                {
+                    enemy.PathProgress = progress;
+                    return cubic.GetPath(progress);
+                },
                 () => enemy.ReachTarget(playerHealth),
                 () => enemy.IsPathPaused));
         }
@@ -166,7 +170,11 @@ public class EnemySpawner : MonoBehaviour
             enemy.StartCoroutine(PathFind.FollowPath(
                 enemy.transform,
                 quadratic.Duration / enemy.EnemySpeed,
-                quadratic.GetPath,
+                progress =>
+                {
+                    enemy.PathProgress = progress;
+                    return quadratic.GetPath(progress);
+                },
                 () => enemy.ReachTarget(playerHealth),
                 () => enemy.IsPathPaused));
         } 
@@ -175,7 +183,11 @@ public class EnemySpawner : MonoBehaviour
             enemy.StartCoroutine(PathFind.FollowPath(
                 enemy.transform,
                 polyline.Duration / enemy.EnemySpeed,
-                polyline.GetPath,
+                progress =>
+                {
+                    enemy.PathProgress = progress;
+                    return polyline.GetPath(progress);
+                },
                 () => enemy.ReachTarget(playerHealth),
                 () => enemy.IsPathPaused));
         }

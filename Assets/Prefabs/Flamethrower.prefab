@@ -442,8 +442,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerUnit
   health: {fileID: 3443841087888755742}
   baseRange: 3
+  baseRadius: 0.35
   gunTurningSpeed: 180
-  towerType: {fileID: 11400000, guid: 0c7c0596c53522e428fa5929ba6c6341, type: 2}
+  towerTypeBehavior: {fileID: 11400000, guid: 0c7c0596c53522e428fa5929ba6c6341, type: 2}
   pooledGun: {fileID: 726987877373467935}
   lineRenderer: {fileID: 8861990582887076697}
 --- !u!114 &726987877373467935

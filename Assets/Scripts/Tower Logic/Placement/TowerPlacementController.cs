@@ -154,6 +154,7 @@ public class TowerPlacementController : MonoBehaviour
             return false;
         
         TowerUnit placedTower = _previewTower;
+        placedTower.Initialize(_td);
         placedTower.LineRenderer.colorGradient = _normalRangeGradient;
         placedTower.SetPreview(false);
         towerSelection.SelectTower(placedTower);

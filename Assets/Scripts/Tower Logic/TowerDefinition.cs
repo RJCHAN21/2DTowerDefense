@@ -7,11 +7,13 @@ public class TowerDefinition : ScriptableObject
     [SerializeField] private TowerUnit towerPrefab;
     [SerializeField] private Sprite towerSprite;
     [SerializeField, Range(0, 999)] private int cost;
+    [SerializeField] private TowerUpgradeDefinition upgradeDefinition;
 #endregion
 
 #region Public Properties
     public TowerUnit TowerPrefab => towerPrefab;
     public Sprite TowerSprite => towerSprite;
     public int Cost => cost;
+    public TowerUpgradeDefinition UpgradeDefinition => upgradeDefinition;
 #endregion
 }

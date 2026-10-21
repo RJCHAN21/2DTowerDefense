@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Tower Defense/Tower Types/Flamethrower")]
 public sealed class Shotgunner : ScriptableObject, ITowerType
 {
+    [Header("Fire Rate")]
+    [Tooltip("The fire interval of the shotgunner.")]
+    [SerializeField, Min(0.01f)] private float shotInterval = 1f;
+
     [Header("Damage")]
     [Tooltip("The amount of damage this tower will deal to the target.")]
     [SerializeField, Min(0f)] private int damage = 1;
@@ -16,7 +20,7 @@ public sealed class Shotgunner : ScriptableObject, ITowerType
 
     public void Fire(PooledGun gun)
     {
-        gun.FirePattern(1f, damage, pelletAngles);
+        gun.FirePattern(shotInterval, damage, pelletAngles);
     }
 
     public void DrawSightVisual(LineRenderer renderer)
@@ -28,5 +32,23 @@ public sealed class Shotgunner : ScriptableObject, ITowerType
     {
         return SightDetector.IsInRadius(
             origin, target, range);
+    }
+
+    public void ApplyUpgrade(TowerUpgradeEffects effects)
+    {
+        if (effects.OverrideDamage)
+        {
+            damage = effects.Damage;
+        }
+
+        if (effects.OverrideShotInterval)
+        {
+            shotInterval = effects.ShotInterval;
+        }
+
+        if (effects.OverrideRange)
+        {
+            range = effects.Range;
+        }
     }
 }
