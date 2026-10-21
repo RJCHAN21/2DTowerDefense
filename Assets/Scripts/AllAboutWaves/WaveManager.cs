@@ -1,10 +1,12 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
     [Header("Assign Wave Data files here")]
-    [SerializeField] private BaseWave[] allWaves; 
+    [SerializeField] private BaseWave[] allWaves;
+    [SerializeField] private TextMeshProUGUI waveNumberTMP;
     
     [SerializeField] private float timeBetweenWaves = 3f; // Time in seconds between waves
 
@@ -34,6 +36,7 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
+        waveNumberTMP.text = $"WAVE {currentWaveIndex + 1} / {allWaves.Length}";
         baseWaveScript = allWaves[currentWaveIndex];
         baseWaveScript.OnWaveComplete += ProgressSequence; // Subscribe to the wave completion event
         baseWaveScript.StartWave();
