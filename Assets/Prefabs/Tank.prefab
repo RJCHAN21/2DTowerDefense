@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 5277599681738025211}
   - component: {fileID: -9000651748020226396}
   - component: {fileID: 773824967462461699}
+  - component: {fileID: -512856514491034709}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -354,10 +355,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: e11a5a019377fbd4c81caa0adcb4c236, type: 3}
+  clip: {fileID: 8300000, guid: ba3d33391dcef4288a8ab5210877f166, type: 3}
   volume: 0.5
   minimumInterval: 0
   playOnButtonClick: 0
+--- !u!114 &-512856514491034709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526114795283734833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
+  damageClip: {fileID: 8300000, guid: 08b15283493d14e6ebacebed36250d4e, type: 3}
+  deathClip: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
+  damageVolume: 0.25
+  deathVolume: 0.4
+  damageSoundInterval: 0.1
 --- !u!1 &3941106846367555508
 GameObject:
   m_ObjectHideFlags: 0
