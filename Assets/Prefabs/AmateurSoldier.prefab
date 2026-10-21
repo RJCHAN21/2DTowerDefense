@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: {fileID: 2113115965285803655}
+  baseSpeed: 0.6
   hitRadius: 0.5
   turningSpeed: 360
   coinValue: 1

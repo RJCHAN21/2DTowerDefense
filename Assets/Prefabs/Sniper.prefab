@@ -870,6 +870,7 @@ GameObject:
   - component: {fileID: 3465906071397926165}
   - component: {fileID: 6842842661378625307}
   - component: {fileID: 8742899763011857644}
+  - component: {fileID: -6044892705114563319}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -935,6 +936,8 @@ MonoBehaviour:
   collectionCheck: 1
   defaultCapacity: 20
   maxSize: 100
+  firingSound: {fileID: -6044892705114563319}
+  firingLoopSource: {fileID: 0}
 --- !u!58 &3465906071397926165
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1049,6 +1052,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &-6044892705114563319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7931984054674912806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
+  clip: {fileID: 8300000, guid: d7a7a06ad89a6ef41b9dbd009fda4b29, type: 3}
+  volume: 0.5
+  minimumInterval: 0
+  playOnButtonClick: 0
 --- !u!1 &8422018602379672349
 GameObject:
   m_ObjectHideFlags: 0

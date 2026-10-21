@@ -38,6 +38,12 @@ public class TowerInfoMenuController : MonoBehaviour
     [SerializeField] private Button leftArrowBtn;
     [SerializeField] private Button rightArrowBtn;
     [SerializeField] private TextMeshProUGUI focusLabelTMP;
+
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip upgradeSFX;
+    [SerializeField] private AudioClip sellSFX;
+    [SerializeField] private AudioClip rejectSFX;
+    [SerializeField] private AudioClip focusSFX;
 #endregion
 
 #region Runtime Properties
@@ -201,8 +207,12 @@ public class TowerInfoMenuController : MonoBehaviour
                 _selectedUpgradeIndex,
                 currency,
                 out TowerUnit resultingTower))
+        {
+            SoundManager.Instance?.PlaySFX(rejectSFX);
             return;
+        }
 
+        SoundManager.Instance?.PlaySFX(upgradeSFX);
         towerSelection.SelectTower(resultingTower);
     }
 
@@ -228,8 +238,12 @@ public class TowerInfoMenuController : MonoBehaviour
             return;
 
         if (!_tower.TrySell(currency))
+        {
+            SoundManager.Instance?.PlaySFX(rejectSFX);
             return;
+        }
 
+        SoundManager.Instance?.PlaySFX(sellSFX);
         towerSelection.SelectTower(null);
     }
 #endregion
@@ -240,6 +254,7 @@ public class TowerInfoMenuController : MonoBehaviour
         if (_tower == null)
             return;
 
+        SoundManager.Instance?.PlaySFX(focusSFX);
         _tower.CycleFocus(-1);
         RefreshFocusLabel();
     }
@@ -249,6 +264,7 @@ public class TowerInfoMenuController : MonoBehaviour
         if (_tower == null)
             return;
 
+        SoundManager.Instance?.PlaySFX(focusSFX);
         _tower.CycleFocus(1);
         RefreshFocusLabel();
     }

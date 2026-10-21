@@ -261,9 +261,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: {fileID: 2113115965285803655}
+  baseSpeed: 0.8
   hitRadius: 0.5
   turningSpeed: 360
-  coinValue: 1
+  coinValue: 11
 --- !u!114 &2113115965285803655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   HPBarFill: {fileID: 4612929109892131101}
   HPTxt: {fileID: 0}
-  maxHP: 1
+  maxHP: 8
   ghostHPBarFill: {fileID: 5951337824991244759}
   ghostDelay: 0.1
   ghostDuration: 0.6
@@ -294,10 +295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07708aac0cf4fb4f82221374158fe86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySuicideBomber
-  explosionVFXPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  collectionCheck: 1
-  defaultCapacity: 10
-  maxSize: 50
   detonationProximity: 0.6
   blastDamageRadius: 1
   structuralPayloadDamage: 10

@@ -7,6 +7,10 @@ public class Enemy : EnemyTarget, IHittable
     [Header("Health Setup")]
     [SerializeField] private Health health;
 
+    [Header("Movement")]
+    [Tooltip("Default path speed multiplier.")]
+    [SerializeField, Min(0.01f)] private float baseSpeed = 1f;
+
     [Header("Hitbox")]
     [SerializeField] private float hitRadius = 0.5f;
 
@@ -16,7 +20,7 @@ public class Enemy : EnemyTarget, IHittable
 
     [Header("Reward")]
     [Tooltip("Coins awarded when this enemy is killed.")]
-    [SerializeField, Min(0)] private int coinValue = 1;
+    [SerializeField, Min(0)] private int coinReward = 1;
 #endregion
 
 #region Private Properties
@@ -27,6 +31,7 @@ public class Enemy : EnemyTarget, IHittable
     private IObjectPool<Enemy> _objPool;
     private bool _isReturned;
     private Currency _currency;
+    private int _coinReward;
 #endregion
 
 #region Public Properties
@@ -40,6 +45,8 @@ public class Enemy : EnemyTarget, IHittable
         get => _speed;
         set => _speed = Mathf.Max(0f, value);
     }
+    public float DefaultSpeed => baseSpeed;
+
     public int CurrentHealth
     {
         get => health.HP;
@@ -48,9 +55,12 @@ public class Enemy : EnemyTarget, IHittable
 
     public int CoinValue
     {
-        get => coinValue;
-        set => coinValue = Mathf.Max(0, value); 
+        get => _coinReward;
+        set => _coinReward = Mathf.Max(0, value);
     }
+
+    public int DefaultCoinValue => coinReward;
+
     public IObjectPool<Enemy> ObjPool
     {
         set => _objPool = value;
@@ -88,7 +98,7 @@ public class Enemy : EnemyTarget, IHittable
         }
 
         if (_currency != null)
-            _currency.SpawnCoin(transform.position, coinValue);
+            _currency.SpawnCoin(transform.position, CoinValue);
 
         ReturnToPool();
     }
@@ -107,6 +117,12 @@ public class Enemy : EnemyTarget, IHittable
 #endregion
 
 #region Unity Life Cycle
+    private void Awake()
+    {
+        _speed = baseSpeed;
+        _coinReward = coinReward;
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -154,8 +170,11 @@ public class Enemy : EnemyTarget, IHittable
         _isHit = false;
         _isReturned = false;
         IsPathPaused = false;
-        health.ResetHealth();
         PathProgress = 0f;
+
+        _speed = baseSpeed;
+        _coinReward = coinReward;
+        health.ResetHealth();
     }
 
     public void ReturnToPool()

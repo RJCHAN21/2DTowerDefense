@@ -269,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   HPBarFill: {fileID: 6843263409601684364}
   HPTxt: {fileID: 0}
-  maxHP: 1
+  maxHP: 120
   ghostHPBarFill: {fileID: 8440904659706811329}
   ghostDelay: 0.3
   ghostDuration: 0.6
@@ -304,9 +304,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: {fileID: 8114569891491074361}
+  baseSpeed: 0.3
   hitRadius: 0.5
   turningSpeed: 360
-  coinValue: 1
+  coinValue: 100
 --- !u!1 &3941106846367555508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,9 +1239,9 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 0.19607843}
-      key1: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.19607843}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0, b: 0, a: 0.19607843}
+      key1: {r: 1, g: 0, b: 0, a: 0.19607843}
+      key2: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -1248,7 +1249,7 @@ LineRenderer:
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
-      ctime2: 0
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0

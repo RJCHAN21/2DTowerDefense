@@ -2903,7 +2903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &526877122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3067,6 +3067,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4445892233904778166, guid: 3115c443ba6d8c14fb9af87c3ad291f3, type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d351a3745445e4c458f3ee6f4108d966, type: 3}
+    - target: {fileID: -4445892233904778166, guid: 3115c443ba6d8c14fb9af87c3ad291f3, type: 3}
+      propertyPath: volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2985477647919140002, guid: 3115c443ba6d8c14fb9af87c3ad291f3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3476,6 +3484,135 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &680612017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 680612019}
+  - component: {fileID: 680612018}
+  m_Layer: 0
+  m_Name: SFXSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &680612018
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680612017}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -1056508469237667693, guid: dd87ad8744fcab440a98794a00640975, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &680612019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680612017}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &737394830
 GameObject:
   m_ObjectHideFlags: 0
@@ -5112,7 +5249,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 2317.25}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1516455793
 MonoBehaviour:
@@ -8428,10 +8565,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1516455792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 891.5, y: -1158.625}
+  m_SizeDelta: {x: 1783, y: 2317.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1880098243
 MonoBehaviour:
@@ -8453,7 +8590,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<size=150%><b>CREDITS</b></size>\n\n<b>PROJECT TEAM</b>\nXaviery Bonson Padaoan\nReginald Jervaise Chan\n\n<b>ART, UI & ICONS \u2014 KENNEY</b>\nTower Defense (Top-Down)\nUI Pack \u2022 Game Icons\nCC0 1.0 Universal\n\n<b>VISUAL EFFECTS \u2014 JEAN MORENO</b>\nCartoon FX Remaster Free\n\n<b>SOUND EFFECTS \u2014 DUSTYROOM</b>\nFREE Casual Game SFX Pack\n\n<b>MUSIC \u2014 ANDREW SITKOV MUSIC</b>\nFREE Battle Music Pack\n\n<b>FONT \u2014 VERNON ADAMS</b>\nOswald \u2022 SIL Open Font License 1.1\n\n<size=80%>An Applied Mathematics in Games Midterm Project.\nAsset Store packs are used under the Standard Unity Asset Store EULA.\nFull asset links and license details are in the project README.</size>\n\n\n"
+  m_text: "<size=150%><b>CREDITS</b></size>\n\n<b>PROJECT TEAM</b>\nXaviery Bonson Padaoan\nReginald Jervaise Chan\n\n<b>ART, UI & ICONS \u2014 KENNEY</b>\nTower Defense (Top-Down)\nUI Pack \u2022 Game Icons\nCC0 1.0 Universal\n\n<b>VISUAL EFFECTS \u2014 JEAN MORENO</b>\nCartoon FX Remaster Free\n\n<b>SOUND EFFECTS \u2014 DUSTYROOM</b>\nFREE Casual Game SFX Pack\n\n<b>SOUND EFFECTS \u2014 OLIVIER GIRARDOT</b>\nFree Sound Effects Pack Starter - All categories\n\n<b>SOUND EFFECTS \u2014 FANTACODE STUDIOS</b>\nFS Shooter System 2 \u2014 SFX Demo Audios\n\n<b>FLAMETHROWER SOUND \u2014 RAPHAVPIRES</b>\nFlamethrower (loop) \u2014 Freesound\nCC0 1.0 Universal\n\n<b>MUSIC \u2014 ANDREW SITKOV MUSIC</b>\nFREE Battle Music Pack\n\n<b>FONT \u2014 VERNON ADAMS</b>\nOswald \u2022 SIL Open Font License 1.1\n\n<size=80%>An Applied Mathematics in Games Midterm Project.\nAsset Store packs are used under the Standard Unity Asset Store EULA.\nFull asset links and license details are in the project README.</size>\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -8564,7 +8701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   audioMixer: {fileID: 24100000, guid: dd87ad8744fcab440a98794a00640975, type: 2}
   musicSource: {fileID: 1849861997}
-  sfxSource: {fileID: 0}
+  sfxSource: {fileID: 680612018}
 --- !u!4 &1887223785
 Transform:
   m_ObjectHideFlags: 0
@@ -9168,8 +9305,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 660039230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.784227}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9211,52 +9348,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040095608}
   m_CullTransparentMesh: 1
---- !u!1 &2040159830
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2040159832}
-  - component: {fileID: 2040159831}
-  m_Layer: 0
-  m_Name: GameOverSequence
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2040159831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2040159830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a825f8cbbca6b6f4482cb4beb9df6aed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameOverSequence
-  gameOverScreen: {fileID: 0}
-  fadeDuration: 0.6
---- !u!4 &2040159832
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2040159830}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2070558336
 GameObject:
   m_ObjectHideFlags: 0
@@ -9515,7 +9606,6 @@ SceneRoots:
   - {fileID: 653279663}
   - {fileID: 34638147}
   - {fileID: 1123938704}
-  - {fileID: 2040159832}
   - {fileID: 1887223785}
   - {fileID: 384230816}
   - {fileID: 2121195567}
@@ -9533,3 +9623,4 @@ SceneRoots:
   - {fileID: 1926152156}
   - {fileID: 1416651335}
   - {fileID: 1825901264}
+  - {fileID: 680612019}
