@@ -345,16 +345,19 @@ public class PauseMenuController : MonoBehaviour
 
     private void QuitGame()
     {
+        if (!Application.CanStreamedLevelBeLoaded("TitleScreen"))
+        {
+            Debug.LogError("Add TitleScreen to the Build Profile scene list.", this);
+            return;
+        }
+
         if (SoundManager.Instance != null)
             SoundManager.Instance.SaveSettings();
 
         ResumeGame();
+        Time.timeScale = 1f;
 
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        SceneManager.LoadScene("TitleScreen");
     }
 #endregion
 }
