@@ -440,7 +440,7 @@ public class TowerUnit : TowerTarget, IHittable
 
         if (FXManager.Instance != null)
         {
-            FXManager.Instance.PlayExplosion(transform.position);
+            FXManager.Instance.PlayExplosionTwo(transform.position);
         }
         
         Destroy(gameObject);

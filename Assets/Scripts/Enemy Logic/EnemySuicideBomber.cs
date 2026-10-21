@@ -166,7 +166,7 @@ public class EnemySuicideBomber : MonoBehaviour
 
         if (FXManager.Instance != null)
         {
-            FXManager.Instance.PlayExplosion(transform.position);
+            FXManager.Instance.PlayExplosionTwo(transform.position);
         }
 
         var towersCopy = new System.Collections.Generic.List<TowerTarget>(TowerTarget.ActiveTowers);
