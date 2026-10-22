@@ -39,6 +39,13 @@ public class TowerUnit : TowerTarget, IHittable
 
     [Header("Line of Sight Visual")]
     [SerializeField] private LineRenderer lineRenderer;
+
+    [Header("Flamethrower Heat Feedback")]
+    [SerializeField] private SpriteRenderer towerSprite;
+    [SerializeField] private Color overheatedColor = new Color(1f, 0.25f, 0.1f, 1f);
+    [Tooltip("Smoke prefab spawned at the gun's muzzle when overheating.")]
+    [SerializeField] private ParticleSystem overheatSmoke;
+    [SerializeField] private AudioClip overheatedSFX;
 #endregion
 
 #region Public Properties
@@ -126,6 +133,7 @@ public class TowerUnit : TowerTarget, IHittable
     private bool _isInvincible = false;
     private bool _isHit = false;
     private float _nextRegenerationTime;
+    private WaveManager _waveManager;
     private bool _isPreview = false;
     private static List<TowerUnit> towers = new List<TowerUnit>();
     private TowerDefinition _definition;
@@ -134,6 +142,10 @@ public class TowerUnit : TowerTarget, IHittable
     private string _displayName;
     private Sprite _displayIcon;
     private TowerFocus _focus = TowerFocus.First;
+    private Color _normalHeatColor;
+    private bool _heatColorCaptured;
+    private bool _overheatSmokePlaying;
+    private ParticleSystem _overheatSmokeInstance;
 #endregion
 
 #region Unity Life Cycle
@@ -154,6 +166,9 @@ public class TowerUnit : TowerTarget, IHittable
         
         if (!Application.IsPlaying(gameObject)) return;
 
+        if (_waveManager == null)
+            _waveManager = FindAnyObjectByType<WaveManager>();
+
         if (lineRenderer != null)
             lineRenderer.enabled = false;
 
@@ -161,7 +176,17 @@ public class TowerUnit : TowerTarget, IHittable
             _runtimeTowerType = Instantiate(towerTypeBehavior);
 
         if (AssignedTowerType is Flamethrower flamethrower)
+        {
             flamethrower.ResetFiring();
+
+            if (towerSprite != null && !_heatColorCaptured)
+            {
+                _normalHeatColor = towerSprite.color;
+                _heatColorCaptured = true;
+            }
+
+            ResetHeatFeedback();
+        }
         
         if (!_isPreview)
             towers.Add(this);
@@ -179,6 +204,9 @@ public class TowerUnit : TowerTarget, IHittable
 
         if (AssignedTowerType is Flamethrower flamethrower)
             flamethrower.ResetFiring();
+
+        if (Application.IsPlaying(gameObject))
+            ResetHeatFeedback();
 
         towers.Remove(this);
     }
@@ -261,10 +289,68 @@ public class TowerUnit : TowerTarget, IHittable
         }
     }
 
+    private void LateUpdate()
+    {
+        if (!Application.IsPlaying(gameObject) ||
+            !(AssignedTowerType is Flamethrower flamethrower))
+            return;
+
+        bool showHeat = !_isPreview && _canFire && !_isHit;
+        float heatAmount = showHeat ? flamethrower.HeatAmount : 0f;
+        bool showSmoke = showHeat && flamethrower.IsOverheated;
+
+        if (towerSprite != null && _heatColorCaptured)
+        {
+            Color color = Color.Lerp(_normalHeatColor, overheatedColor, heatAmount);
+            color.a = _normalHeatColor.a;
+            towerSprite.color = color;
+        }
+
+        if (showSmoke != _overheatSmokePlaying)
+        {
+            if (showSmoke)
+                SoundManager.Instance?.PlaySFX(overheatedSFX);
+
+            if (showSmoke &&
+                _overheatSmokeInstance == null &&
+                overheatSmoke != null &&
+                pooledGun != null &&
+                pooledGun.Muzzle != null)
+            {
+                _overheatSmokeInstance = Instantiate(overheatSmoke, pooledGun.Muzzle, false);
+                _overheatSmokeInstance.transform.localPosition = Vector3.zero;
+                _overheatSmokeInstance.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+
+            if (_overheatSmokeInstance != null)
+            {
+                if (showSmoke)
+                    _overheatSmokeInstance.Play(true);
+                else
+                    _overheatSmokeInstance.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            }
+
+            _overheatSmokePlaying = showSmoke;
+        }
+    }
+
     private void OnDestroy()
     {
         if (_runtimeTowerType != null)
             Destroy(_runtimeTowerType);
+    }
+#endregion
+
+#region Heat Feedback
+    private void ResetHeatFeedback()
+    {
+        if (towerSprite != null && _heatColorCaptured)
+            towerSprite.color = _normalHeatColor;
+
+        if (_overheatSmokeInstance != null)
+            _overheatSmokeInstance.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+        _overheatSmokePlaying = false;
     }
 #endregion
 
@@ -403,6 +489,11 @@ public class TowerUnit : TowerTarget, IHittable
 #region Health Regeneration
     private void RegenerateHealth()
     {
+        if (Time.timeScale <= 0f ||
+            _waveManager == null ||
+            !_waveManager.IsWaveRunning)
+            return;
+
         if (_isHit ||
             health == null ||
             !health.isActiveAndEnabled ||

@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 8296600183650615577}
   - component: {fileID: 8114569891491074361}
   - component: {fileID: -4445892233904778166}
+  - component: {fileID: -5448487647130899629}
   m_Layer: 0
   m_Name: Basic Turret
   m_TagString: Untagged
@@ -301,6 +302,10 @@ MonoBehaviour:
   regenerationInterval: 2
   pooledGun: {fileID: 2861593003177735450}
   lineRenderer: {fileID: 6705458162562580053}
+  towerSprite: {fileID: 0}
+  overheatedColor: {r: 1, g: 0.25, b: 0.1, a: 1}
+  overheatSmoke: {fileID: 0}
+  overheatedSFX: {fileID: 0}
 --- !u!114 &2861593003177735450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +323,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   muzzle: {fileID: 4792003150366718938}
+  useMuzzleFlash: 1
   collectionCheck: 1
   defaultCapacity: 20
   maxSize: 100
@@ -393,6 +399,24 @@ MonoBehaviour:
   volume: 0.5
   minimumInterval: 0
   playOnButtonClick: 0
+  playOnToggleChanged: 0
+--- !u!114 &-5448487647130899629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526114795283734833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
+  damageClip: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
+  deathClip: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
+  damageVolume: 0.5
+  deathVolume: 0.5
+  damageSoundInterval: 0.1
 --- !u!1 &6030038426405118651
 GameObject:
   m_ObjectHideFlags: 0

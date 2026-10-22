@@ -935,6 +935,7 @@ RectTransform:
   - {fileID: 1398692931}
   - {fileID: 1952459469}
   - {fileID: 524619811}
+  - {fileID: 1459203534}
   - {fileID: 813563841}
   - {fileID: 1343684214}
   - {fileID: 177406700}
@@ -2029,6 +2030,22 @@ MonoBehaviour:
   waveCompleteSFX: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   speedChangeSFX: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   finalWaveMusic: {fileID: 8300000, guid: 3743191223aa7884aa5f127d9f41d978, type: 3}
+  gameplayHint: {fileID: 1459203535}
+  hintFadeDuration: 0.2
+  gameplayHints:
+  - Place your towers before starting the next wave.
+  - Place towers near bends to keep enemies within range for longer.
+  - Elite Soldiers move quickly. Cover more than one part of the path.
+  - Suicide Bombers attack nearby towers. Avoid placing all your defenses together.
+  - Flamethrowers overheat. Support them with towers that can fire while they recharge.
+  - Missile explosions can damage several nearby enemies at once.
+  - Basic Turrets can upgrade into either Snipers or Shotgunners.
+  - Choose a tower's focus to target the first, last, or strongest enemy in range.
+  - Damaged towers recover health after going without damage for a while.
+  - Selling returns 75% of the coins invested in a tower and its upgrades.
+  - Completing a wave awards extra coins. Use intermissions to improve your defenses.
+  - The final Tank must be destroyed. Letting it reach your base ends the game.
+  - Upgrading restores a tower to full health. A well-timed upgrade can save a damaged tower.
 --- !u!4 &367450236
 Transform:
   m_ObjectHideFlags: 0
@@ -5926,8 +5943,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 939517202}
   m_HandleRect: {fileID: 939517201}
   m_Direction: 2
-  m_Value: 0.9999982
-  m_Size: 0.94333345
+  m_Value: 1
+  m_Size: 0.9433332
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6420,7 +6437,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 43446205}
   m_HandleRect: {fileID: 43446204}
   m_Direction: 2
-  m_Value: 0.9999973
+  m_Value: 0.9999982
   m_Size: 0.932
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9736,11 +9753,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FXManager
   enemyHitFeedbackPrefab: {fileID: 6823200998282874702, guid: 8f8fe12323625f5499b2853dd2ad3e58, type: 3}
-  towerHitFeedbackPrefab: {fileID: 2504214343621411470, guid: 3ed0d324122d7b24eaec75c55c74aafc, type: 3}
   deathBurstPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
-  explosionOnePrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  explosionTwoPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
-  explosionTwoVisualRadius: 1
+  hitImpactPrefab: {fileID: 1429954232896169633, guid: 8a776abae015d5c4593d81bda9e4edb3, type: 3}
+  explosionPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  explosionVisualRadius: 1
   muzzleFlashPrefab: {fileID: 4593184484909914552, guid: 8fa410d951c38ed4ca76dad4972a106a, type: 3}
   defaultCapacity: 20
   maxPoolSize: 60
@@ -10984,7 +11000,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 403849123}
   m_HandleRect: {fileID: 403849122}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -11062,7 +11078,7 @@ MonoBehaviour:
   coinTarget: {fileID: 1700645670}
   bankVisual: {fileID: 1952459469}
   balanceText: {fileID: 1051350639}
-  startingBalance: 50
+  startingBalance: 999
   moneyCap: 999999
   flightDuration: 0.6
   arcHeight: 1
@@ -12214,6 +12230,143 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1752674245}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1459203533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459203534}
+  - component: {fileID: 1459203536}
+  - component: {fileID: 1459203535}
+  m_Layer: 5
+  m_Name: GameplayHint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1459203534
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459203533}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 98489854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -219.8}
+  m_SizeDelta: {x: 2085, y: 400}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1459203535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459203533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Place a tower to fend off against rogue soldiers
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 80
+  m_fontSizeBase: 80
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 80
+  m_fontSizeMax: 80
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656bu
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0.0000015062519}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1459203536
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459203533}
+  m_CullTransparentMesh: 1
 --- !u!1 &1461151479
 GameObject:
   m_ObjectHideFlags: 0
@@ -18547,7 +18700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: 10.000122}
+  m_AnchoredPosition: {x: -50, y: 10.000244}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1952459470

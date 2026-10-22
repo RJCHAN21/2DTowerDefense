@@ -5498,11 +5498,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FXManager
   enemyHitFeedbackPrefab: {fileID: 6823200998282874702, guid: 8f8fe12323625f5499b2853dd2ad3e58, type: 3}
-  towerHitFeedbackPrefab: {fileID: 2504214343621411470, guid: 3ed0d324122d7b24eaec75c55c74aafc, type: 3}
   deathBurstPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
-  explosionOnePrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  explosionTwoPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
-  explosionTwoVisualRadius: 1
+  hitImpactPrefab: {fileID: 1429954232896169633, guid: 8a776abae015d5c4593d81bda9e4edb3, type: 3}
+  explosionPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  explosionVisualRadius: 1
   muzzleFlashPrefab: {fileID: 4593184484909914552, guid: 8fa410d951c38ed4ca76dad4972a106a, type: 3}
   defaultCapacity: 20
   maxPoolSize: 60
@@ -9598,7 +9597,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<size=150%><b>CREDITS</b></size>\n\n<b>PROJECT TEAM</b>\nXaviery Bonson Padaoan\nReginald Jervaise Chan\n\n<b>ART, UI & ICONS \u2014 KENNEY</b>\nTower Defense (Top-Down)\nUI Pack \u2022 Game Icons\nCC0 1.0 Universal\n\n<b>VISUAL EFFECTS \u2014 JEAN MORENO</b>\nCartoon FX Remaster Free\n\n<b>SOUND EFFECTS \u2014 DUSTYROOM</b>\nFREE Casual Game SFX Pack\n\n<b>SOUND EFFECTS \u2014 OLIVIER GIRARDOT</b>\nFree Sound Effects Pack Starter - All categories\n\n<b>SOUND EFFECTS \u2014 FANTACODE STUDIOS</b>\nFS Shooter System 2 \u2014 SFX Demo Audios\n\n<b>FLAMETHROWER SOUND \u2014 RAPHAVPIRES</b>\nFlamethrower (loop) \u2014 Freesound\nCC0 1.0 Universal\n\n<b>SOUND EFFECTS \u2014 MORE MOUNTAINS</b>\nFeel \u2014 SFX\n\n<b>SOUND EFFECT \u2014 KIDDPARK</b>\nCash Register \u2014 Freesound\nCC BY 4.0\nhttps://freesound.org/people/kiddpark/sounds/201159/\nhttps://creativecommons.org/licenses/by/4.0/\n\n<b>MUSIC \u2014 ANDREW SITKOV MUSIC</b>\nFREE Battle Music Pack\n\n<b>FONT \u2014 VERNON ADAMS</b>\nOswald \u2022 SIL Open Font License 1.1\n\n<size=80%>An Applied Mathematics in Games Midterm Project.\nAsset Store packs are used under the Standard Unity Asset Store EULA.\nFull asset links and license details are in the project README.</size>\n\n\n"
+  m_text: "<size=150%><b>CREDITS</b></size>\n\n<b>PROJECT TEAM</b>\nXaviery Bonson Padaoan\nReginald Jervaise Chan\n\n<b>ART, UI & ICONS \u2014 KENNEY</b>\nTower Defense (Top-Down)\nUI Pack \u2022 Game Icons\nCC0 1.0 Universal\n\n<b>VISUAL EFFECTS \u2014 JEAN MORENO</b>\nCartoon FX Remaster Free\n\n<b>SOUND EFFECTS \u2014 DUSTYROOM</b>\nFREE Casual Game SFX Pack\n\n<b>SOUND EFFECTS \u2014 OLIVIER GIRARDOT</b>\nFree Sound Effects Pack Starter - All categories\n\n<b>SOUND EFFECTS \u2014 FANTACODE STUDIOS</b>\nFS Shooter System 2 \u2014 SFX Demo Audios\n\n<b>FLAMETHROWER SOUND \u2014 RAPHAVPIRES</b>\nFlamethrower (loop) \u2014 Freesound\nCC0 1.0 Universal\n\n<b>SOUND EFFECTS \u2014 MORE MOUNTAINS</b>\nFeel \u2014 SFX\n\n<b>SOUND EFFECT \u2014 KIDDPARK</b>\nCash Register \u2014 Freesound\nCC BY 4.0\nhttps://freesound.org/people/kiddpark/sounds/201159/\nhttps://creativecommons.org/licenses/by/4.0/\n\n<b>OVERHEATING SOUND \u2014 MARREGHERITI</b>\nminigun_Overheat.wav \u2014 Freesound\nCC0 1.0 Universal\nhttps://freesound.org/people/Marregheriti/sounds/266102/\n\n<b>MUSIC \u2014 ANDREW SITKOV MUSIC</b>\nFREE Battle Music Pack\n\n<b>FONT \u2014 VERNON ADAMS</b>\nOswald \u2022 SIL Open Font License 1.1\n\n<size=80%>An Applied Mathematics in Games Midterm Project.\nAsset Store packs are used under the Standard Unity Asset Store EULA.\nFull asset links and license details are in the project README.</size>\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}

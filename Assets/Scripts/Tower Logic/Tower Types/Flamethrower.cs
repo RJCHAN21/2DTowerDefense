@@ -19,11 +19,14 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     [Tooltip("Seconds the flame stream takes to stop after normal firing ends.")]
     [SerializeField, Min(0f)] private float flameStopDelay = 0.2f;
 
-    [Tooltip("Accumulated firing time before overheating. Target changes do not reset it.")]
+    [Tooltip("Firing time from cold to overheating. Heat gradually decreases while idle.")]
     [SerializeField, Min(0.01f)] private float maxFiringDuration = 10f;
 
-    [Tooltip("Seconds needed to recharge after overheating.")]
+    [Tooltip("Forced cooldown after overheating and idle cooling duration after the idle delay.")]
     [SerializeField, Min(0.01f)] private float rechargeDuration = 3f;
+
+    [Tooltip("Seconds without firing before idle cooling begins.")]
+    [SerializeField, Min(0f)] private float idleCoolingDelay = 4f;
 
     #endregion
 
@@ -83,6 +86,11 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 #endregion
 
 #region Public Properties
+    public bool IsOverheated => Time.time < _rechargeUntil;
+    public float HeatAmount => IsOverheated
+        ? Mathf.Clamp01((_rechargeUntil - Time.time) / _rechargeVisualDuration)
+        : Mathf.Clamp01(_firingElapsed / maxFiringDuration);
+
     public string StatsDescription
     {
         get
@@ -100,6 +108,8 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
                 $"Flame width multiplier: {_flameWidthMultiplier:0.##}x\n" +
                 $"Accumulated firing before overheating: {maxFiringDuration:0.##}s\n" +
                 $"Recharge time: {rechargeDuration:0.##}s\n" +
+                $"Idle delay before cooling: {idleCoolingDelay:0.##}s\n" +
+                $"Idle cooling from full heat: {IdleCoolingDuration:0.##}s\n" +
                 $"Firing tail: {flameStopDelay:0.##}s";
         }
     }
@@ -107,9 +117,12 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 
 #region Runtime State
 
+    private float IdleCoolingDuration => rechargeDuration;
     private float _flameFireUntil = float.NegativeInfinity;
     private float _firingElapsed;
+    private float _idleElapsed;
     private float _rechargeUntil = float.NegativeInfinity;
+    private float _rechargeVisualDuration;
     private float _flameWidthMultiplier = 1f;
 
 #endregion
@@ -127,15 +140,28 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 
         if (!shouldFire && !hasFiringTail)
         {
-            // Losing a target stops the stream without clearing accumulated heat.
             _flameFireUntil = float.NegativeInfinity;
+            _idleElapsed += Time.deltaTime;
+
+            if (_idleElapsed <= idleCoolingDelay)
+                return;
+
+            float coolingTime = Mathf.Min(
+                Time.deltaTime, _idleElapsed - idleCoolingDelay);
+
+            _firingElapsed = Mathf.MoveTowards(
+                _firingElapsed,
+                0f,
+                maxFiringDuration / IdleCoolingDuration * coolingTime);
             return;
         }
 
+        _idleElapsed = 0f;
         _firingElapsed += Time.deltaTime;
 
         if (_firingElapsed >= maxFiringDuration)
         {
+            _rechargeVisualDuration = rechargeDuration;
             _rechargeUntil = Time.time + rechargeDuration;
             ResetFiring();
             return;
@@ -168,6 +194,7 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     {
         _flameFireUntil = float.NegativeInfinity;
         _firingElapsed = 0f;
+        _idleElapsed = 0f;
     }
 
     public void Fire(PooledGun gun)

@@ -138,6 +138,18 @@ This sound is released under CC0. Credit is provided here in appreciation of the
 
 Cash Register by kiddpark is used under CC BY 4.0. All rights to the original sound remain with its creator.
 
+### Marregheriti — minigun_Overheat.wav
+
+- **Creator:** Marregheriti
+- **Sound:** minigun_Overheat.wav
+- **Usage:** Flamethrower overheating sound effect
+- **Platform:** Freesound
+- **License:** Creative Commons CC0 1.0 Universal
+- **License Link:** [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
+- **Source:** [Freesound — minigun_Overheat.wav](https://freesound.org/people/Marregheriti/sounds/266102/)
+
+This sound is released under CC0. Credit is provided here in appreciation of the creator's work.
+
 ### Andrew Sitkov Music — FREE Battle Music Pack
 
 - **Creator / Publisher:** Andrew Sitkov Music
@@ -148,6 +160,14 @@ Cash Register by kiddpark is used under CC BY 4.0. All rights to the original so
 - **Source:** [Unity Asset Store — FREE Battle Music Pack](https://assetstore.unity.com/packages/audio/music/orchestral/free-battle-music-pack-54023)
 
 FREE Battle Music Pack is used in accordance with the Unity Asset Store End User License Agreement. All rights to the original asset remain with its respective creator and publisher.
+
+### Vernon Adams — Oswald
+
+- **Creator:** Vernon Adams
+- **Font:** Oswald (Bold)
+- **Usage:** In-game UI text
+- **License:** SIL Open Font License 1.1
+- **License File:** [Oswald-Bold - OFL.txt](Assets/TextMesh%20Pro/Examples%20%26%20Extras/Fonts/Oswald-Bold%20-%20OFL.txt)
 
 ## Third-Party Licenses
 

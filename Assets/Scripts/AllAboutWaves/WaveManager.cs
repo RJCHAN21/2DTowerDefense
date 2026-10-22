@@ -43,10 +43,30 @@ public class WaveManager : MonoBehaviour
 
     [Header("Music")]
     [SerializeField] private AudioClip finalWaveMusic;
+
+    [Header("Gameplay Hints")]
+    [SerializeField] private TextMeshProUGUI gameplayHint;
+    [SerializeField, Min(0.01f)] private float hintFadeDuration = 0.2f;
+    [SerializeField, TextArea] private string[] gameplayHints =
+    {
+        "Place towers to defend your base against rogue soldiers, then press START WAVE.",
+        "Place towers near bends to keep enemies within range for longer.",
+        "Elite Soldiers move quickly. Cover more than one part of the path.",
+        "Suicide Bombers attack nearby towers. Avoid placing all your defenses together.",
+        "Flamethrowers overheat. Support them with towers that can fire while they recharge.",
+        "Missile explosions can damage several nearby enemies at once.",
+        "Basic Turrets can upgrade into either Snipers or Shotgunners.",
+        "Choose a tower's focus to target the first, last, or strongest enemy in range.",
+        "Damaged towers recover health after going without damage for a while.",
+        "Selling returns 75% of the coins invested in a tower and its upgrades.",
+        "Completing a wave awards extra coins. Use intermissions to improve your defenses.",
+        "The final Tank must be destroyed. Letting it reach your base ends the game."
+    };
 #endregion
 
 #region Public Properties
     public event Action AllWavesCompleted;
+    public bool IsWaveRunning => isActiveAndEnabled && _state == WaveState.Running;
 #endregion
 
 #region Private Properties
@@ -71,6 +91,15 @@ public class WaveManager : MonoBehaviour
 #endregion
 
 #region Unity Life Cycle
+    private void Awake()
+    {
+        if (gameplayHint != null)
+        {
+            gameplayHint.alpha = 0f;
+            gameplayHint.raycastTarget = false;
+        }
+    }
+
     private void OnEnable()
     {
         GameManager.GameEnded += StopWaves;
@@ -132,13 +161,32 @@ public class WaveManager : MonoBehaviour
         _state = WaveState.Waiting;
 
         waveNumberTMP.text = $"WAVE 1 / {allWaves.Length}";
+        ShowGameplayHint();
         RefreshControlButton();
+    }
+
+    private void Update()
+    {
+        if (gameplayHint == null)
+            return;
+
+        bool showHint =
+            (_state == WaveState.Waiting || _state == WaveState.Cooldown) &&
+            !string.IsNullOrWhiteSpace(gameplayHint.text);
+
+        gameplayHint.alpha = Mathf.MoveTowards(
+            gameplayHint.alpha,
+            showHint ? 1f : 0f,
+            Time.unscaledDeltaTime / hintFadeDuration);
     }
 
     private void OnDisable()
     {
         GameManager.GameEnded -= StopWaves;
         StopWaves();
+
+        if (gameplayHint != null)
+            gameplayHint.alpha = 0f;
     }
 
     private void OnDestroy()
@@ -312,6 +360,7 @@ public class WaveManager : MonoBehaviour
         }
 
         _state = WaveState.Cooldown;
+        ShowGameplayHint();
         RefreshControlButton();
 
         if (timeBetweenWaves > 0f)
@@ -360,6 +409,26 @@ public class WaveManager : MonoBehaviour
             waveNumberTMP.rectTransform.localScale = _waveScale;
             waveNumberTMP.alpha = _waveAlpha;
         }
+    }
+#endregion
+
+#region Gameplay Hints
+    private void ShowGameplayHint()
+    {
+        if (gameplayHint == null)
+            return;
+
+        if (gameplayHints == null || gameplayHints.Length == 0)
+        {
+            gameplayHint.text = string.Empty;
+            return;
+        }
+
+        int hintIndex = currentWaveIndex == 0
+            ? 0
+            : UnityEngine.Random.Range(0, gameplayHints.Length);
+        gameplayHint.text = gameplayHints[hintIndex];
+        gameplayHint.alpha = 0f;
     }
 #endregion
 

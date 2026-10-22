@@ -579,6 +579,10 @@ MonoBehaviour:
   regenerationInterval: 2
   pooledGun: {fileID: 2861593003177735450}
   lineRenderer: {fileID: 6705458162562580053}
+  towerSprite: {fileID: 0}
+  overheatedColor: {r: 1, g: 0.25, b: 0.1, a: 1}
+  overheatSmoke: {fileID: 0}
+  overheatedSFX: {fileID: 0}
 --- !u!114 &2861593003177735450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +600,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   muzzle: {fileID: 6942347661280998542}
+  useMuzzleFlash: 0
   collectionCheck: 1
   defaultCapacity: 20
   maxSize: 100
@@ -651,7 +656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   HPBarFill: {fileID: 6843263409601684364}
   HPTxt: {fileID: 0}
-  maxHP: 1
+  maxHP: 30
   ghostHPBarFill: {fileID: 8440904659706811329}
   ghostDelay: 0.3
   ghostDuration: 0.6
@@ -669,8 +674,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
   damageClip: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
   deathClip: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
-  damageVolume: 0.25
-  deathVolume: 0.4
+  damageVolume: 0.5
+  deathVolume: 0.5
   damageSoundInterval: 0.1
 --- !u!1 &6030038426405118651
 GameObject:
