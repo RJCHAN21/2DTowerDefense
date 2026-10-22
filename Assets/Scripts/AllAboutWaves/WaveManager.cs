@@ -57,6 +57,7 @@ public class WaveManager : MonoBehaviour
         "Missile explosions can damage several nearby enemies at once.",
         "Basic Turrets can upgrade into either Snipers or Shotgunners.",
         "Choose a tower's focus to target the first, last, or strongest enemy in range.",
+        "Set high-damage towers to Strongest focus to prioritize the Tank over its weaker escorts.",
         "Damaged towers recover health after going without damage for a while.",
         "Selling returns 75% of the coins invested in a tower and its upgrades.",
         "Completing a wave awards extra coins. Use intermissions to improve your defenses.",

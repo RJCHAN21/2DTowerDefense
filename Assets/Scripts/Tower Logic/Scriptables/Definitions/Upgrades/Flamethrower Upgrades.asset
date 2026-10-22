@@ -16,7 +16,7 @@ MonoBehaviour:
   - stageLabel: Level One
     options:
     - upgradeName: Faster Recharge
-      description: "Reduces the forced cooldown after overheating and speeds up cooling while idle.\n\nCooldown: 3s -> 2s\nIdle cooling from full heat: 3s -> 2s\nIdle delay before cooling: 4s (unchanged)\nFiring from cold to overheating: 3s (unchanged)\nBrief firing gaps retain heat. Longer breaks allow gradual cooling."
+      description: "Reduces the forced cooldown after overheating and speeds up cooling while idle.\n\nCooldown: 3s -> 2s\nIdle cooling from full heat: 3s -> 2s\nIdle delay before cooling: 2s (unchanged)\nFiring from cold to overheating: 3s (unchanged)\nBrief firing gaps retain heat. Longer breaks allow gradual cooling."
       icon: {fileID: 21300000, guid: 649f1a1957d74c54fba5432211b02d3c, type: 3}
       cost: 60
       replacementPrefab: {fileID: 0}

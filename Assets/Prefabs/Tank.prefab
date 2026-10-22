@@ -319,10 +319,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33fec6a8aae34a48a1187b7df2bef8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTankBoss
-  attackRange: 6
+  attackRange: 10
   fireRate: 1
-  damagePerShot: 8
-  turretTurnSpeed: 180
+  damagePerShot: 10
+  turretTurnSpeed: 360
   gun: {fileID: 2663391834784664851}
   turretPivot: {fileID: 1633497312349320752}
   muzzle: {fileID: 4851994937472093746}

@@ -2041,6 +2041,7 @@ MonoBehaviour:
   - Missile explosions can damage several nearby enemies at once.
   - Basic Turrets can upgrade into either Snipers or Shotgunners.
   - Choose a tower's focus to target the first, last, or strongest enemy in range.
+  - Set high-damage towers to Strongest focus to prioritize the Tank over its weaker escorts.
   - Damaged towers recover health after going without damage for a while.
   - Selling returns 75% of the coins invested in a tower and its upgrades.
   - Completing a wave awards extra coins. Use intermissions to improve your defenses.
@@ -11078,7 +11079,7 @@ MonoBehaviour:
   coinTarget: {fileID: 1700645670}
   bankVisual: {fileID: 1952459469}
   balanceText: {fileID: 1051350639}
-  startingBalance: 999
+  startingBalance: 50
   moneyCap: 999999
   flightDuration: 0.6
   arcHeight: 1

@@ -667,7 +667,10 @@ public class TowerUnit : TowerTarget, IHittable
             upgradedTower._displayName = option.ReplacementPrefab.name;
 
             SpriteRenderer sprite = upgradedTower.GetComponent<SpriteRenderer>();
-            upgradedTower._displayIcon = sprite != null ? sprite.sprite : option.Icon;
+            upgradedTower._displayIcon = option.Icon;
+
+            if (upgradedTower._displayIcon == null && sprite != null)
+                upgradedTower._displayIcon = sprite.sprite;
         }
 
         upgradedTower.ApplyUpgrade(option.TowerUpgradeEffects);

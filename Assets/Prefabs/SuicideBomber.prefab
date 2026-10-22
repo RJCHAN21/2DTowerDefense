@@ -266,7 +266,7 @@ MonoBehaviour:
   hitRadius: 0.5
   turningSpeed: 360
   coinReward: 1
-  playerDamage: 3
+  playerDamage: 5
   instantKillPlayer: 0
 --- !u!114 &2113115965285803655
 MonoBehaviour:
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySuicideBomber
   detonationProximity: 0.6
-  blastDamageRadius: 1
+  blastDamageRadius: 1.5
   structuralPayloadDamage: 20
   towerDetectionRange: 1
   offPathSprintSpeed: 3.5
