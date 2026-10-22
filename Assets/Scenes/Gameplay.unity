@@ -7565,7 +7565,7 @@ MonoBehaviour:
   musicMutedSprite: {fileID: 21300000, guid: bc2de3134448b0d469e33d6c23be524f, type: 3}
   sfxUnmutedSprite: {fileID: 21300000, guid: 09e4944b6b66a864c961e33bc26877d9, type: 3}
   sfxMutedSprite: {fileID: 21300000, guid: 17c14d08823460442aa4cd1b1bdba3c1, type: 3}
-  fullscreenToggle: {fileID: 0}
+  fullscreenToggle: {fileID: 1572584011}
 --- !u!1 &867165499
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,22 @@ Gameplay clips showcasing the game’s evolution, from early prototypes to the f
 
 **[ITCH.IO FULL RELEASE]** *Taken October 21, 2026:* https://youtu.be/AmpNd2UHBmA
 
+## Contributors
+
+### Reginald Jervaise Chan (`RJGAMESHD`)
+**Lead Developer / Project Maintainer**
+
+- Designed and developed the core Unity project structure.
+- Implemented and maintained major gameplay systems, tower logic, enemy behavior, scenes, and game integration.
+- Managed the overall development and organization of the project.
+
+### Xaviery Bonson Padaoan (`zayverie`)
+**Gameplay and Visual Effects Contributor**
+
+- Enhanced projectile and missile mechanics, including homing and explosion behavior.
+- Added and configured muzzle flashes, explosions, audio effects, and damage feedback.
+- Refined tower upgrades, tower balancing, prefabs, and gameplay presentation.
+
 ## Asset Credits
 
 This project uses third-party assets created by the following authors and publishers.
