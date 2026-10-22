@@ -93,6 +93,22 @@ public class TowerUnit : TowerTarget, IHittable
         }   
     }
     public string DisplayName => _displayName;
+    public string StatsDescription
+    {
+        get
+        {
+            string description = AssignedTowerType?.StatsDescription ?? string.Empty;
+
+            if (health != null)
+            {
+                description += $"\nMaximum health: {health.MaxHP}\n" +
+                    $"Regeneration: 1 HP every {regenerationInterval:0.##}s, " +
+                    $"starting {regenerationDelay:0.##}s after taking damage";
+            }
+
+            return description;
+        }
+    }
     public Sprite DisplayIcon => _displayIcon;
     public TowerFocus Focus => _focus;
     public int SellValue =>
@@ -453,7 +469,7 @@ public class TowerUnit : TowerTarget, IHittable
         _definition = definition;
         _currentStageIndex = 0;
         _totalInvestment = definition.Cost;
-        _displayName = definition.name;
+        _displayName = definition.DisplayName;
         _displayIcon = definition.TowerSprite;
     }
 #endregion

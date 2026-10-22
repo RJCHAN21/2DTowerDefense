@@ -236,7 +236,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2736629001990200312, guid: e15c15661a9d45043ab435b1cabd9ee9, type: 3}
+  m_Sprite: {fileID: 7133782965717835721, guid: 19bf372ed03c35e49b9598545ddd8497, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -260,9 +260,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: {fileID: 2113115965285803655}
+  baseSpeed: 1
   hitRadius: 0.5
   turningSpeed: 360
-  coinValue: 1
+  coinReward: 1
+  playerDamage: 1
+  instantKillPlayer: 0
 --- !u!114 &2113115965285803655
 MonoBehaviour:
   m_ObjectHideFlags: 0

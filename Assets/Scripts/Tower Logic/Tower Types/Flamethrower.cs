@@ -82,6 +82,29 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 
 #endregion
 
+#region Public Properties
+    public string StatsDescription
+    {
+        get
+        {
+            float spread = 2f * Mathf.Atan(
+                Mathf.Tan(flameSpread * 0.5f * Mathf.Deg2Rad) * _flameWidthMultiplier)
+                * Mathf.Rad2Deg;
+
+            return $"Damage per flame projectile: {damage}\n" +
+                $"Projectiles per full burst: {projectilesPerBurst}\n" +
+                $"Maximum damage per full burst: {damage * projectilesPerBurst}\n" +
+                $"Burst interval: {shotInterval:0.##}s\n" +
+                $"Range: {range:0.##}\n" +
+                $"Flame spread: {spread:0.##} degrees\n" +
+                $"Flame width multiplier: {_flameWidthMultiplier:0.##}x\n" +
+                $"Accumulated firing before overheating: {maxFiringDuration:0.##}s\n" +
+                $"Recharge time: {rechargeDuration:0.##}s\n" +
+                $"Firing tail: {flameStopDelay:0.##}s";
+        }
+    }
+#endregion
+
 #region Runtime State
 
     private float _flameFireUntil = float.NegativeInfinity;

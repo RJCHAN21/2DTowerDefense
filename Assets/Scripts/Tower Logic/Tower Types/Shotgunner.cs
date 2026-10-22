@@ -18,6 +18,14 @@ public sealed class Shotgunner : ScriptableObject, ITowerType
     private static readonly float[] pelletAngles =
         { -20f, -10f, 0f, 10f, 20f };
 
+    public string StatsDescription =>
+        $"Damage per pellet: {damage}\n" +
+        $"Pellets per shot: {pelletAngles.Length}\n" +
+        $"Maximum damage per shot: {damage * pelletAngles.Length}\n" +
+        $"Shot interval: {shotInterval:0.##}s\n" +
+        $"Range: {range:0.##}\n" +
+        $"Spread: {pelletAngles[pelletAngles.Length - 1] - pelletAngles[0]:0.##} degrees";
+
     public void Fire(PooledGun gun)
     {
         gun.FirePattern(shotInterval, damage, projectile =>
