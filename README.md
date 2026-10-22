@@ -7,7 +7,9 @@ All physics-based calculations are made via purely math in code and the Unity Ph
 
 Gameplay clips showcasing the game’s evolution, from early prototypes to the final version.
 
-**[EARLY PROTOTYPE]** *Taken from October 1, 2026:* https://drive.google.com/file/d/1pw_MEtyrZP8fVOq4O7PhmpdNQRS1kc2g/view?usp=sharing
+**[EARLY PROTOTYPE]** *Taken October 1, 2026:* https://drive.google.com/file/d/1pw_MEtyrZP8fVOq4O7PhmpdNQRS1kc2g/view?usp=sharing
+
+**[ITCH.IO FULL RELEASE]** *Taken October 21, 2026:* https://youtu.be/AmpNd2UHBmA
 
 ## Asset Credits
 
