@@ -27,7 +27,6 @@ public class EnemyTankBoss : MonoBehaviour
     {
         if (TowerTarget.ActiveTowers == null) return;
 
-        // 1. Maintain or find a valid target within range
         if (_currentTarget == null || !_currentTarget.isActiveAndEnabled || !IsTargetInRange(_currentTarget))
         {
             _currentTarget = FindNearestTower();
