@@ -1,29 +1,23 @@
 fileFormatVersion: 2
-guid: 0a4d3aae2b26b4e14aecb823eb10eb85
+guid: 1a2bf8f2ea60f46428537c0c34e9c4e2
 AudioImporter:
   externalObjects: {}
-  serializedVersion: 6
+  serializedVersion: 8
   defaultSettings:
+    serializedVersion: 2
     loadType: 0
     sampleRateSetting: 0
     sampleRateOverride: 44100
     compressionFormat: 1
     quality: 1
     conversionMode: 0
+    preloadAudioData: 0
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
-  preloadAudioData: 1
   loadInBackground: 0
   ambisonic: 0
   3D: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 183370
-  packageName: Feel
-  packageVersion: 6.3
-  assetPath: Assets/Feel/NiceVibrations/HapticSamples/Objects/Pen1.wav
-  uploadId: 1025480

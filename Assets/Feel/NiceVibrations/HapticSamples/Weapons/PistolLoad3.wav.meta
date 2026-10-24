@@ -1,29 +1,23 @@
 fileFormatVersion: 2
-guid: d58a6efe3c9ea4cbc930c9fc149ecade
+guid: 1c5dd6410cf177c42bcc6382ce14e887
 AudioImporter:
   externalObjects: {}
-  serializedVersion: 6
+  serializedVersion: 8
   defaultSettings:
+    serializedVersion: 2
     loadType: 0
     sampleRateSetting: 0
     sampleRateOverride: 44100
     compressionFormat: 1
     quality: 1
     conversionMode: 0
+    preloadAudioData: 0
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
-  preloadAudioData: 1
   loadInBackground: 0
   ambisonic: 0
   3D: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 183370
-  packageName: Feel
-  packageVersion: 6.3
-  assetPath: Assets/Feel/NiceVibrations/HapticSamples/Weapons/PistolLoad3.wav
-  uploadId: 1025480

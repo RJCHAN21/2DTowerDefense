@@ -1,29 +1,23 @@
 fileFormatVersion: 2
-guid: 16e89c535fc76465eb13606cb2c2a039
+guid: 8f00178832be90c4aadbbbdda47df748
 AudioImporter:
   externalObjects: {}
-  serializedVersion: 6
+  serializedVersion: 8
   defaultSettings:
+    serializedVersion: 2
     loadType: 0
     sampleRateSetting: 0
     sampleRateOverride: 44100
     compressionFormat: 1
     quality: 1
     conversionMode: 0
+    preloadAudioData: 0
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
-  preloadAudioData: 1
   loadInBackground: 0
   ambisonic: 0
   3D: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 183370
-  packageName: Feel
-  packageVersion: 6.3
-  assetPath: Assets/Feel/NiceVibrations/HapticSamples/Objects/DoorKnob1.wav
-  uploadId: 1025480

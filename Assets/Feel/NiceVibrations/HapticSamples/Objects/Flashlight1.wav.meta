@@ -1,29 +1,23 @@
 fileFormatVersion: 2
-guid: 9c6c33e38b3914907af850ae738fd9f9
+guid: 80f8bf2cf7d00064dbbbfe6ff2e24fc1
 AudioImporter:
   externalObjects: {}
-  serializedVersion: 6
+  serializedVersion: 8
   defaultSettings:
+    serializedVersion: 2
     loadType: 0
     sampleRateSetting: 0
     sampleRateOverride: 44100
     compressionFormat: 1
     quality: 1
     conversionMode: 0
+    preloadAudioData: 0
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
-  preloadAudioData: 1
   loadInBackground: 0
   ambisonic: 0
   3D: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 183370
-  packageName: Feel
-  packageVersion: 6.3
-  assetPath: Assets/Feel/NiceVibrations/HapticSamples/Objects/Flashlight1.wav
-  uploadId: 1025480
