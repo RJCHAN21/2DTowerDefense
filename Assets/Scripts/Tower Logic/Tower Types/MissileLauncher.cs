@@ -26,6 +26,18 @@ public sealed class MissileLauncher : ScriptableObject, ITowerType
     [SerializeField] private bool isHoming = false;
 #endregion
 
+#region Public Properties
+    public string StatsDescription =>
+        $"Damage per missile: {damage}\n" +
+        $"Loaded missiles: 2\n" +
+        $"Missile interval: {burstInterval:0.##}s\n" +
+        $"Reload time: {reloadDuration:0.##}s\n" +
+        $"Delay after reload: {waitFireAfterReload:0.##}s\n" +
+        $"Range: {range:0.##}\n" +
+        $"Blast radius: {blastRadius:0.##}\n" +
+        $"Homing: {(isHoming ? "Enabled" : "Disabled")}";
+#endregion
+
 #region Runtime State
     private bool _firstMissileUsed;
     private bool _isFiringOrReloading;

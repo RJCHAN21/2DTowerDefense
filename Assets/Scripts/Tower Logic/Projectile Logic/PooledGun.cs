@@ -9,6 +9,7 @@ public class PooledGun : MonoBehaviour
     [SerializeField] private PooledProjectile projPrefab;
     [SerializeField] private UnityEvent gunFired;
     [SerializeField] private Transform muzzle;
+    [SerializeField] private bool useMuzzleFlash = true;
     [SerializeField] private bool collectionCheck = true;
     [SerializeField] private int defaultCapacity = 20;
     [SerializeField] private int maxSize = 100;
@@ -22,6 +23,7 @@ public class PooledGun : MonoBehaviour
 
 #region Public Properties
     public IHittable HitTarget => _hitTarget;
+    public Transform Muzzle => muzzle;
 #endregion
 
 #region Private Properties
@@ -105,7 +107,7 @@ public class PooledGun : MonoBehaviour
 
         _nextTimeToShoot = Time.time + shotInterval;
 
-        if (FXManager.Instance != null && muzzle != null)
+        if (useMuzzleFlash && FXManager.Instance != null && muzzle != null)
         {
             FXManager.Instance.PlayMuzzleFlash(muzzle.position, muzzle.rotation);
         }

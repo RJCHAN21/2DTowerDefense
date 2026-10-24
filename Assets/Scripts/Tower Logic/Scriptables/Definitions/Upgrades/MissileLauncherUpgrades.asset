@@ -16,9 +16,7 @@ MonoBehaviour:
   - stageLabel: Level One
     options:
     - upgradeName: Increased Range
-      description: 'Increases attack range of the missile launcher.
-
-        Range: '
+      description: "Increases the distance at which the launcher can acquire targets.\n\nRange: 2 -> 2.75\nDamage per missile: 10 (unchanged)\nBlast radius: 1 (unchanged)"
       icon: {fileID: 21300000, guid: c8b9f1e39238c684a92512e2f96479b0, type: 3}
       cost: 80
       replacementPrefab: {fileID: 0}
@@ -29,7 +27,7 @@ MonoBehaviour:
         overrideShotInterval: 0
         shotInterval: 0
         overrideRange: 1
-        range: 3
+        range: 2.75
         overrideRechargeDuration: 0
         rechargeDuration: 0
         overrideFlameWidth: 0
@@ -44,7 +42,7 @@ MonoBehaviour:
   - stageLabel: Level Two
     options:
     - upgradeName: Bigger Explosion
-      description: Expands the area-of-effect blast radius of each missile.
+      description: "Increases the area covered by each explosion.\n\nBlast radius: 1 -> 1.5\nBlast area: 2.25 times the original\nDamage per enemy in the blast: 10 (unchanged)"
       icon: {fileID: 21300000, guid: de3ce596f4588bf4c8f9ca7a77ac8a5e, type: 3}
       cost: 120
       replacementPrefab: {fileID: 0}
@@ -63,14 +61,14 @@ MonoBehaviour:
         overrideProjectilesPerBurst: 0
         projectilesPerBurst: 0
         overrideBlastRadius: 1
-        blastRadius: 2
+        blastRadius: 1.5
         isHoming: 0
       upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
       upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - stageLabel: Level Three
     options:
     - upgradeName: Homing Missiles
-      description: Missiles actively curve and steer toward targets.
+      description: "Missiles turn toward their target and can find another enemy if that target is lost.\n\nGuidance: straight flight -> homing\nDamage per missile: 10 (unchanged)\nRange: 2.75 (unchanged)\nBlast radius: 1.5 (unchanged)"
       icon: {fileID: 21300000, guid: 4752ad6ff4f52444e9ce012cb08270d2, type: 3}
       cost: 200
       replacementPrefab: {fileID: 0}

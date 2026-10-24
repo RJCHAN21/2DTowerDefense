@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec765766d9f5c034e8773fd7391cadfd, type: 3}
   m_Name: MissileLauncher
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefinition
+  displayName: Missile Launcher
   towerPrefab: {fileID: 8016026224026870412, guid: bbe38b9a6fae6b9419c63916217e133c, type: 3}
   towerSprite: {fileID: 21300000, guid: 77cb3b6e00462d942a7f2874edf8a049, type: 3}
   cost: 250

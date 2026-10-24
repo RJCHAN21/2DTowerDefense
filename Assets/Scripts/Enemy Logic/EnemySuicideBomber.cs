@@ -1,15 +1,8 @@
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class EnemySuicideBomber : MonoBehaviour
 {
 #region Unity Inspector Fields
-    // [Header("Explosion Setup & Pooling")]
-    // [SerializeField] private GameObject explosionVFXPrefab;
-    // [SerializeField] private bool collectionCheck = true;
-    // [SerializeField] private int defaultCapacity = 10;
-    // [SerializeField] private int maxSize = 50;
-
     [Header("Detonation Proximity Coordinates")]
     [Tooltip("Distance threshold (radius) that triggers the explosion sequence.")]
     [SerializeField] private float detonationProximity = 0.6f;
@@ -45,16 +38,6 @@ public class EnemySuicideBomber : MonoBehaviour
     private void Awake()
     {
         _baseEnemyComponent = GetComponent<Enemy>();
-
-        // _vfxPool = new ObjectPool<PooledExplosionVFX>(
-        //     CreateExplosionVFXInstance,
-        //     OnGetFromPool,
-        //     OnReleaseToPool,
-        //     OnDestroyPoolObject,
-        //     collectionCheck,
-        //     defaultCapacity,
-        //     maxSize
-        // );
     }
 
     private void Update()
@@ -189,30 +172,4 @@ public class EnemySuicideBomber : MonoBehaviour
         gameObject.SetActive(false); 
     }
 #endregion
-
-// #region Object Pooling 
-//     private PooledExplosionVFX CreateExplosionVFXInstance()
-//     {
-//         PooledExplosionVFX instance = Instantiate(explosionVFXPrefab);
-//         instance.SetActive(false);
-
-//         if (!instance.TryGetComponent<PooledExplosionVFX>(out var poolTracker))
-//         {
-//             poolTracker = instance.AddComponent<PooledExplosionVFX>();
-//         }
-
-//         return instance;
-//     }
-
-//     private void OnGetFromPool(GameObject instance)
-//     {
-//         if (instance.TryGetComponent<PooledExplosionVFX>(out var poolTracker))
-//         {
-//             poolTracker.InitializeVFXContext(_vfxPool);
-//         }
-//     }
-
-//     private void OnReleaseToPool(GameObject instance) => instance.SetActive(false);
-//     private void OnDestroyPoolObject(GameObject instance) { if (instance != null) Destroy(instance); }
-// #endregion
 }

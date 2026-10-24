@@ -16,10 +16,7 @@ MonoBehaviour:
   - stageLabel: Level One
     options:
     - upgradeName: Faster Firing
-      description: 'Shoots 50% faster than normal.
-
-
-        Fire Rate: 0.8s -> 0.4s '
+      description: "Reduces the time between shots.\n\nShot interval: 1s -> 0.6s\nDamage: 1 (unchanged)\nRange: 2 (unchanged)"
       icon: {fileID: 21300000, guid: 163ba336d104ea344a26736192579a3d, type: 3}
       cost: 40
       replacementPrefab: {fileID: 0}
@@ -28,7 +25,7 @@ MonoBehaviour:
         overrideDamage: 0
         damage: 0
         overrideShotInterval: 1
-        shotInterval: 0.4
+        shotInterval: 0.6
         overrideRange: 0
         range: 0
         overrideRechargeDuration: 0
@@ -45,11 +42,7 @@ MonoBehaviour:
   - stageLabel: Level Two
     options:
     - upgradeName: Become a Shotgunner
-      description: 'Turns the basic turret into a Shotgunner that fires five bullets at once.
-
-        Range: 2 -> 1.5
-
-        FIre Rate: 0.4s -> 1.5s '
+      description: "Replaces the turret with a close-range five-pellet gun. Each pellet can hit the selected target.\n\nPellets per shot: 1 -> 5\nDamage per pellet: 1 (unchanged)\nShot interval: 0.6s -> 1.5s\nRange: 2 -> 1.5"
       icon: {fileID: 21300000, guid: 2cc18b6b7fc273d40ba2726c514dac17, type: 3}
       cost: 120
       replacementPrefab: {fileID: 8016026224026870412, guid: 0645a87b97f46a848a36c6c66b57c6d9, type: 3}
@@ -73,13 +66,7 @@ MonoBehaviour:
       upgradeSFX: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
       upgradeVFX: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
     - upgradeName: Become a Sniper
-      description: 'Turns the basic turret into a Sniper.
-
-        Damage: 1 -> 2
-
-        Range: 1.5 -> 4
-
-        Fire Rate: 0.4s -> 2s '
+      description: "Replaces the turret with a slower, longer-range precision gun.\n\nDamage: 1 -> 2\nShot interval: 0.6s -> 2s\nRange: 2 -> 4"
       icon: {fileID: 21300000, guid: d0a30c4e5fa8e69469e78a48f517d1ed, type: 3}
       cost: 140
       replacementPrefab: {fileID: 216480049714251040, guid: 05ee2484a0c15154e8e352f270f564cd, type: 3}
@@ -105,11 +92,9 @@ MonoBehaviour:
   - stageLabel: Level Three (Shotgunner)
     options:
     - upgradeName: Increased Damage
-      description: 'Deal triple the damage.
-
-        Damage: 1 -> 3 '
+      description: "Increases close-range damage against the selected target. More pellets connect when the target is nearby.\n\nDamage per pellet: 1 -> 3\nMaximum damage per shot: 5 -> 15 (if all pellets hit)\nPellets per shot: 5 (unchanged)\nShot interval: 1.5s (unchanged)\nRange: 1.5 (unchanged)"
       icon: {fileID: 21300000, guid: e8f1345e31fa6cb49b71ef9c69a5b9ba, type: 3}
-      cost: 100
+      cost: 120
       replacementPrefab: {fileID: 0}
       nextStageIndex: -1
       towerUpgradeEffects:
@@ -133,20 +118,16 @@ MonoBehaviour:
   - stageLabel: Level Three (Sniper)
     options:
     - upgradeName: Enhanced Sniper
-      description: 'Fires faster and deals slightly more damage.
-
-        Fire Rate: 2s -> 1.5s
-
-        Damage: 3 -> 4 '
+      description: "Improves precision damage and firing speed.\n\nDamage: 2 -> 6\nShot interval: 2s -> 1.5s\nRange: 4 (unchanged)"
       icon: {fileID: 21300000, guid: ac311d36096784641ab3cfc7d59d6ee7, type: 3}
       cost: 120
       replacementPrefab: {fileID: 0}
       nextStageIndex: -1
       towerUpgradeEffects:
         overrideDamage: 1
-        damage: 4
+        damage: 6
         overrideShotInterval: 1
-        shotInterval: 0.8
+        shotInterval: 1.5
         overrideRange: 0
         range: 0
         overrideRechargeDuration: 0

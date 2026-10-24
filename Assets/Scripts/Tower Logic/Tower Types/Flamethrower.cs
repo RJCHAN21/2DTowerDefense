@@ -19,11 +19,14 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     [Tooltip("Seconds the flame stream takes to stop after normal firing ends.")]
     [SerializeField, Min(0f)] private float flameStopDelay = 0.2f;
 
-    [Tooltip("Maximum continuous firing time before overheating.")]
+    [Tooltip("Firing time from cold to overheating. Heat gradually decreases while idle.")]
     [SerializeField, Min(0.01f)] private float maxFiringDuration = 10f;
 
-    [Tooltip("Seconds needed to recharge after overheating.")]
+    [Tooltip("Forced cooldown after overheating and idle cooling duration after the idle delay.")]
     [SerializeField, Min(0.01f)] private float rechargeDuration = 3f;
+
+    [Tooltip("Seconds without firing before idle cooling begins.")]
+    [SerializeField, Min(0f)] private float idleCoolingDelay = 4f;
 
     #endregion
 
@@ -82,12 +85,44 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 
 #endregion
 
+#region Public Properties
+    public bool IsOverheated => Time.time < _rechargeUntil;
+    public float HeatAmount => IsOverheated
+        ? Mathf.Clamp01((_rechargeUntil - Time.time) / _rechargeVisualDuration)
+        : Mathf.Clamp01(_firingElapsed / maxFiringDuration);
+
+    public string StatsDescription
+    {
+        get
+        {
+            float spread = 2f * Mathf.Atan(
+                Mathf.Tan(flameSpread * 0.5f * Mathf.Deg2Rad) * _flameWidthMultiplier)
+                * Mathf.Rad2Deg;
+
+            return $"Damage per flame projectile: {damage}\n" +
+                $"Projectiles per full burst: {projectilesPerBurst}\n" +
+                $"Maximum damage per full burst: {damage * projectilesPerBurst}\n" +
+                $"Burst interval: {shotInterval:0.##}s\n" +
+                $"Range: {range:0.##}\n" +
+                $"Flame spread: {spread:0.##} degrees\n" +
+                $"Flame width multiplier: {_flameWidthMultiplier:0.##}x\n" +
+                $"Accumulated firing before overheating: {maxFiringDuration:0.##}s\n" +
+                $"Recharge time: {rechargeDuration:0.##}s\n" +
+                $"Idle delay before cooling: {idleCoolingDelay:0.##}s\n" +
+                $"Idle cooling from full heat: {IdleCoolingDuration:0.##}s\n" +
+                $"Firing tail: {flameStopDelay:0.##}s";
+        }
+    }
+#endregion
+
 #region Runtime State
 
+    private float IdleCoolingDuration => rechargeDuration;
     private float _flameFireUntil = float.NegativeInfinity;
-    private float _firingStartedAt = float.NegativeInfinity;
+    private float _firingElapsed;
+    private float _idleElapsed;
     private float _rechargeUntil = float.NegativeInfinity;
-    private bool _wasFiring;
+    private float _rechargeVisualDuration;
     private float _flameWidthMultiplier = 1f;
 
 #endregion
@@ -95,6 +130,9 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 #region Firing Behavior
     public void UpdateFiring(PooledGun gun, bool shouldFire)
     {
+        if (gun == null || Time.deltaTime <= 0f)
+            return;
+
         if (Time.time < _rechargeUntil)
             return;
         
@@ -102,17 +140,28 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
 
         if (!shouldFire && !hasFiringTail)
         {
-            ResetFiring();
+            _flameFireUntil = float.NegativeInfinity;
+            _idleElapsed += Time.deltaTime;
+
+            if (_idleElapsed <= idleCoolingDelay)
+                return;
+
+            float coolingTime = Mathf.Min(
+                Time.deltaTime, _idleElapsed - idleCoolingDelay);
+
+            _firingElapsed = Mathf.MoveTowards(
+                _firingElapsed,
+                0f,
+                maxFiringDuration / IdleCoolingDuration * coolingTime);
             return;
         }
 
-        if (shouldFire && !_wasFiring)
-            _firingStartedAt = Time.time;
+        _idleElapsed = 0f;
+        _firingElapsed += Time.deltaTime;
 
-        _wasFiring = shouldFire;
-
-        if (Time.time - _firingStartedAt >= maxFiringDuration)
+        if (_firingElapsed >= maxFiringDuration)
         {
+            _rechargeVisualDuration = rechargeDuration;
             _rechargeUntil = Time.time + rechargeDuration;
             ResetFiring();
             return;
@@ -144,8 +193,8 @@ public sealed class Flamethrower : ScriptableObject, ITowerType
     public void ResetFiring()
     {
         _flameFireUntil = float.NegativeInfinity;
-        _firingStartedAt = float.NegativeInfinity;
-        _wasFiring = false;
+        _firingElapsed = 0f;
+        _idleElapsed = 0f;
     }
 
     public void Fire(PooledGun gun)

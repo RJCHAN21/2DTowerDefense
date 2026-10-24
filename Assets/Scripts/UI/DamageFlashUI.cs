@@ -50,6 +50,9 @@ public class DamageFlashUI : MonoBehaviour
     {
         if (flashImage == null) return;
 
+        flashImage.gameObject.SetActive(true);
+        flashImage.enabled = true;
+
         if (_flashRoutine != null)
         {
             StopCoroutine(_flashRoutine);

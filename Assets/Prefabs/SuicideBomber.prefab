@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 412331861842157466}
   - component: {fileID: 2113115965285803655}
   - component: {fileID: -3800333468037621069}
+  - component: {fileID: 8713960331523192312}
   m_Layer: 0
   m_Name: SuicideBomber
   m_TagString: Untagged
@@ -265,6 +266,8 @@ MonoBehaviour:
   hitRadius: 0.5
   turningSpeed: 360
   coinReward: 1
+  playerDamage: 5
+  instantKillPlayer: 0
 --- !u!114 &2113115965285803655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,11 +299,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySuicideBomber
   detonationProximity: 0.6
-  blastDamageRadius: 1
-  structuralPayloadDamage: 10
+  blastDamageRadius: 1.5
+  structuralPayloadDamage: 20
   towerDetectionRange: 1
   offPathSprintSpeed: 3.5
   explosionSFX: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
+  explosionVolume: 0.15
+--- !u!114 &8713960331523192312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725135409146945003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
+  damageClip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
+  deathClip: {fileID: 8300000, guid: 56c09d2f90afe1d49a9a9c4b32a139ca, type: 3}
+  damageVolume: 0.25
+  deathVolume: 0.4
+  damageSoundInterval: 0.1
 --- !u!1 &8708113299997338634
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class PauseMenuController : MonoBehaviour
 #region Unity Inspector Fields
     [Header("Input Handling")]
     [SerializeField] private InputAction pause;
+    [SerializeField] private TowerPlacementController towerPlacementController;
 
     [Header("Panel References")]
     [SerializeField] private GameObject pauseMenu;
@@ -53,6 +54,16 @@ public class PauseMenuController : MonoBehaviour
 #region Unity Life Cycle
     private void OnEnable()
     {
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        pause.Disable();
+
+        for (int i = 0; i < pause.bindings.Count; i++)
+        {
+            if (pause.bindings[i].path == "<Keyboard>/escape")
+                pause.ApplyBindingOverride(i, "");
+        }
+    #endif
+
         pause.Enable();
         GameManager.GameEnded += OnGameEnded;
     }
@@ -70,6 +81,7 @@ public class PauseMenuController : MonoBehaviour
             musicSlider == null ||
             sfxSlider == null ||
             pauseBtn == null ||
+            towerPlacementController == null ||
             SoundManager.Instance == null)
         {
             Debug.LogError("Assign all PauseMenuController references.", this);
@@ -110,6 +122,11 @@ public class PauseMenuController : MonoBehaviour
     private void Update()
     {
         if (_gameEnded || !pause.WasPressedThisFrame())
+            return;
+
+        if (!_isPaused &&
+            towerPlacementController != null &&
+            towerPlacementController.BlocksTowerSelection)
             return;
 
         if (_isPaused)

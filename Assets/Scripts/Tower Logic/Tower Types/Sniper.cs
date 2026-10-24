@@ -15,6 +15,11 @@ public sealed class Sniper : ScriptableObject, ITowerType
     [Tooltip("Maximum distance along the sniper's sight line.")]
     [SerializeField, Min(0f)] private float range = 4f;
 
+    public string StatsDescription =>
+        $"Damage per bullet: {damage}\n" +
+        $"Shot interval: {shotInterval:0.##}s\n" +
+        $"Range: {range:0.##}";
+
     public void Fire(PooledGun gun)
     {
         gun.FirePattern(shotInterval, damage, 0f);

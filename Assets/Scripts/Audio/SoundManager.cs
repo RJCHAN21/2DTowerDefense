@@ -17,8 +17,9 @@ public class SoundManager : MonoBehaviour
 #region Public Properties
     public float MusicVolume => _musicVolume;
     public float SfxVolume => _sfxVolume;
-
     public event Action VolumesChanged;
+    public bool MusicMuted => _musicMuted;
+    public bool SfxMuted => _sfxMuted;
 #endregion
 
 #region Private Properties
@@ -26,7 +27,11 @@ public class SoundManager : MonoBehaviour
     private const string SFXPreferenceKey = "Audio.SFXVolume";
     private const string MusicMixerParameter = "MusicVolume";
     private const string SFXMixerParameter = "SFXVolume";
+    private const string MusicMutedPreferenceKey = "Audio.MusicMuted";
+    private const string SFXMutedPreferenceKey = "Audio.SFXMuted";
 
+    private bool _musicMuted;
+    private bool _sfxMuted;
     private float _musicVolume = 1f;
     private float _sfxVolume = 1f;
 #endregion
@@ -57,12 +62,20 @@ public class SoundManager : MonoBehaviour
 
         _sfxVolume = Mathf.Clamp01(
             PlayerPrefs.GetFloat(SFXPreferenceKey, 1f));
+
+        _musicMuted = PlayerPrefs.GetInt(MusicMutedPreferenceKey, 0) == 1;
+        _sfxMuted = PlayerPrefs.GetInt(SFXMutedPreferenceKey, 0) == 1;
     }
 
     private void Start()
     {
-        ApplyVolume(MusicMixerParameter, _musicVolume);
-        ApplyVolume(SFXMixerParameter, _sfxVolume);
+        ApplyVolume(
+            MusicMixerParameter,
+            _musicMuted ? 0f : _musicVolume);
+
+        ApplyVolume(
+            SFXMixerParameter,
+            _sfxMuted ? 0f : _sfxVolume);
     }
 
     private void OnDestroy()
@@ -88,14 +101,46 @@ public class SoundManager : MonoBehaviour
     public void SetMusicVolume(float value)
     {
         _musicVolume = Mathf.Clamp01(value);
-        ApplyVolume(MusicMixerParameter, _musicVolume);
+
+        ApplyVolume(
+            MusicMixerParameter,
+            _musicMuted ? 0f : _musicVolume);
+
         VolumesChanged?.Invoke();
     }
 
     public void SetSFXVolume(float value)
     {
         _sfxVolume = Mathf.Clamp01(value);
-        ApplyVolume(SFXMixerParameter, _sfxVolume);
+
+        ApplyVolume(
+            SFXMixerParameter,
+            _sfxMuted ? 0f : _sfxVolume);
+
+        VolumesChanged?.Invoke();
+    }
+
+    public void SetMusicMuted(bool muted)
+    {
+        _musicMuted = muted;
+
+        ApplyVolume(
+            MusicMixerParameter,
+            _musicMuted ? 0f : _musicVolume);
+
+        SaveSettings();
+        VolumesChanged?.Invoke();
+    }
+
+    public void SetSFXMuted(bool muted)
+    {
+        _sfxMuted = muted;
+
+        ApplyVolume(
+            SFXMixerParameter,
+            _sfxMuted ? 0f : _sfxVolume);
+
+        SaveSettings();
         VolumesChanged?.Invoke();
     }
 
@@ -103,6 +148,15 @@ public class SoundManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat(MusicPreferenceKey, _musicVolume);
         PlayerPrefs.SetFloat(SFXPreferenceKey, _sfxVolume);
+
+        PlayerPrefs.SetInt(
+            MusicMutedPreferenceKey,
+            _musicMuted ? 1 : 0);
+
+        PlayerPrefs.SetInt(
+            SFXMutedPreferenceKey,
+            _sfxMuted ? 1 : 0);
+
         PlayerPrefs.Save();
     }
 

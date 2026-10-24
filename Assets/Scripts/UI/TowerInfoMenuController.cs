@@ -158,7 +158,7 @@ public class TowerInfoMenuController : MonoBehaviour
                 complete ? "Fully Upgraded" : "No Upgrades";
 
             descriptionTMP.text =
-                complete ? "This tower is fully upgraded." :
+                complete ? _tower.StatsDescription :
                            "No upgrades are available.";
 
             upgradeBtnTMP.text = "UPGRADE: —";

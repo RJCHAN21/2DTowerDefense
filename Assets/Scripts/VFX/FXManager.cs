@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 using System.Collections.Generic;
 
 public class FXManager : MonoBehaviour
@@ -9,14 +10,13 @@ public class FXManager : MonoBehaviour
 #region Unity Inspector Fields
     [Header("Particle Prefabs (GameObjects)")]
     [SerializeField] private GameObject enemyHitFeedbackPrefab;
-    [SerializeField] private GameObject towerHitFeedbackPrefab;
     [SerializeField] private GameObject deathBurstPrefab;
-    [SerializeField] private GameObject explosionOnePrefab;
+    [SerializeField] private GameObject hitImpactPrefab;
 
-    [SerializeField] private GameObject explosionTwoPrefab;
+    [SerializeField] private GameObject explosionPrefab;
 
     [Tooltip("Visual radius of Explosion Two at its original prefab scale.")]
-    [SerializeField, Min(0.01f)] private float explosionTwoVisualRadius = 1f;
+    [SerializeField, Min(0.01f)] private float explosionVisualRadius = 1f;
 
     [SerializeField] private GameObject muzzleFlashPrefab;
 
@@ -27,10 +27,9 @@ public class FXManager : MonoBehaviour
 
 #region Runtime Properties
     private IObjectPool<PooledParticleEffect> _enemyHitFeedbackPool;
-    private IObjectPool<PooledParticleEffect> _towerHitFeedbackPool;
     private IObjectPool<PooledParticleEffect> _deathBurstPool;
     private IObjectPool<PooledExplosionVFX> _explosionOnePool;
-    private IObjectPool<PooledExplosionVFX> _explosionTwoPool;
+    private IObjectPool<PooledExplosionVFX> _explosionPool;
     private readonly Dictionary<GameObject, IObjectPool<PooledParticleEffect>> _upgradeEffectPools = new();
 #endregion
     private IObjectPool<PooledParticleEffect> _muzzleFlashPool;
@@ -58,19 +57,6 @@ public class FXManager : MonoBehaviour
             );
         }
 
-        if (towerHitFeedbackPrefab != null)
-        {
-            _towerHitFeedbackPool = new ObjectPool<PooledParticleEffect>(
-                createFunc: () => CreatePooledEffect(towerHitFeedbackPrefab, _towerHitFeedbackPool),
-                actionOnGet: null,
-                actionOnRelease: effect => { if (effect != null) effect.gameObject.SetActive(false); },
-                actionOnDestroy: effect => { if (effect != null) Destroy(effect.gameObject); },
-                collectionCheck: false,
-                defaultCapacity: defaultCapacity,
-                maxSize: maxPoolSize
-            );
-        }
-
         if (deathBurstPrefab != null)
         {
             _deathBurstPool = new ObjectPool<PooledParticleEffect>(
@@ -84,12 +70,12 @@ public class FXManager : MonoBehaviour
             );
         }
 
-        if (explosionOnePrefab != null)
+        if (hitImpactPrefab != null)
         {
             _explosionOnePool = new ObjectPool<PooledExplosionVFX>(
                 createFunc: () =>
                 {
-                    GameObject instance = Instantiate(explosionOnePrefab, transform);
+                    GameObject instance = Instantiate(hitImpactPrefab, transform);
                     
                     if (!instance.TryGetComponent(out PooledExplosionVFX explosionComp))
                     {
@@ -114,12 +100,12 @@ public class FXManager : MonoBehaviour
             );
         }
 
-        if (explosionTwoPrefab != null)
+        if (explosionPrefab != null)
         {
-            _explosionTwoPool = new ObjectPool<PooledExplosionVFX>(
+            _explosionPool = new ObjectPool<PooledExplosionVFX>(
                 createFunc: () =>
                 {
-                    GameObject instance = Instantiate(explosionTwoPrefab, transform);
+                    GameObject instance = Instantiate(explosionPrefab, transform);
                     
                     if (!instance.TryGetComponent(out PooledExplosionVFX explosionComp))
                     {
@@ -131,7 +117,7 @@ public class FXManager : MonoBehaviour
                         explosionComp = instance.AddComponent<PooledExplosionVFX>();
                     }
 
-                    explosionComp.InitializeVFXContext(_explosionTwoPool);
+                    explosionComp.InitializeVFXContext(_explosionPool);
                     instance.SetActive(false);
                     return explosionComp;
                 },
@@ -190,9 +176,7 @@ public class FXManager : MonoBehaviour
 
     public void PlayTowerHitFeedback(Vector3 position, Quaternion rotation = default)
     {
-        if (_towerHitFeedbackPool == null) return;
-        PooledParticleEffect effect = _towerHitFeedbackPool.Get();
-        effect.PlayAt(position, rotation == default ? Quaternion.identity : rotation);
+        PlayExplosionOne(position, rotation);
     }
 
     public void PlayDeathBurst(Vector3 position, Quaternion rotation = default)
@@ -215,16 +199,16 @@ public class FXManager : MonoBehaviour
         Quaternion rotation = default,
         float blastRadius = -1f)
     {
-        if (_explosionTwoPool == null) return;
+        if (_explosionPool == null) return;
 
-        PooledExplosionVFX explosion = _explosionTwoPool.Get();
+        PooledExplosionVFX explosion = _explosionPool.Get();
 
         float scaleMultiplier = blastRadius >= 0f
-            ? blastRadius / explosionTwoVisualRadius
+            ? blastRadius / explosionVisualRadius
             : 1f;
 
         explosion.transform.localScale =
-            explosionTwoPrefab.transform.localScale * scaleMultiplier;
+            explosionPrefab.transform.localScale * scaleMultiplier;
 
         explosion.transform.SetPositionAndRotation(
             position,

@@ -21,6 +21,13 @@ public class Enemy : EnemyTarget, IHittable
     [Header("Reward")]
     [Tooltip("Coins awarded when this enemy is killed.")]
     [SerializeField, Min(0)] private int coinReward = 1;
+
+    [Header("Player Damage")]
+    [Tooltip("Damage dealt when this enemy reaches the end of its path.")]
+    [SerializeField, Min(1)] private int playerDamage = 1;
+
+    [Tooltip("Reaching the end removes all remaining player health.")]
+    [SerializeField] private bool instantKillPlayer;
 #endregion
 
 #region Private Properties
@@ -110,7 +117,13 @@ public class Enemy : EnemyTarget, IHittable
         if (_isReturned || _isHit) return;
 
         if (playerHealth != null)
-            playerHealth.TakeDamage(1);
+        {
+            int damage = instantKillPlayer
+                ? playerHealth.HP
+                : playerDamage;
+
+            playerHealth.TakeDamage(damage);
+        }
 
         ReturnToPool();
     }
