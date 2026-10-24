@@ -12,6 +12,7 @@ public class EnemyTankBoss : MonoBehaviour
     [SerializeField] private PooledGun gun;
     [SerializeField] private Transform turretPivot; 
     [SerializeField] private Transform muzzle;
+    [SerializeField] private LineRenderer lineRenderer;
 
     private TowerTarget _currentTarget;
 
@@ -19,6 +20,8 @@ public class EnemyTankBoss : MonoBehaviour
     {
         if (gun == null)
             gun = GetComponentInChildren<PooledGun>();
+
+        LineRendShape.DrawCircle(lineRenderer, attackRange);
         
 
     }

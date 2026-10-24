@@ -4059,7 +4059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -4798,7 +4798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -5236,7 +5236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -5374,7 +5374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -5897,7 +5897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -6207,7 +6207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -6468,7 +6468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -9133,7 +9133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -10177,7 +10177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1

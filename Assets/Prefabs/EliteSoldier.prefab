@@ -265,6 +265,8 @@ MonoBehaviour:
   hitRadius: 0.5
   turningSpeed: 360
   coinReward: 1
+  playerDamage: 1
+  instantKillPlayer: 0
 --- !u!114 &2113115965285803655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,8 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
-  damageClip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
-  deathClip: {fileID: 8300000, guid: 56c09d2f90afe1d49a9a9c4b32a139ca, type: 3}
+  damageClip: {fileID: 8300000, guid: 676793e8b24f07a49a5aac3b0985ad69, type: 3}
+  deathClip: {fileID: 8300000, guid: 18f19d03b5eb5f6438c7255ed4adfd44, type: 3}
   damageVolume: 0.25
   deathVolume: 0.4
   damageSoundInterval: 0.1

@@ -96,7 +96,7 @@ public class Enemy : EnemyTarget, IHittable
         {
             if (TryGetComponent(out EnemyTankBoss tankBoss))
             {
-                FXManager.Instance.PlayExplosionTwo(transform.position);
+                FXManager.Instance.PlayTankExplosion(transform.position);
             }
             else
             {

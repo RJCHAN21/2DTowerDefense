@@ -296,7 +296,7 @@ MonoBehaviour:
   health: {fileID: 8114569891491074361}
   baseRange: 3
   baseRadius: 0.35
-  gunTurningSpeed: 360
+  gunTurningSpeed: 720
   towerTypeBehavior: {fileID: 11400000, guid: 5e569c7229e4fa145b5b0f85bd73ea6b, type: 2}
   regenerationDelay: 5
   regenerationInterval: 2
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: ba3d33391dcef4288a8ab5210877f166, type: 3}
+  clip: {fileID: 8300000, guid: 9ff94ed0519ece041b08f9641d0b8fb6, type: 3}
   volume: 0.5
   minimumInterval: 0
   playOnButtonClick: 0

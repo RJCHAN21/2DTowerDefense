@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
   damageClip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
-  deathClip: {fileID: 8300000, guid: 56c09d2f90afe1d49a9a9c4b32a139ca, type: 3}
+  deathClip: {fileID: 8300000, guid: 111ceb42462404e47baaa3d80b414351, type: 3}
   damageVolume: 0.25
   deathVolume: 0.4
   damageSoundInterval: 0.1

@@ -2026,17 +2026,21 @@ MonoBehaviour:
   waveAnimationDuration: 0.5
   waveRiseDistance: 20
   wavePulseAmount: 0.15
-  waveStartSFX: {fileID: 8300000, guid: adb24518d159048ca9cb62d63113784f, type: 3}
+  waveStartSFX: {fileID: 8300000, guid: b45baa23b5515014bb2dc431caa95846, type: 3}
   waveCompleteSFX: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
   speedChangeSFX: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   finalWaveMusic: {fileID: 8300000, guid: 3743191223aa7884aa5f127d9f41d978, type: 3}
   gameplayHint: {fileID: 1459203535}
   hintFadeDuration: 0.2
+  openingHint: The next round brings rogue soldiers. Place towers to defend your base, then press START WAVE.
+  eliteIntroductionHint: The next round introduces Elite Soldiers. They move quickly, so cover more than one part of the path.
+  bomberIntroductionHint: The next round introduces Suicide Bombers. They attack nearby towers, so avoid clustering all your defenses together.
+  tankIntroductionHint: The next round brings the Tank. Set high-damage towers to Strongest focus and destroy it before it reaches your base.
   gameplayHints:
-  - Place your towers before starting the next wave.
+  - Check tower ranges before buying. A tower can only attack enemies within its range.
   - Place towers near bends to keep enemies within range for longer.
-  - Elite Soldiers move quickly. Cover more than one part of the path.
-  - Suicide Bombers attack nearby towers. Avoid placing all your defenses together.
+  - Give fast enemies a second line of defense near the end of the path.
+  - Keep some coins in reserve so you can replace a tower destroyed during a wave.
   - Flamethrowers overheat. Support them with towers that can fire while they recharge.
   - Missile explosions can damage several nearby enemies at once.
   - Basic Turrets can upgrade into either Snipers or Shotgunners.
@@ -2045,8 +2049,10 @@ MonoBehaviour:
   - Damaged towers recover health after going without damage for a while.
   - Selling returns 75% of the coins invested in a tower and its upgrades.
   - Completing a wave awards extra coins. Use intermissions to improve your defenses.
-  - The final Tank must be destroyed. Letting it reach your base ends the game.
+  - Reposition a defense by selling it and placing a new tower, but remember that selling loses part of your investment.
   - Upgrading restores a tower to full health. A well-timed upgrade can save a damaged tower.
+  - Spread your spending between upgrades and new towers. A powerful tower still covers only part of the map.
+  - Use normal speed when enemies threaten your towers. It gives you more time to react.
 --- !u!4 &367450236
 Transform:
   m_ObjectHideFlags: 0
@@ -3363,7 +3369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -4769,7 +4775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -5022,7 +5028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -5404,7 +5410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -6351,7 +6357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -6827,7 +6833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -7718,7 +7724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -8338,7 +8344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -9757,7 +9763,14 @@ MonoBehaviour:
   deathBurstPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   hitImpactPrefab: {fileID: 1429954232896169633, guid: 8a776abae015d5c4593d81bda9e4edb3, type: 3}
   explosionPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
-  explosionVisualRadius: 1
+  explosionVisualRadius: 1.7
+  tankExplosionPrefab: {fileID: 725748389856807714, guid: 7d6e9deb579f45a397d809002fa29ad7, type: 3}
+  enemyHitFeedbackScale: 0.6
+  hitImpactScale: 0.6
+  deathBurstScale: 0.6
+  upgradeEffectScale: 0.6
+  explosionScale: 0.5882353
+  tankExplosionScale: 0.5882353
   muzzleFlashPrefab: {fileID: 4593184484909914552, guid: 8fa410d951c38ed4ca76dad4972a106a, type: 3}
   defaultCapacity: 20
   maxPoolSize: 60
@@ -10410,7 +10423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -10883,7 +10896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -11086,7 +11099,7 @@ MonoBehaviour:
   countDuration: 0.5
   punchDuration: 0.3
   punchAmount: 0.2
-  coinCollectSFX: {fileID: 8300000, guid: f0a0e30b878024715bc0e4289cdb1eaf, type: 3}
+  coinCollectSFX: {fileID: 8300000, guid: 795bd6f4b1502ea4b8c12aebba2d42cd, type: 3}
 --- !u!4 &1323631460
 Transform:
   m_ObjectHideFlags: 0
@@ -11237,7 +11250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -11718,7 +11731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -14639,7 +14652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -15016,7 +15029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -15504,7 +15517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -16240,7 +16253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -16591,7 +16604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -17011,7 +17024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1
@@ -17313,7 +17326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: 292aad821b16948af9cba9deaca16525, type: 3}
+  clip: {fileID: 8300000, guid: 7ff815c943f6df846beff4ec9d34869d, type: 3}
   volume: 1
   minimumInterval: 0
   playOnButtonClick: 1

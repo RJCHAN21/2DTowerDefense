@@ -16,7 +16,17 @@ public class FXManager : MonoBehaviour
     [SerializeField] private GameObject explosionPrefab;
 
     [Tooltip("Visual radius of Explosion Two at its original prefab scale.")]
-    [SerializeField, Min(0.01f)] private float explosionVisualRadius = 1f;
+    [SerializeField, Min(0.01f)] private float explosionVisualRadius = 1.7f;
+
+    [SerializeField] private GameObject tankExplosionPrefab;
+
+    [Header("Effect Scales")]
+    [SerializeField, Min(0.01f)] private float enemyHitFeedbackScale = 1f;
+    [SerializeField, Min(0.01f)] private float hitImpactScale = 1f;
+    [SerializeField, Min(0.01f)] private float deathBurstScale = 1f;
+    [SerializeField, Min(0.01f)] private float upgradeEffectScale = 1f;
+    [SerializeField, Min(0.01f)] private float explosionScale = 0.5882353f;
+    [SerializeField, Min(0.01f)] private float tankExplosionScale = 0.5882353f;
 
     [SerializeField] private GameObject muzzleFlashPrefab;
 
@@ -30,6 +40,7 @@ public class FXManager : MonoBehaviour
     private IObjectPool<PooledParticleEffect> _deathBurstPool;
     private IObjectPool<PooledExplosionVFX> _explosionOnePool;
     private IObjectPool<PooledExplosionVFX> _explosionPool;
+    private IObjectPool<PooledExplosionVFX> _tankExplosionPool;
     private readonly Dictionary<GameObject, IObjectPool<PooledParticleEffect>> _upgradeEffectPools = new();
 #endregion
     private IObjectPool<PooledParticleEffect> _muzzleFlashPool;
@@ -130,6 +141,36 @@ public class FXManager : MonoBehaviour
             );
         }
 
+        if (tankExplosionPrefab != null)
+        {
+            _tankExplosionPool = new ObjectPool<PooledExplosionVFX>(
+                createFunc: () =>
+                {
+                    GameObject instance = Instantiate(tankExplosionPrefab, transform);
+
+                    if (!instance.TryGetComponent(out PooledExplosionVFX explosionComp))
+                    {
+                        explosionComp = instance.GetComponentInChildren<PooledExplosionVFX>();
+                    }
+
+                    if (explosionComp == null)
+                    {
+                        explosionComp = instance.AddComponent<PooledExplosionVFX>();
+                    }
+
+                    explosionComp.InitializeVFXContext(_tankExplosionPool);
+                    instance.SetActive(false);
+                    return explosionComp;
+                },
+                actionOnGet: null,
+                actionOnRelease: explosion => { if (explosion != null) explosion.gameObject.SetActive(false); },
+                actionOnDestroy: explosion => { if (explosion != null) Destroy(explosion.gameObject); },
+                collectionCheck: false,
+                defaultCapacity: 10,
+                maxSize: 30
+            );
+        }
+
         if (muzzleFlashPrefab != null)
         {
             _muzzleFlashPool = new ObjectPool<PooledParticleEffect>(
@@ -171,6 +212,7 @@ public class FXManager : MonoBehaviour
     {
         if (_enemyHitFeedbackPool == null) return;
         PooledParticleEffect effect = _enemyHitFeedbackPool.Get();
+        effect.transform.localScale = enemyHitFeedbackPrefab.transform.localScale * enemyHitFeedbackScale;
         effect.PlayAt(position, rotation == default ? Quaternion.identity : rotation);
     }
 
@@ -183,6 +225,7 @@ public class FXManager : MonoBehaviour
     {
         if (_deathBurstPool == null) return;
         PooledParticleEffect effect = _deathBurstPool.Get();
+        effect.transform.localScale = deathBurstPrefab.transform.localScale * deathBurstScale;
         effect.PlayAt(position, rotation == default ? Quaternion.identity : rotation);
     }
 
@@ -190,6 +233,7 @@ public class FXManager : MonoBehaviour
     {
         if (_explosionOnePool == null) return;
         PooledExplosionVFX explosion = _explosionOnePool.Get();
+        explosion.transform.localScale = hitImpactPrefab.transform.localScale * hitImpactScale;
         explosion.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
         explosion.gameObject.SetActive(true);
     }
@@ -205,7 +249,7 @@ public class FXManager : MonoBehaviour
 
         float scaleMultiplier = blastRadius >= 0f
             ? blastRadius / explosionVisualRadius
-            : 1f;
+            : explosionScale;
 
         explosion.transform.localScale =
             explosionPrefab.transform.localScale * scaleMultiplier;
@@ -217,6 +261,16 @@ public class FXManager : MonoBehaviour
         explosion.gameObject.SetActive(true);
     }
     
+    public void PlayTankExplosion(Vector3 position, Quaternion rotation = default)
+    {
+        if (_tankExplosionPool == null) return;
+
+        PooledExplosionVFX explosion = _tankExplosionPool.Get();
+        explosion.transform.localScale = tankExplosionPrefab.transform.localScale * tankExplosionScale;
+        explosion.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
+        explosion.gameObject.SetActive(true);
+    }
+
     public void PlayUpgradeEffect(GameObject prefab, Vector3 position)
     {
         if (prefab == null)
@@ -252,7 +306,9 @@ public class FXManager : MonoBehaviour
             _upgradeEffectPools.Add(prefab, pool);
         }
 
-        pool.Get().PlayAt(position, Quaternion.identity);
+        PooledParticleEffect effect = pool.Get();
+        effect.transform.localScale = prefab.transform.localScale * upgradeEffectScale;
+        effect.PlayAt(position, Quaternion.identity);
     }
 #endregion
     public void PlayMuzzleFlash(Vector3 position, Quaternion rotation = default)

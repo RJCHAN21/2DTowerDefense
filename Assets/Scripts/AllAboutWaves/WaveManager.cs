@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,12 +48,21 @@ public class WaveManager : MonoBehaviour
     [Header("Gameplay Hints")]
     [SerializeField] private TextMeshProUGUI gameplayHint;
     [SerializeField, Min(0.01f)] private float hintFadeDuration = 0.2f;
+    [SerializeField, TextArea] private string openingHint =
+        "The next round brings rogue soldiers. Place towers to defend your base, then press START WAVE.";
+    [SerializeField, TextArea] private string eliteIntroductionHint =
+        "The next round introduces Elite Soldiers. They move quickly, so cover more than one part of the path.";
+    [SerializeField, TextArea] private string bomberIntroductionHint =
+        "The next round introduces Suicide Bombers. They attack nearby towers, so avoid clustering all your defenses together.";
+    [SerializeField, TextArea] private string tankIntroductionHint =
+        "The next round brings the Tank. Set high-damage towers to Strongest focus and destroy it before it reaches your base.";
+
     [SerializeField, TextArea] private string[] gameplayHints =
     {
-        "Place towers to defend your base against rogue soldiers, then press START WAVE.",
+        "Check tower ranges before buying. A tower can only attack enemies within its range.",
         "Place towers near bends to keep enemies within range for longer.",
-        "Elite Soldiers move quickly. Cover more than one part of the path.",
-        "Suicide Bombers attack nearby towers. Avoid placing all your defenses together.",
+        "Give fast enemies a second line of defense near the end of the path.",
+        "Keep some coins in reserve so you can replace a tower destroyed during a wave.",
         "Flamethrowers overheat. Support them with towers that can fire while they recharge.",
         "Missile explosions can damage several nearby enemies at once.",
         "Basic Turrets can upgrade into either Snipers or Shotgunners.",
@@ -61,7 +71,10 @@ public class WaveManager : MonoBehaviour
         "Damaged towers recover health after going without damage for a while.",
         "Selling returns 75% of the coins invested in a tower and its upgrades.",
         "Completing a wave awards extra coins. Use intermissions to improve your defenses.",
-        "The final Tank must be destroyed. Letting it reach your base ends the game."
+        "Reposition a defense by selling it and placing a new tower, but remember that selling loses part of your investment.",
+        "Upgrading restores a tower to full health. A well-timed upgrade can save a damaged tower.",
+        "Spread your spending between upgrades and new towers. A powerful tower still covers only part of the map.",
+        "Use normal speed when enemies threaten your towers. It gives you more time to react."
     };
 #endregion
 
@@ -82,6 +95,8 @@ public class WaveManager : MonoBehaviour
 
     private WaveState _state = WaveState.Stopped;
     private int currentWaveIndex;
+    private int _lastHintIndex = -1;
+    private readonly List<int> _availableHintIndices = new();
     private bool _isFastForward;
 
     private Vector2 _wavePosition;
@@ -419,15 +434,47 @@ public class WaveManager : MonoBehaviour
         if (gameplayHint == null)
             return;
 
-        if (gameplayHints == null || gameplayHints.Length == 0)
+        string fixedHint = null;
+
+        if (currentWaveIndex == 0)
+            fixedHint = openingHint;
+        else if (currentWaveIndex == 4)
+            fixedHint = eliteIntroductionHint;
+        else if (currentWaveIndex == 9)
+            fixedHint = bomberIntroductionHint;
+        else if (currentWaveIndex == 19)
+            fixedHint = tankIntroductionHint;
+
+        if (fixedHint != null)
+        {
+            gameplayHint.text = fixedHint;
+            gameplayHint.alpha = 0f;
+            return;
+        }
+
+        _availableHintIndices.Clear();
+
+        if (gameplayHints != null)
+        {
+            for (int i = 0; i < gameplayHints.Length; i++)
+            {
+                if (i == _lastHintIndex || string.IsNullOrWhiteSpace(gameplayHints[i]))
+                    continue;
+
+                _availableHintIndices.Add(i);
+            }
+        }
+
+        if (_availableHintIndices.Count == 0)
         {
             gameplayHint.text = string.Empty;
             return;
         }
 
-        int hintIndex = currentWaveIndex == 0
-            ? 0
-            : UnityEngine.Random.Range(0, gameplayHints.Length);
+        int hintIndex = _availableHintIndices[
+            UnityEngine.Random.Range(0, _availableHintIndices.Count)];
+
+        _lastHintIndex = hintIndex;
         gameplayHint.text = gameplayHints[hintIndex];
         gameplayHint.alpha = 0f;
     }

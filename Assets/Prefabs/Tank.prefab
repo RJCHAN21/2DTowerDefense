@@ -319,13 +319,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33fec6a8aae34a48a1187b7df2bef8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTankBoss
-  attackRange: 10
+  attackRange: 3
   fireRate: 1
   damagePerShot: 10
   turretTurnSpeed: 360
   gun: {fileID: 2663391834784664851}
   turretPivot: {fileID: 1633497312349320752}
   muzzle: {fileID: 4851994937472093746}
+  lineRenderer: {fileID: 6705458162562580053}
 --- !u!114 &-9000651748020226396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0ee2dab96778448891b6d5e6177dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectPlayer
-  clip: {fileID: 8300000, guid: ba3d33391dcef4288a8ab5210877f166, type: 3}
+  clip: {fileID: 8300000, guid: f9eb44b85c96be5429737d4dcadbfa3b, type: 3}
   volume: 0.5
   minimumInterval: 0
   playOnButtonClick: 0
@@ -374,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061e8baa5e037604182dfe79cc5a90a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSoundFeedback
-  damageClip: {fileID: 8300000, guid: 08b15283493d14e6ebacebed36250d4e, type: 3}
+  damageClip: {fileID: 8300000, guid: fa20ed9af72b35444ae97d070a79bbed, type: 3}
   deathClip: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
   damageVolume: 1
   deathVolume: 0.5
@@ -493,7 +494,7 @@ MonoBehaviour:
   collectionCheck: 1
   defaultCapacity: 20
   maxSize: 100
-  firingSound: {fileID: 0}
+  firingSound: {fileID: 773824967462461699}
   firingLoopSource: {fileID: 0}
 --- !u!1 &6030038426405118651
 GameObject:
